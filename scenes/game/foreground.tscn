@@ -4,7 +4,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_fvg74"]
 font = ExtResource("1_l0fvl")
-font_size = 20
+font_size = 18
 
 [sub_resource type="LabelSettings" id="LabelSettings_nxhxe"]
 font = ExtResource("1_l0fvl")
@@ -21,18 +21,18 @@ grow_vertical = 2
 [node name="Level" type="Label" parent="."]
 layout_mode = 0
 offset_left = 136.0
-offset_top = 56.0
+offset_top = 64.0
 offset_right = 208.0
-offset_bottom = 78.0
+offset_bottom = 86.0
 text = "LEVEL"
 label_settings = SubResource("LabelSettings_fvg74")
 horizontal_alignment = 1
 
 [node name="Num" type="Label" parent="Level"]
 layout_mode = 0
-offset_top = 16.0
+offset_top = 12.0
 offset_right = 72.0
-offset_bottom = 38.0
+offset_bottom = 34.0
 text = "001"
 label_settings = SubResource("LabelSettings_fvg74")
 horizontal_alignment = 1
@@ -40,18 +40,18 @@ horizontal_alignment = 1
 [node name="Lines" type="Label" parent="."]
 layout_mode = 0
 offset_left = 552.0
-offset_top = 56.0
+offset_top = 64.0
 offset_right = 624.0
-offset_bottom = 78.0
+offset_bottom = 86.0
 text = "LINES"
 label_settings = SubResource("LabelSettings_fvg74")
 horizontal_alignment = 1
 
 [node name="Num" type="Label" parent="Lines"]
 layout_mode = 0
-offset_top = 16.0
+offset_top = 12.0
 offset_right = 72.0
-offset_bottom = 38.0
+offset_bottom = 34.0
 text = "0001"
 label_settings = SubResource("LabelSettings_fvg74")
 horizontal_alignment = 1
@@ -86,7 +86,7 @@ offset_bottom = 26.0
 
 [node name="mockup" type="ColorRect" parent="Reverse"]
 layout_mode = 0
-offset_right = 80.0
+offset_right = 104.0
 offset_bottom = 16.0
 
 [node name="Text" type="Label" parent="Reverse"]
@@ -94,7 +94,7 @@ layout_mode = 0
 offset_top = -12.0
 offset_right = 36.0
 offset_bottom = -1.0
-text = "REVERSE"
+text = "HEALTH"
 label_settings = SubResource("LabelSettings_nxhxe")
 horizontal_alignment = 1
 
@@ -144,18 +144,18 @@ horizontal_alignment = 1
 [node name="Time" type="Label" parent="."]
 layout_mode = 0
 offset_left = 14.0
-offset_top = 56.0
+offset_top = 64.0
 offset_right = 86.0
-offset_bottom = 78.0
+offset_bottom = 86.0
 text = "TIME"
 label_settings = SubResource("LabelSettings_fvg74")
 horizontal_alignment = 1
 
 [node name="Num" type="Label" parent="Time"]
 layout_mode = 0
-offset_top = 16.0
+offset_top = 12.0
 offset_right = 72.0
-offset_bottom = 38.0
+offset_bottom = 34.0
 text = "00:00"
 label_settings = SubResource("LabelSettings_fvg74")
 horizontal_alignment = 1
@@ -163,9 +163,9 @@ horizontal_alignment = 1
 [node name="Score" type="Label" parent="."]
 layout_mode = 0
 offset_left = 432.0
-offset_top = 56.0
+offset_top = 64.0
 offset_right = 504.0
-offset_bottom = 78.0
+offset_bottom = 86.0
 text = "SCORE"
 label_settings = SubResource("LabelSettings_fvg74")
 horizontal_alignment = 1
@@ -173,9 +173,9 @@ horizontal_alignment = 1
 [node name="Num" type="Label" parent="Score"]
 layout_mode = 0
 offset_left = -20.0
-offset_top = 16.0
+offset_top = 12.0
 offset_right = 92.0
-offset_bottom = 38.0
+offset_bottom = 34.0
 text = "000000"
 label_settings = SubResource("LabelSettings_fvg74")
 horizontal_alignment = 1

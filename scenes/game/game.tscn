@@ -1,9 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://jvkq848h852j"]
+[gd_scene load_steps=4 format=3 uid="uid://jvkq848h852j"]
 
 [ext_resource type="PackedScene" uid="uid://bhi4fv7tov1bd" path="res://scenes/game/gamefield.tscn" id="1_sul5r"]
 [ext_resource type="PackedScene" uid="uid://btid6tcaw73b5" path="res://scenes/game/foreground.tscn" id="2_7h61r"]
 
+[sub_resource type="Environment" id="Environment_7h61r"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
 [node name="Game" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7h61r")
 
 [node name="Orthogonal" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.777146, 0.629321, 0, -0.629321, 0.777146, 0, 9.345, 7.8)
@@ -15,6 +23,7 @@ size = 36.739
 [node name="Perspective" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.843391, 0.5373, 0, -0.5373, 0.843391, 0, 13.76, 22.355)
 keep_aspect = 0
+current = true
 fov = 70.0
 size = 36.381
 
