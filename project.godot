@@ -11,10 +11,37 @@ config_version=5
 [application]
 
 config/name="FLATRIS"
+config/description="Yet another tetris clone with perspective twist"
+config/version="0.1"
+run/main_scene="uid://uxl2bil5i5fs"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+run/max_fps=120
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
+boot_splash/fullsize=false
+boot_splash/use_filter=false
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_height"
+window/stretch/scale_mode="integer"
+
+[editor]
+
+naming/script_name_casing=2
 
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+lights_and_shadows/directional_shadow/size=512
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
+lights_and_shadows/positional_shadow/soft_shadow_filter_quality=0
+shading/overrides/force_vertex_shading=true
+shading/overrides/force_lambert_over_burley=true
+environment/defaults/default_clear_color=Color(0.0273438, 0.0273438, 0.0273438, 1)
+lights_and_shadows/positional_shadow/atlas_size=512

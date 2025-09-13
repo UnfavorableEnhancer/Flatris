@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://jvkq848h852j"]
+
+[ext_resource type="PackedScene" uid="uid://bhi4fv7tov1bd" path="res://scenes/game/gamefield.tscn" id="1_sul5r"]
+[ext_resource type="PackedScene" uid="uid://btid6tcaw73b5" path="res://scenes/game/foreground.tscn" id="2_7h61r"]
+
+[node name="Game" type="Node3D"]
+
+[node name="Orthogonal" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.777146, 0.629321, 0, -0.629321, 0.777146, 0, 9.345, 7.8)
+keep_aspect = 0
+projection = 1
+fov = 151.7
+size = 36.739
+
+[node name="Perspective" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.843391, 0.5373, 0, -0.5373, 0.843391, 0, 13.76, 22.355)
+keep_aspect = 0
+fov = 70.0
+size = 36.381
+
+[node name="Gamefield" parent="." instance=ExtResource("1_sul5r")]
+
+[node name="Foreground" parent="." instance=ExtResource("2_7h61r")]

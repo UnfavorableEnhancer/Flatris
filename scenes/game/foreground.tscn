@@ -1,0 +1,187 @@
+[gd_scene load_steps=4 format=3 uid="uid://btid6tcaw73b5"]
+
+[ext_resource type="FontFile" uid="uid://cklk4kjp10w3h" path="res://fonts/visitor1.ttf" id="1_l0fvl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fvg74"]
+font = ExtResource("1_l0fvl")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_nxhxe"]
+font = ExtResource("1_l0fvl")
+font_size = 12
+
+[node name="Foreground" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Level" type="Label" parent="."]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 56.0
+offset_right = 208.0
+offset_bottom = 78.0
+text = "LEVEL"
+label_settings = SubResource("LabelSettings_fvg74")
+horizontal_alignment = 1
+
+[node name="Num" type="Label" parent="Level"]
+layout_mode = 0
+offset_top = 16.0
+offset_right = 72.0
+offset_bottom = 38.0
+text = "001"
+label_settings = SubResource("LabelSettings_fvg74")
+horizontal_alignment = 1
+
+[node name="Lines" type="Label" parent="."]
+layout_mode = 0
+offset_left = 552.0
+offset_top = 56.0
+offset_right = 624.0
+offset_bottom = 78.0
+text = "LINES"
+label_settings = SubResource("LabelSettings_fvg74")
+horizontal_alignment = 1
+
+[node name="Num" type="Label" parent="Lines"]
+layout_mode = 0
+offset_top = 16.0
+offset_right = 72.0
+offset_bottom = 38.0
+text = "0001"
+label_settings = SubResource("LabelSettings_fvg74")
+horizontal_alignment = 1
+
+[node name="Hold" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 152.0
+offset_top = 16.0
+offset_right = 152.0
+offset_bottom = 16.0
+
+[node name="mockup" type="ColorRect" parent="Hold"]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 36.0
+
+[node name="Text" type="Label" parent="Hold"]
+layout_mode = 0
+offset_top = -12.0
+offset_right = 36.0
+offset_bottom = -1.0
+text = "HOLD"
+label_settings = SubResource("LabelSettings_nxhxe")
+horizontal_alignment = 1
+
+[node name="Reverse" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 26.0
+offset_right = 24.0
+offset_bottom = 26.0
+
+[node name="mockup" type="ColorRect" parent="Reverse"]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 16.0
+
+[node name="Text" type="Label" parent="Reverse"]
+layout_mode = 0
+offset_top = -12.0
+offset_right = 36.0
+offset_bottom = -1.0
+text = "REVERSE"
+label_settings = SubResource("LabelSettings_nxhxe")
+horizontal_alignment = 1
+
+[node name="Next" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 448.0
+offset_top = 12.0
+offset_right = 448.0
+offset_bottom = 12.0
+
+[node name="mockup" type="ColorRect" parent="Next"]
+layout_mode = 0
+offset_top = 4.0
+offset_right = 36.0
+offset_bottom = 40.0
+
+[node name="mockup2" type="ColorRect" parent="Next"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 4.0
+offset_right = 76.0
+offset_bottom = 40.0
+
+[node name="mockup3" type="ColorRect" parent="Next"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 4.0
+offset_right = 116.0
+offset_bottom = 40.0
+
+[node name="mockup4" type="ColorRect" parent="Next"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 4.0
+offset_right = 156.0
+offset_bottom = 40.0
+
+[node name="Text" type="Label" parent="Next"]
+layout_mode = 0
+offset_top = -8.0
+offset_right = 29.0
+offset_bottom = 3.0
+text = "NEXT"
+label_settings = SubResource("LabelSettings_nxhxe")
+horizontal_alignment = 1
+
+[node name="Time" type="Label" parent="."]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 56.0
+offset_right = 86.0
+offset_bottom = 78.0
+text = "TIME"
+label_settings = SubResource("LabelSettings_fvg74")
+horizontal_alignment = 1
+
+[node name="Num" type="Label" parent="Time"]
+layout_mode = 0
+offset_top = 16.0
+offset_right = 72.0
+offset_bottom = 38.0
+text = "00:00"
+label_settings = SubResource("LabelSettings_fvg74")
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 56.0
+offset_right = 504.0
+offset_bottom = 78.0
+text = "SCORE"
+label_settings = SubResource("LabelSettings_fvg74")
+horizontal_alignment = 1
+
+[node name="Num" type="Label" parent="Score"]
+layout_mode = 0
+offset_left = -20.0
+offset_top = 16.0
+offset_right = 92.0
+offset_bottom = 38.0
+text = "000000"
+label_settings = SubResource("LabelSettings_fvg74")
+horizontal_alignment = 1
+
+[node name="Delimiter" type="ColorRect" parent="."]
+layout_mode = 0
+offset_top = 92.0
+offset_right = 640.0
+offset_bottom = 94.0
