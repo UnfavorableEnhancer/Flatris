@@ -46,14 +46,32 @@ var color : int
 
 func _init(type : int, block_color : int) -> void:
 	mesh = BoxMesh.new()
-	mesh.size.y = 0.1
-	color = block_color
+	mesh.size = Vector3(1.5,0.1,1.5)
+	color = COLOR.RED
 	
 	match type:
-		TYPE.GHOST : mesh.material = GHOST_BLOCK_MAT
+		TYPE.GHOST : 
+			name = "BlockGhost"
+			mesh.material = GHOST_BLOCK_MAT
 		TYPE.PLACED : 
+			name = "Block"
 			mesh.material = load(PLACED_BLOCK_MAT).duplicate(true)
 			mesh.material.albedo_color = COLOR_VALUES[color]
 		TYPE.PIECE : 
+			name = "PieceBlock"
 			mesh.material = load(PIECE_BLOCK_MAT).duplicate(true)
 			mesh.material.albedo_color = COLOR_VALUES[color]
+
+
+## Make blocks flash
+func _flash() -> void:
+	var tween : Tween = create_tween()
+	tween.tween_property(self, "mesh:material:albedo_color", Color.WHITE, 0.1)
+	tween.tween_property(self, "mesh:material:albedo_color", COLOR_VALUES[color], 0.1)
+
+
+## Make block flash rapidly
+func _flash_rapidly() -> void:
+	var tween : Tween = create_tween().set_loops()
+	tween.tween_property(self, "mesh:material:albedo_color", Color.WHITE, 0.1)
+	tween.tween_property(self, "mesh:material:albedo_color", COLOR_VALUES[color], 0.1)

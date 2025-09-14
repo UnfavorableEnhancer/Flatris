@@ -2,8 +2,6 @@ extends Node3D
 
 class_name Piece
 
-const CENTER_OFFSET : Vector2i = Vector2i(3,8) ## Offset used to place blocks
-
 ## All possible piece rotaions
 enum ROTATE_DIRECTION {CLOCKWISE, COUNTER_CLOCKWISE}
 enum ROTATION {NONE, R, TWICE, L}
@@ -52,7 +50,7 @@ var height : int = 10 ## Current height
 var color : int = Block.COLOR.RED ## Color of all blocks inside piece
 
 var piece_rotation : int = 0 ## Current piece rotation
-var anchor : Vector2i = CENTER_OFFSET ## Piece top-left position, used for rotation
+var anchor : Vector2i = Vector2i(3,3) ## Piece top-left position, used for rotation and initial block placement
 var size : int = 3 ## Size of piece matrix, used for rotation
 
 var fall_delay : float = 60 ## How many physics ticks must pass before piece falls down one cell
@@ -73,16 +71,13 @@ var drop_delay_inc : float = 10 ## How much current drop delay raises when piece
 var min_drop_delay : float = 30 ## Mimimal drop delay duration
 var max_drop_delay : float = 120 ## Maximum drop delay duration
 
-var appearance_delay : float = 10 ## How many physics ticks passes before piece starts falling
-var current_appearance_delay : float = appearance_delay
-
 
 func _ready() -> void:
 	color = PieceQueue.PIECES[piece_type]["color"]
 	size = PieceQueue.PIECES[piece_type]["size"]
 	
 	for pos : Vector2i in PieceQueue.PIECES[piece_type]["positions"]:
-		var real_pos : Vector2i = pos + CENTER_OFFSET
+		var real_pos : Vector2i = pos + anchor
 		var block : Block = Block.new(Block.TYPE.PIECE, color)
 		blocks[real_pos] = block
 		add_child(block)
@@ -96,7 +91,7 @@ func _update_blocks() -> void:
 	
 	for pos : Vector2i in blocks.keys():
 		var block : Block = blocks[pos]
-		block.position = Vector3(pos.x * Gamefield.BLOCK_MARGIN, height * Gamefield.BLOCK_Z_MARGIN, pos.y * Gamefield.BLOCK_MARGIN) + Gamefield.FIELD_OFFSET
+		block.position = Vector3(pos.x * Gamefield.BLOCK_MARGIN, height * Gamefield.BLOCK_Z_MARGIN, pos.y * Gamefield.BLOCK_MARGIN) + gamefield.field_offset
 		
 		if height > 0:
 			gamefield._place_ghost(pos)
@@ -104,14 +99,8 @@ func _update_blocks() -> void:
 
 
 ## Advances piece physics
-func _physics_process(_delta : float) -> void:
+func _physics() -> void:
 	if current_state == STATE.LANDED:
-		current_appearance_delay -= 1
-		if (current_appearance_delay <= 0) : _finish()
-		return
-	
-	if (Input.is_action_just_pressed(&"swap_hold")) : 
-		_finish(true)
 		return
 	
 	if (Input.is_action_just_pressed(&"rotate_left")) : _srs_rotate(ROTATE_DIRECTION.COUNTER_CLOCKWISE)
@@ -353,8 +342,6 @@ func _srs_rotate(side : int) -> void:
 ## Tests wallkick for given blocks dictionary and returns kicked blocks dictionary on success
 func _test_wallkick(blocks : Dictionary[Vector2i, Block], wallkick : Vector2i) -> Dictionary[Vector2i, Block]:
 	var kicked_blocks : Dictionary[Vector2i, Block]
-	print(blocks)
-	print(wallkick)
 	for pos : Vector2i in blocks.keys():
 		var new_pos = pos + wallkick
 		
@@ -367,17 +354,12 @@ func _test_wallkick(blocks : Dictionary[Vector2i, Block], wallkick : Vector2i) -
 	return kicked_blocks
 
 
-## Stops piece movement and asks gamefield to spawn blocks
+## Stops piece movement and asks gamefield to spawn blocks, then deletes this piece
 func _land() -> void:
+	gamefield._clear_ghosts()
+	
 	current_state = STATE.LANDED
 	for pos : Vector2i in blocks.keys():
 		gamefield._place_block(pos, color)
-		blocks[pos].queue_free()
-
-
-## Removes piece and asks gamefield to give next from queue
-## If 'swap_with_hold' is true, place this piece into hold
-func _finish(swap_with_hold : bool = false) -> void:
-	if swap_with_hold : gamefield._give_hold_piece(piece_type)
-	else : gamefield._give_next_piece()
+	
 	queue_free()

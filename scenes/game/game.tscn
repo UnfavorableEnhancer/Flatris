@@ -14,14 +14,14 @@ ambient_light_color = Color(1, 1, 1, 1)
 environment = SubResource("Environment_7h61r")
 
 [node name="Orthogonal" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.777146, 0.629321, 0, -0.629321, 0.777146, 0, 9.345, 7.8)
+transform = Transform3D(1, 0, 0, 0, 0.884581, 0.466387, 0, -0.466387, 0.884581, 0, 28.7, 45.21)
 keep_aspect = 0
 projection = 1
 fov = 151.7
-size = 36.739
+size = 46.928
 
 [node name="Perspective" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.843391, 0.5373, 0, -0.5373, 0.843391, 0, 13.76, 22.355)
+transform = Transform3D(1, 0, 0, 0, 0.83867, 0.544639, 0, -0.544639, 0.83867, 0, 20.82, 31.965)
 keep_aspect = 0
 current = true
 fov = 70.0
