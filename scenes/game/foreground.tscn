@@ -1,6 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://btid6tcaw73b5"]
+[gd_scene load_steps=9 format=3 uid="uid://btid6tcaw73b5"]
 
 [ext_resource type="FontFile" uid="uid://cklk4kjp10w3h" path="res://fonts/visitor1.ttf" id="1_l0fvl"]
+[ext_resource type="Script" uid="uid://demctcae67pi" path="res://scripts/game/foreground/foreground.gd" id="1_u1a0d"]
+[ext_resource type="Texture2D" uid="uid://bq1fd24oc1ynh" path="res://images/game/foreground/frame.png" id="2_4j72y"]
+[ext_resource type="Texture2D" uid="uid://terwq3lor4vi" path="res://images/game/foreground/damage_bar.png" id="2_nxhxe"]
+[ext_resource type="Texture2D" uid="uid://cr1q0r0307rd2" path="res://images/game/foreground/damage_bar2.png" id="3_4j72y"]
+[ext_resource type="PackedScene" uid="uid://8b4jdguci2ja" path="res://scenes/game/piece_render.tscn" id="3_wythv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fvg74"]
 font = ExtResource("1_l0fvl")
@@ -17,13 +22,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_u1a0d")
 
 [node name="Level" type="Label" parent="."]
 layout_mode = 0
 offset_left = 136.0
-offset_top = 64.0
+offset_top = 70.0
 offset_right = 208.0
-offset_bottom = 86.0
+offset_bottom = 92.0
 text = "LEVEL"
 label_settings = SubResource("LabelSettings_fvg74")
 horizontal_alignment = 1
@@ -33,16 +39,16 @@ layout_mode = 0
 offset_top = 12.0
 offset_right = 72.0
 offset_bottom = 34.0
-text = "001"
+text = "01"
 label_settings = SubResource("LabelSettings_fvg74")
 horizontal_alignment = 1
 
 [node name="Lines" type="Label" parent="."]
 layout_mode = 0
 offset_left = 552.0
-offset_top = 64.0
+offset_top = 70.0
 offset_right = 624.0
-offset_bottom = 86.0
+offset_bottom = 92.0
 text = "LINES"
 label_settings = SubResource("LabelSettings_fvg74")
 horizontal_alignment = 1
@@ -59,14 +65,9 @@ horizontal_alignment = 1
 [node name="Hold" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 152.0
-offset_top = 16.0
+offset_top = 24.0
 offset_right = 152.0
-offset_bottom = 16.0
-
-[node name="mockup" type="ColorRect" parent="Hold"]
-layout_mode = 0
-offset_right = 36.0
-offset_bottom = 36.0
+offset_bottom = 24.0
 
 [node name="Text" type="Label" parent="Hold"]
 layout_mode = 0
@@ -77,60 +78,63 @@ text = "HOLD"
 label_settings = SubResource("LabelSettings_nxhxe")
 horizontal_alignment = 1
 
-[node name="Reverse" type="Control" parent="."]
+[node name="Frame" type="TextureRect" parent="Hold"]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 36.0
+texture = ExtResource("2_4j72y")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="PieceRender" parent="Hold" instance=ExtResource("3_wythv")]
+layout_mode = 1
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 34.0
+offset_bottom = 34.0
+
+[node name="Damage" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 24.0
-offset_top = 26.0
+offset_top = 34.0
 offset_right = 24.0
-offset_bottom = 26.0
+offset_bottom = 34.0
 
-[node name="mockup" type="ColorRect" parent="Reverse"]
+[node name="Bar" type="TextureProgressBar" parent="Damage"]
 layout_mode = 0
 offset_right = 104.0
 offset_bottom = 16.0
+max_value = 20.0
+step = 0.01
+value = 19.49
+nine_patch_stretch = true
+texture_under = ExtResource("2_nxhxe")
+texture_progress = ExtResource("3_4j72y")
 
-[node name="Text" type="Label" parent="Reverse"]
+[node name="Texture" type="TextureRect" parent="Damage"]
+visible = false
+layout_mode = 0
+offset_right = 104.0
+offset_bottom = 16.0
+texture = ExtResource("2_nxhxe")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Text" type="Label" parent="Damage"]
 layout_mode = 0
 offset_top = -12.0
 offset_right = 36.0
 offset_bottom = -1.0
-text = "HEALTH"
+text = "DAMAGE"
 label_settings = SubResource("LabelSettings_nxhxe")
 horizontal_alignment = 1
 
 [node name="Next" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 448.0
-offset_top = 12.0
+offset_top = 20.0
 offset_right = 448.0
-offset_bottom = 12.0
-
-[node name="mockup" type="ColorRect" parent="Next"]
-layout_mode = 0
-offset_top = 4.0
-offset_right = 36.0
-offset_bottom = 40.0
-
-[node name="mockup2" type="ColorRect" parent="Next"]
-layout_mode = 0
-offset_left = 40.0
-offset_top = 4.0
-offset_right = 76.0
-offset_bottom = 40.0
-
-[node name="mockup3" type="ColorRect" parent="Next"]
-layout_mode = 0
-offset_left = 80.0
-offset_top = 4.0
-offset_right = 116.0
-offset_bottom = 40.0
-
-[node name="mockup4" type="ColorRect" parent="Next"]
-layout_mode = 0
-offset_left = 120.0
-offset_top = 4.0
-offset_right = 156.0
-offset_bottom = 40.0
+offset_bottom = 20.0
 
 [node name="Text" type="Label" parent="Next"]
 layout_mode = 0
@@ -141,12 +145,79 @@ text = "NEXT"
 label_settings = SubResource("LabelSettings_nxhxe")
 horizontal_alignment = 1
 
+[node name="Frame4" type="TextureRect" parent="Next"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 4.0
+offset_right = 156.0
+offset_bottom = 40.0
+texture = ExtResource("2_4j72y")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Frame3" type="TextureRect" parent="Next"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 4.0
+offset_right = 116.0
+offset_bottom = 40.0
+texture = ExtResource("2_4j72y")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Frame2" type="TextureRect" parent="Next"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 4.0
+offset_right = 76.0
+offset_bottom = 40.0
+texture = ExtResource("2_4j72y")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Frame" type="TextureRect" parent="Next"]
+layout_mode = 0
+offset_top = 4.0
+offset_right = 36.0
+offset_bottom = 40.0
+texture = ExtResource("2_4j72y")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="PieceRender1" parent="Next" instance=ExtResource("3_wythv")]
+layout_mode = 1
+offset_left = 2.0
+offset_top = 6.0
+offset_right = 34.0
+offset_bottom = 38.0
+
+[node name="PieceRender2" parent="Next" instance=ExtResource("3_wythv")]
+layout_mode = 1
+offset_left = 42.0
+offset_top = 6.0
+offset_right = 74.0
+offset_bottom = 38.0
+
+[node name="PieceRender3" parent="Next" instance=ExtResource("3_wythv")]
+layout_mode = 1
+offset_left = 82.0
+offset_top = 6.0
+offset_right = 114.0
+offset_bottom = 38.0
+
+[node name="PieceRender4" parent="Next" instance=ExtResource("3_wythv")]
+layout_mode = 1
+offset_left = 122.0
+offset_top = 6.0
+offset_right = 154.0
+offset_bottom = 38.0
+
 [node name="Time" type="Label" parent="."]
 layout_mode = 0
 offset_left = 14.0
-offset_top = 64.0
+offset_top = 70.0
 offset_right = 86.0
-offset_bottom = 86.0
+offset_bottom = 92.0
 text = "TIME"
 label_settings = SubResource("LabelSettings_fvg74")
 horizontal_alignment = 1
@@ -163,9 +234,9 @@ horizontal_alignment = 1
 [node name="Score" type="Label" parent="."]
 layout_mode = 0
 offset_left = 432.0
-offset_top = 64.0
+offset_top = 70.0
 offset_right = 504.0
-offset_bottom = 86.0
+offset_bottom = 92.0
 text = "SCORE"
 label_settings = SubResource("LabelSettings_fvg74")
 horizontal_alignment = 1
@@ -182,6 +253,6 @@ horizontal_alignment = 1
 
 [node name="Delimiter" type="ColorRect" parent="."]
 layout_mode = 0
-offset_top = 92.0
+offset_top = 104.0
 offset_right = 640.0
-offset_bottom = 94.0
+offset_bottom = 106.0

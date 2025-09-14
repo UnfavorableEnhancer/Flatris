@@ -1,17 +1,17 @@
 [gd_scene load_steps=7 format=3 uid="uid://bhi4fv7tov1bd"]
 
 [ext_resource type="Script" uid="uid://cev114cmf7guv" path="res://scripts/game/gamefield.gd" id="1_618be"]
-[ext_resource type="Texture2D" uid="uid://bla4atybwiilt" path="res://images/border.png" id="3_s4k0i"]
-[ext_resource type="Texture2D" uid="uid://bi70a4y8hriyk" path="res://images/cell.png" id="3_ss2t4"]
-[ext_resource type="Texture2D" uid="uid://bab0hcdhvn3g3" path="res://images/heigth_border.png" id="4_s4k0i"]
-[ext_resource type="Texture2D" uid="uid://b5b6vpwepva1t" path="res://images/heigth_cell.png" id="5_s4k0i"]
-[ext_resource type="Script" uid="uid://q37l6cy3ak2g" path="res://scripts/game/piece_queue.gd" id="6_618be"]
+[ext_resource type="Texture2D" uid="uid://bla4atybwiilt" path="res://images/game/border.png" id="3_s4k0i"]
+[ext_resource type="Texture2D" uid="uid://bi70a4y8hriyk" path="res://images/game/cell.png" id="3_ss2t4"]
+[ext_resource type="Texture2D" uid="uid://bab0hcdhvn3g3" path="res://images/game/heigth_border.png" id="4_s4k0i"]
+[ext_resource type="Texture2D" uid="uid://b5b6vpwepva1t" path="res://images/game/heigth_cell.png" id="5_s4k0i"]
+[ext_resource type="Script" uid="uid://q37l6cy3ak2g" path="res://scripts/game/objects/piece_queue.gd" id="6_618be"]
 
 [node name="Gamefield" type="Node3D"]
 script = ExtResource("1_618be")
 
 [node name="Border" type="Sprite3D" parent="."]
-transform = Transform3D(10.25, 0, 0, 0, -8.85156e-07, 1, 0, -20.25, -4.37114e-08, 0, -0.1, 0)
+transform = Transform3D(10.25, 0, 0, 0, -4.48042e-07, 1, 0, -10.25, -4.37114e-08, 0, -0.1, 0)
 pixel_size = 0.05
 double_sided = false
 texture_filter = 0
@@ -26,7 +26,7 @@ pixel_size = 0.05
 double_sided = false
 texture = ExtResource("3_ss2t4")
 region_enabled = true
-region_rect = Rect2(0, 0, 320, 640)
+region_rect = Rect2(0, 0, 320, 320)
 
 [node name="HeightBorder" type="Sprite3D" parent="."]
 transform = Transform3D(10.25, 0, 0, 0, 10.5, 0, 0, 0, 1, 0, 4, -20.1)

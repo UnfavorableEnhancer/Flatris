@@ -103,7 +103,8 @@ func _remove_scanned_blocks() -> void:
 		matrix.erase(pos)
 
 
-func _physics_process(_delta: float) -> void:
+## Processes single physics tick
+func _physics() -> void:
 	var piece_exists : bool = is_instance_valid(piece)
 	
 	if not piece_exists and current_appearance_delay > 0:

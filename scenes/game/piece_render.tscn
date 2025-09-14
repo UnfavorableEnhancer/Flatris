@@ -1,0 +1,64 @@
+[gd_scene load_steps=2 format=3 uid="uid://8b4jdguci2ja"]
+
+[ext_resource type="Script" uid="uid://cigbpphlcenvm" path="res://scripts/game/foreground/piece_render.gd" id="1_fhvtb"]
+
+[node name="PieceRender" type="CenterContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -592.0
+offset_bottom = -312.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fhvtb")
+
+[node name="Grid" type="GridContainer" parent="."]
+layout_mode = 2
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 3
+
+[node name="Dot" type="ColorRect" parent="Grid"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Dot2" type="ColorRect" parent="Grid"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+color = Color(0.773106, 0.318604, 0.9375, 1)
+
+[node name="Dot3" type="ColorRect" parent="Grid"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Dot4" type="ColorRect" parent="Grid"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+color = Color(0.773106, 0.318604, 0.9375, 1)
+
+[node name="Dot5" type="ColorRect" parent="Grid"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+color = Color(0.773106, 0.318604, 0.9375, 1)
+
+[node name="Dot6" type="ColorRect" parent="Grid"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+color = Color(0.773106, 0.318604, 0.9375, 1)
+
+[node name="Dot7" type="ColorRect" parent="Grid"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Dot8" type="ColorRect" parent="Grid"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Dot9" type="ColorRect" parent="Grid"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+color = Color(1, 1, 1, 0)

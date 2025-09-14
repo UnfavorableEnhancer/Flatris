@@ -20,7 +20,7 @@ enum PIECE_TYPE {
 ## All possible pieces forms
 const PIECES : Array[Dictionary] = [
 	{ # O
-		"size" : 2,
+		"size" : 4,
 		"color" : Block.COLOR.YELLOW,
 		"positions" : [Vector2i(1,1),Vector2i(2,1),Vector2i(1,2),Vector2i(2,2)],
 	},

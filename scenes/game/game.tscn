@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://jvkq848h852j"]
+[gd_scene load_steps=5 format=3 uid="uid://jvkq848h852j"]
 
+[ext_resource type="Script" uid="uid://by6ts7lwed6yv" path="res://scripts/game/game.gd" id="1_0sr1o"]
 [ext_resource type="PackedScene" uid="uid://bhi4fv7tov1bd" path="res://scenes/game/gamefield.tscn" id="1_sul5r"]
 [ext_resource type="PackedScene" uid="uid://btid6tcaw73b5" path="res://scenes/game/foreground.tscn" id="2_7h61r"]
 
@@ -9,24 +10,26 @@ ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 
 [node name="Game" type="Node3D"]
+script = ExtResource("1_0sr1o")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7h61r")
 
-[node name="Orthogonal" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.884581, 0.466387, 0, -0.466387, 0.884581, 0, 28.7, 45.21)
-keep_aspect = 0
-projection = 1
-fov = 151.7
-size = 46.928
-
 [node name="Perspective" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.83867, 0.544639, 0, -0.544639, 0.83867, 0, 20.82, 31.965)
+transform = Transform3D(1, 0, 0, 0, 0.743144, 0.66913, 0, -0.66913, 0.743144, 0, 22.295, 19.59)
 keep_aspect = 0
 current = true
-fov = 70.0
+fov = 77.0
 size = 36.381
 
 [node name="Gamefield" parent="." instance=ExtResource("1_sul5r")]
 
 [node name="Foreground" parent="." instance=ExtResource("2_7h61r")]
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="PauseBackground" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0, 0, 0, 0.75)
