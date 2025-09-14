@@ -2,50 +2,78 @@ extends Node
 
 class_name PieceQueue
 
-## All possible pieces
+## All possible pieces types
+enum PIECE_TYPE {
+	O,
+	I,
+	T,
+	S,
+	Z,
+	L,
+	J,
+	BL,
+	BO,
+	BU,
+	CH,
+}
+
+## All possible pieces forms
 const PIECES : Array[Dictionary] = [
 	{ # O
-		Vector2i(4,9) : Block.COLOR.YELLOW,
-		Vector2i(5,9) : Block.COLOR.YELLOW,
-		Vector2i(4,10) : Block.COLOR.YELLOW,
-		Vector2i(5,10) : Block.COLOR.YELLOW,
+		"size" : 2,
+		"color" : Block.COLOR.YELLOW,
+		"positions" : [Vector2i(1,1),Vector2i(2,1),Vector2i(1,2),Vector2i(2,2)],
 	},
 	{ # I
-		Vector2i(3,9) : Block.COLOR.CYAN,
-		Vector2i(4,9) : Block.COLOR.CYAN,
-		Vector2i(5,9) : Block.COLOR.CYAN,
-		Vector2i(6,9) : Block.COLOR.CYAN,
+		"size" : 4,
+		"color" : Block.COLOR.CYAN,
+		"positions" : [Vector2i(0,1),Vector2i(1,1),Vector2i(2,1),Vector2i(3,1)],
 	},
 	{ # T
-		Vector2i(3,9) : Block.COLOR.PURPLE,
-		Vector2i(4,9) : Block.COLOR.PURPLE,
-		Vector2i(5,9) : Block.COLOR.PURPLE,
-		Vector2i(4,8) : Block.COLOR.PURPLE,
+		"size" : 3,
+		"color" : Block.COLOR.PURPLE,
+		"positions" : [Vector2i(1,0),Vector2i(0,1),Vector2i(1,1),Vector2i(2,1)],
 	},
 	{ # S
-		Vector2i(3,9) : Block.COLOR.GREEN,
-		Vector2i(4,9) : Block.COLOR.GREEN,
-		Vector2i(4,8) : Block.COLOR.GREEN,
-		Vector2i(5,8) : Block.COLOR.GREEN,
+		"size" : 3,
+		"color" : Block.COLOR.GREEN,
+		"positions" : [Vector2i(0,1),Vector2i(1,1),Vector2i(1,0),Vector2i(2,0)],
 	},
 	{ # Z
-		Vector2i(3,8) : Block.COLOR.RED,
-		Vector2i(4,8) : Block.COLOR.RED,
-		Vector2i(4,9) : Block.COLOR.RED,
-		Vector2i(5,9) : Block.COLOR.RED,
+		"size" : 3,
+		"color" : Block.COLOR.RED,
+		"positions" : [Vector2i(0,0),Vector2i(1,0),Vector2i(1,1),Vector2i(2,1)],
 	},
 	{ # L
-		Vector2i(3,8) : Block.COLOR.BLUE,
-		Vector2i(3,9) : Block.COLOR.BLUE,
-		Vector2i(4,9) : Block.COLOR.BLUE,
-		Vector2i(5,9) : Block.COLOR.BLUE,
+		"size" : 3,
+		"color" : Block.COLOR.BLUE,
+		"positions" : [Vector2i(0,0),Vector2i(0,1),Vector2i(1,1),Vector2i(2,1)],
 	},
 	{ # J
-		Vector2i(3,9) : Block.COLOR.ORANGE,
-		Vector2i(4,9) : Block.COLOR.ORANGE,
-		Vector2i(5,9) : Block.COLOR.ORANGE,
-		Vector2i(5,8) : Block.COLOR.ORANGE,
+		"size" : 3,
+		"color" : Block.COLOR.ORANGE,
+		"positions" : [Vector2i(0,1),Vector2i(1,1),Vector2i(2,1),Vector2i(2,0)],
 	},
+	{ # BL
+		"size" : 3,
+		"color" : Block.COLOR.BROWN,
+		"positions" : [Vector2i(0,2),Vector2i(0,1),Vector2i(0,0),Vector2i(1,0),Vector2i(2,0)],
+	},
+	{ # BO
+		"size" : 3,
+		"color" : Block.COLOR.WHITE,
+		"positions" : [Vector2i(0,0),Vector2i(1,0),Vector2i(2,0),Vector2i(0,1),Vector2i(1,1),Vector2i(2,1),Vector2i(0,2),Vector2i(1,2),Vector2i(2,2)],
+	},
+	{ # BU
+		"size" : 3,
+		"color" : Block.COLOR.LIME,
+		"positions" : [Vector2i(0,0),Vector2i(1,0),Vector2i(2,0),Vector2i(0,1),Vector2i(1,1),Vector2i(2,1)],
+	},
+	{ # CH
+		"size" : 3,
+		"color" : Block.COLOR.PINK,
+		"positions" : [Vector2i(2,0),Vector2i(1,1),Vector2i(0,2)],
+	}
 ]
 
 const QUEUE_VISIBLE_SIZE : int = 4 ## Amount of visible in foreground queue pieces
@@ -70,9 +98,9 @@ func _shuffle() -> void:
 	var raw_bag : Array = [0,1,2,3,4,5,6]
 	
 	while not raw_bag.is_empty():
-		var piece_type = rng.randi_range(0, raw_bag.size() - 1)
-		queue.append(piece_type)
-		raw_bag.pop_front()
+		var index = rng.randi_range(0, raw_bag.size() - 1)
+		queue.append(raw_bag[index])
+		raw_bag.remove_at(index)
 	
 	queue_updated.emit(queue)
 

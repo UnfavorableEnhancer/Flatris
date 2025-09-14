@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhi4fv7tov1bd"]
+[gd_scene load_steps=5 format=3 uid="uid://bhi4fv7tov1bd"]
 
 [ext_resource type="Script" uid="uid://cev114cmf7guv" path="res://scripts/game/gamefield.gd" id="1_618be"]
 [ext_resource type="Texture2D" uid="uid://bvrldvknpa4ee" path="res://images/grid2.png" id="1_wquki"]
 [ext_resource type="Texture2D" uid="uid://ey37tbwa1e00" path="res://images/height_grid2.png" id="2_ss2t4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_iya05"]
+font_size = 12
 
 [node name="Gamefield" type="Node3D"]
 script = ExtResource("1_618be")
@@ -25,3 +28,124 @@ region_rect = Rect2(0, 0, 323, 163)
 [node name="Blocks" type="Node3D" parent="."]
 
 [node name="Ghosts" type="Node3D" parent="."]
+
+[node name="Debug" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 4.0
+offset_top = 153.0
+offset_right = 28.0
+offset_bottom = 173.0
+
+[node name="Fall" type="Label" parent="Debug"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = -14.0
+offset_right = 149.0
+offset_bottom = 9.0
+text = "current_fall_delay  : 100"
+label_settings = SubResource("LabelSettings_iya05")
+
+[node name="DASSide" type="Label" parent="Debug"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 14.0
+offset_right = 131.0
+offset_bottom = 37.0
+text = "current_das_side : -1"
+label_settings = SubResource("LabelSettings_iya05")
+
+[node name="DASDelay" type="Label" parent="Debug"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 41.0
+offset_right = 149.0
+offset_bottom = 64.0
+text = "current_das_delay : 100"
+label_settings = SubResource("LabelSettings_iya05")
+
+[node name="DAS" type="Label" parent="Debug"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 70.0
+offset_right = 126.0
+offset_bottom = 93.0
+text = "current_das : 100"
+label_settings = SubResource("LabelSettings_iya05")
+
+[node name="SoftDrop" type="Label" parent="Debug"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 97.0
+offset_right = 147.0
+offset_bottom = 120.0
+text = "current_soft_drop : 100"
+label_settings = SubResource("LabelSettings_iya05")
+
+[node name="DropDelay" type="Label" parent="Debug"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 124.0
+offset_right = 156.0
+offset_bottom = 147.0
+text = "current_drop_delay : 100"
+label_settings = SubResource("LabelSettings_iya05")
+
+[node name="AppDelay" type="Label" parent="Debug"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 150.0
+offset_right = 197.0
+offset_bottom = 173.0
+text = "current_appearance_delay : 100"
+label_settings = SubResource("LabelSettings_iya05")
+
+[node name="Moves" type="Label" parent="Debug"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 178.0
+offset_right = 126.0
+offset_bottom = 201.0
+text = "pressed moves:"
+label_settings = SubResource("LabelSettings_iya05")
+
+[node name="LEFT" type="Label" parent="Debug/Moves"]
+layout_mode = 0
+offset_left = 98.0
+offset_right = 211.0
+offset_bottom = 23.0
+text = "LEFT"
+label_settings = SubResource("LabelSettings_iya05")
+
+[node name="RIGHT" type="Label" parent="Debug/Moves"]
+layout_mode = 0
+offset_left = 133.0
+offset_right = 246.0
+offset_bottom = 23.0
+text = "RIGHT"
+label_settings = SubResource("LabelSettings_iya05")
+
+[node name="UP" type="Label" parent="Debug/Moves"]
+layout_mode = 0
+offset_left = 177.0
+offset_right = 290.0
+offset_bottom = 23.0
+text = "UP"
+label_settings = SubResource("LabelSettings_iya05")
+
+[node name="DOWN" type="Label" parent="Debug/Moves"]
+layout_mode = 0
+offset_left = 203.0
+offset_right = 316.0
+offset_bottom = 23.0
+text = "DOWN"
+label_settings = SubResource("LabelSettings_iya05")
+
+[node name="State" type="Label" parent="Debug"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = -38.0
+offset_right = 126.0
+offset_bottom = -15.0
+text = "current_state : FALLING"
+label_settings = SubResource("LabelSettings_iya05")

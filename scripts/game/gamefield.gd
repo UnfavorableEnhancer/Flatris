@@ -23,6 +23,27 @@ var piece : Piece = null
 @onready var ghosts_node : Node3D = $Ghosts
 
 
+func _process(delta: float) -> void:
+	if is_instance_valid(piece):
+		$Debug/Fall.text = "current_fall_delay : " + str(piece.current_fall_delay)
+		$Debug/DASSide.text = "current_das_side : " + str(piece.current_das_side)
+		$Debug/DASDelay.text = "current_das_delay : " + str(piece.current_das_delay)
+		$Debug/DAS.text = "current_das : " + str(piece.current_das)
+		$Debug/SoftDrop.text = "current_soft_drop : " + str(piece.current_soft_drop)
+		$Debug/DropDelay.text = "current_drop_delay : " + str(piece.current_drop_delay)
+		$Debug/AppDelay.text = "current_appearance_delay : " + str(piece.current_appearance_delay)
+		$Debug/Moves/LEFT.visible = piece.pressed_moves[0]
+		$Debug/Moves/RIGHT.visible = piece.pressed_moves[1]
+		$Debug/Moves/UP.visible = piece.pressed_moves[2]
+		$Debug/Moves/DOWN.visible = piece.pressed_moves[3]
+		
+		match piece.current_state:
+			Piece.STATE.FALLING : $Debug/State.text = "current state : FALLING"
+			Piece.STATE.ON_BLOCKS_TOP : $Debug/State.text = "current state : ON_BLOCKS_TOP"
+			Piece.STATE.INSIDE_FIELD : $Debug/State.text = "current state : INSIDE_FIELD"
+			Piece.STATE.LANDED : $Debug/State.text = "current state : LANDED"
+
+
 func _ready() -> void:
 	piece_queue = PieceQueue.new()
 	add_child(piece_queue)
