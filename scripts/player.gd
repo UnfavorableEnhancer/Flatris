@@ -32,8 +32,6 @@ signal savedata_changed ## Emitted when savedata was saved and has some changes
 var profile_name : String = "guest" ## Name of the loaded profile
 var profile_status : int = PROFILE_STATUS.OK ## Profile loading status
 
-var user_ruleset : Ruleset = Ruleset.new() ## Ruleset used for playlist/synthesia mode and which can be freely modified by player
-
 ## Contains all settings
 var config : Dictionary = {
 	"first_boot" : true, # If true, game was boot for the first time ever

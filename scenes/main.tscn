@@ -1,13 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://uxl2bil5i5fs"]
+[gd_scene load_steps=2 format=3 uid="uid://uxl2bil5i5fs"]
 
-[ext_resource type="Script" uid="uid://c7uo131jcj7ls" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://jvkq848h852j" path="res://scenes/game/game.tscn" id="1_o5qli"]
 
 [node name="Main" type="Node"]
-script = ExtResource("1_0wfyh")
-skip_intro = null
 
 [node name="Game" parent="." instance=ExtResource("1_o5qli")]
+script = null
 
 [node name="Darken" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)

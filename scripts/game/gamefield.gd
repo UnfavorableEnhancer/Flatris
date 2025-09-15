@@ -102,6 +102,9 @@ func _remove_scanned_blocks() -> void:
 		matrix[pos].queue_free()
 		matrix.erase(pos)
 
+func _physics_process(delta: float) -> void:
+	_physics()
+
 
 ## Processes single physics tick
 func _physics() -> void:

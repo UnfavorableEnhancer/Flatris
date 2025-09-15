@@ -15,15 +15,16 @@ transform = Transform3D(10.25, 0, 0, 0, -4.48042e-07, 1, 0, -10.25, -4.37114e-08
 pixel_size = 0.05
 double_sided = false
 texture_filter = 0
+render_priority = 10
 texture = ExtResource("3_s4k0i")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
 [node name="Field" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-sorting_offset = 1.0
 pixel_size = 0.05
 double_sided = false
+render_priority = 10
 texture = ExtResource("3_ss2t4")
 region_enabled = true
 region_rect = Rect2(0, 0, 320, 320)
@@ -32,14 +33,15 @@ region_rect = Rect2(0, 0, 320, 320)
 transform = Transform3D(10.25, 0, 0, 0, 10.5, 0, 0, 0, 1, 0, 4, -20.1)
 pixel_size = 0.05
 double_sided = false
+render_priority = 10
 texture = ExtResource("4_s4k0i")
 region_rect = Rect2(0, 0, 323, 163)
 
 [node name="HeigthField" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -20)
-sorting_offset = 1.0
 pixel_size = 0.05
 double_sided = false
+render_priority = 10
 texture = ExtResource("5_s4k0i")
 region_enabled = true
 region_rect = Rect2(0, 0, 320, 160)
