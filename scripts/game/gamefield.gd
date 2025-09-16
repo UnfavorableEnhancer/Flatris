@@ -16,15 +16,14 @@ const BLOCK_Z_MARGIN : float = 0.8 ## Distance between blocks in Z axis in meter
 signal block_overlap ## Emitted when some block landed onto existing one
 signal lines_cleared(amount : int) ## Emitted when lines were cleared
 
-var line_clear_delay : float = 30 ## Amount of frames after line clear which is added to appearance_delay
-var appearance_delay : float = 10 ## How many physics ticks passes before next piece is given
-var current_appearance_delay : float = 60
+var gamemode : Gamemode = null ## Gamemode reference
+
+var current_appearance_delay : float = 60 ## Current amount of frames left before giving next piece from queue
 
 var height_ghost_offset : Vector3 ## Offset which points to (0,0) in matrix.x + height coordinates
 var field_offset : Vector3 ## Offset which points to (0,0) in matrix coordinates
 var field_center : Vector2 ## Gamefield center in matrix coordinates
 
-var field_size : Vector3i = Vector3i(10, 10, 10) ## Size of the game field. X and Y are 2D coordinates and Z is height value
 var matrix : Dictionary[Vector2i, Block] = {} ## Game field matrix containing already placed blocks
 var ghosts : Array = [] ## Array of currently shown ghosts
 var height_ghosts : Dictionary[Vector2i, HeightGhost] = {} ## Dictionary of currently shown height ghosts
@@ -39,41 +38,36 @@ var has_swapped_hold : bool = false
 @onready var ghosts_node : Node3D = $Ghosts
 
 
-func _ready() -> void:
-	_render_matrix()
-	_clear_matrix()
-
-
 ## Sets gamefield visual size to match current matrix size
 func _render_matrix() -> void:
-	var field_x_size : float = FIELD_CELL_SIZE * field_size.x
-	var field_y_size : float = FIELD_CELL_SIZE * field_size.y
-	var field_z_size : float = HEIGTH_FIELD_CELL_SIZE * field_size.z
+	var field_x_size : float = FIELD_CELL_SIZE * gamemode.field_size.x
+	var field_y_size : float = FIELD_CELL_SIZE * gamemode.field_size.y
+	var field_z_size : float = HEIGTH_FIELD_CELL_SIZE * gamemode.field_size.z
 	
 	$Field.region_rect.size.x = field_x_size
 	$Field.region_rect.size.y = field_y_size
 	
 	$HeigthField.region_rect.size.x = field_x_size 
 	$HeigthField.region_rect.size.y = field_z_size
-	$HeigthField.position.y = HEIGTH_FIELD_MARGIN * field_size.z 
+	$HeigthField.position.y = HEIGTH_FIELD_MARGIN * gamemode.field_size.z 
 	
-	$Border.scale.x = field_size.x + BORDER_SIZE_OFFSET
-	$Border.scale.y = field_size.y + BORDER_SIZE_OFFSET
+	$Border.scale.x = gamemode.field_size.x + BORDER_SIZE_OFFSET
+	$Border.scale.y = gamemode.field_size.y + BORDER_SIZE_OFFSET
 	
-	$HeightBorder.scale.x = field_size.x + BORDER_SIZE_OFFSET
-	$HeightBorder.scale.y = field_size.z + HEIGTH_BORDER_SIZE_OFFSET
-	$HeightBorder.position.y = HEIGTH_FIELD_MARGIN * field_size.z 
+	$HeightBorder.scale.x = gamemode.field_size.x + BORDER_SIZE_OFFSET
+	$HeightBorder.scale.y = gamemode.field_size.z + HEIGTH_BORDER_SIZE_OFFSET
+	$HeightBorder.position.y = HEIGTH_FIELD_MARGIN * gamemode.field_size.z 
 	
-	field_offset.x = (field_size.x / 2.0 - 0.5) * (-BLOCK_MARGIN)
+	field_offset.x = (gamemode.field_size.x / 2.0 - 0.5) * (-BLOCK_MARGIN)
 	field_offset.y = 0.05
-	field_offset.z = (field_size.y / 2.0 - 0.5) * (-BLOCK_MARGIN)
+	field_offset.z = (gamemode.field_size.y / 2.0 - 0.5) * (-BLOCK_MARGIN)
 	
-	height_ghost_offset.x = (field_size.x / 2.0 - 0.5) * (-BLOCK_MARGIN)
+	height_ghost_offset.x = (gamemode.field_size.x / 2.0 - 0.5) * (-BLOCK_MARGIN)
 	height_ghost_offset.y = 0.6
 	height_ghost_offset.z = -19.95
 	
-	field_center.x = int(field_size.x / 2.0) - 1
-	field_center.y = int(field_size.y / 2.0) - 1
+	field_center.x = int(gamemode.field_size.x / 2.0) - 1
+	field_center.y = int(gamemode.field_size.y / 2.0) - 1
 
 
 ## Clears matrix
@@ -98,12 +92,9 @@ func _place_block(to_position : Vector2i, color : int) -> void:
 ## Removes all scanned by line check blocks
 func _remove_scanned_blocks() -> void:
 	for pos : Vector2i in scanned_blocks_positions:
-		print(pos)
+		if not matrix.has(pos) : continue
 		matrix[pos].queue_free()
 		matrix.erase(pos)
-
-func _physics_process(delta: float) -> void:
-	_physics()
 
 
 ## Processes single physics tick
@@ -126,8 +117,8 @@ func _physics() -> void:
 		piece._physics()
 		return
 	
-	if _line_check() : current_appearance_delay += line_clear_delay
-	current_appearance_delay += appearance_delay
+	if _line_check() : current_appearance_delay += gamemode.line_clear_delay
+	current_appearance_delay += gamemode.appearance_delay
 
 
 ## Checks full blocks lines and erases them if found
@@ -135,18 +126,31 @@ func _line_check() -> bool:
 	var erased_lines_amount : int = 0
 	scanned_blocks_positions.clear()
 	
-	for y in field_size.y:
+	for y in gamemode.field_size.y:
 		var current_line_blocks_positions : Array[Vector2i] = []
-		for x in field_size.x:
+		for x in gamemode.field_size.x:
 			if matrix.has(Vector2i(x,y)) : current_line_blocks_positions.append(Vector2i(x,y))
 		
-		if current_line_blocks_positions.size() == field_size.x:
+		if current_line_blocks_positions.size() == gamemode.field_size.x:
 			for pos : Vector2i in current_line_blocks_positions:
 				matrix[pos]._flash_rapidly()
 				scanned_blocks_positions.append(pos)
-				erased_lines_amount += 1
+			
+			erased_lines_amount += 1
 	
-	lines_cleared.emit(erased_lines_amount)
+	for x in gamemode.field_size.x:
+		var current_line_blocks_positions : Array[Vector2i] = []
+		for y in gamemode.field_size.y:
+			if matrix.has(Vector2i(x,y)) : current_line_blocks_positions.append(Vector2i(x,y))
+		
+		if current_line_blocks_positions.size() == gamemode.field_size.y:
+			for pos : Vector2i in current_line_blocks_positions:
+				matrix[pos]._flash_rapidly()
+				scanned_blocks_positions.append(pos)
+			
+			erased_lines_amount += 1
+	
+	if erased_lines_amount > 0 : lines_cleared.emit(erased_lines_amount)
 	return erased_lines_amount > 0
 
 
@@ -156,6 +160,7 @@ func _give_next_piece() -> void:
 	piece = Piece.new()
 	piece.piece_type = piece_queue._return_next_piece()
 	piece.gamefield = self
+	piece.gamemode = gamemode
 	piece.anchor = field_center
 	add_child(piece)
 
@@ -169,6 +174,7 @@ func _give_hold_piece(piece_type : int) -> void:
 	piece = Piece.new()
 	piece.piece_type = next_piece_type
 	piece.gamefield = self
+	piece.gamemode = gamemode
 	piece.anchor = field_center
 	add_child(piece)
 

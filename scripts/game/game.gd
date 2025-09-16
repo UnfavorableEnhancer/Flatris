@@ -45,12 +45,22 @@ var playing_sounds : Dictionary[String, AudioStreamPlayer] = {} ## All currently
 func _ready() -> void:
 	pause_background.modulate.a = 0.0
 	
+	gamemode = MarathonMode.new()
+	
 	gamemode.game = self
 	gamemode.foreground = foreground
+	gamemode.gamefield = gamefield
 	gamemode.main = main
+	
+	gamefield.gamemode = gamemode
+	gamefield._render_matrix()
+	
 	add_child(gamemode)
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	
+	gamemode._reset()
+	is_physics_active = true
 
 
 ## Resets game to the initial state and starts it

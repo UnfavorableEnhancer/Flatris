@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://by6ts7lwed6yv" path="res://scripts/game/game.gd" id="1_0sr1o"]
 [ext_resource type="PackedScene" uid="uid://bhi4fv7tov1bd" path="res://scenes/game/gamefield.tscn" id="1_sul5r"]
 [ext_resource type="PackedScene" uid="uid://btid6tcaw73b5" path="res://scenes/game/foreground.tscn" id="2_7h61r"]
-[ext_resource type="PackedScene" uid="uid://bsishg6ht7av3" path="res://scenes/game/background/theme_b.tscn" id="2_kelw5"]
+[ext_resource type="PackedScene" uid="uid://d4in6dtauuiu1" path="res://scenes/game/background/theme_c.tscn" id="2_kelw5"]
 
 [sub_resource type="Environment" id="Environment_7h61r"]
 background_mode = 1
@@ -13,7 +13,7 @@ ambient_light_color = Color(1, 1, 1, 1)
 [node name="Game" type="Node3D"]
 script = ExtResource("1_0sr1o")
 
-[node name="THEME B" parent="." instance=ExtResource("2_kelw5")]
+[node name="THEME C" parent="." instance=ExtResource("2_kelw5")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7h61r")

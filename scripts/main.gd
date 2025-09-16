@@ -23,7 +23,7 @@ static var game : Game ## Game instance
 static var current_input_mode : int = INPUT_MODE.KEYBOARD ## Current input device
 
 @onready var darken : ColorRect = $Darken ## Dark overlay node used to cover everything
-@onready var loading_screen : LoadingScreen = $LoadingScreen ## Loading screen overlay node used to cover everything
+@onready var loading_screen : LoadingScreen = null ## Loading screen overlay node used to cover everything
 
 @export var skip_intro : bool = false ## If true, game skips straight into main menu screen
 
@@ -34,11 +34,13 @@ func _ready() -> void:
 	await get_tree().create_timer(0.1).timeout
 	
 	_make_dirs()
-
+	
 	$TotalTime.timeout.connect(total_time_tick.emit)
 	$TotalTime.start(1.0)
-
+	
 	darken.modulate.a = 0.0
+	return
+	
 	loading_screen._load()
 	
 	menu = Menu.new()
@@ -122,7 +124,7 @@ func _input(event : InputEvent) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
 	# Toggle fullscreen
-	if event.is_action_pressed("toggle_fullscreen"):
+	if event.is_action_pressed("fullscreen"):
 		if not Player.video_config["fullscreen"]:
 			get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN
 			Player.video_config["fullscreen"] = true

@@ -2,7 +2,7 @@ extends Control
 
 class_name Foreground
 
-const SCORE_GROW_SPEED : float = 0.25 ## Time in seconds before score should finish grow animation
+const SCORE_GROW_SPEED : float = 0.75 ## Time in seconds before score should finish grow animation
 const LINES_GROW_SPEED : float = 0.75 ## Time in seconds before lines should finish grow animation
 const DAMAGE_GROW_SPEED : float = 0.5 ## Time in seconds before lines should finish grow animation
 
@@ -42,6 +42,14 @@ var damage_tween : Tween ## Tween used to animate damage indicator grow
 
 ## Sets score with grow animation
 func _set_score_animated(number : int) -> void:
+	if number > 999999 : $Score/Num.label_settings.font_size = 16
+	elif number > 9999999 : $Score/Num.label_settings.font_size = 14
+	elif number > 99999999 : $Score/Num.label_settings.font_size = 12
+	elif number > 999999999 : 
+		number = 999999999
+		$Score/Num.text = "999999999"
+		return
+	
 	if is_instance_valid(score_tween) : score_tween.kill()
 	score_tween = create_tween()
 	score_tween.tween_method(_set_score, score, number, SCORE_GROW_SPEED).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
@@ -53,10 +61,10 @@ func _set_score(number : int) -> void:
 	var text = "000000"
 	var str_number = str(number)
 	
-	if str_number.size() > 6:
+	if str_number.length() > 6:
 		$Score/Num.text = str_number
 	else:
-		text.insert(6 - str_number.size(), str_number)
+		text = text.left(6 - str_number.length()) + str_number
 		$Score/Num.text = text
 
 
@@ -73,10 +81,10 @@ func _set_lines(number : int) -> void:
 	var text = "0000"
 	var str_number = str(number)
 	
-	if str_number.size() > 4:
+	if str_number.length() > 4:
 		$Lines/Num.text = str_number
 	else:
-		text.insert(4 - str_number.size(), str_number)
+		text = text.left(4 - str_number.length()) + str_number
 		$Lines/Num.text = text
 
 
@@ -101,17 +109,20 @@ func _set_level(number : int) -> void:
 	var text = "00"
 	var str_number = str(number)
 	
-	if str_number.size() > 2:
+	if str_number.length() > 2:
 		$Level/Num.text = str_number
 	else:
-		text.insert(2 - str_number.size(), str_number)
+		text = text.left(2 - str_number.length()) + str_number
 		$Level/Num.text = text
 
 
 ## Updates queue visuals
 func _update_queue(queue : Array[int]) -> void:
-	for i : int in queue.size():
-		get_node("Next/PieceRender" + str(i))._render_piece(queue[i])
+	var queue_copy : Array[int] = queue.duplicate()
+	queue_copy.reverse()
+	for i : int in queue_copy.size():
+		if i >= 4 : return
+		get_node("Next/PieceRender" + str(i + 1))._render_piece(queue_copy[i])
 
 
 ## Updates hold visuals
@@ -124,3 +135,4 @@ func _set_damage(number : int) -> void:
 	if is_instance_valid(damage_tween) : damage_tween.kill()
 	damage_tween = create_tween()
 	damage_tween.tween_property($Damage/Bar, "value", DAMAGE_VALUES[number], DAMAGE_GROW_SPEED).from(DAMAGE_VALUES[damage]).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	damage = number

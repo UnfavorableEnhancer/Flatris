@@ -50,13 +50,17 @@ var config : Dictionary = {
 	
 	"gamefield_size_x" : 10,
 	"gamefield_size_y" : 10,
+	"gamefield_size_z" : 10,
+	"max_damage" : 20, # Amount of damage player can take before game over
+	"damage_per_block" : 1, # Amount of damage dealt per misplaced block
+	"damage_recovery" : 10, # Amount of pieces which must be dropped perfectly to reduce damage by one
 	"extended_piece_queue" : false, # Adds some more pieces to the queue
-	"field_invertion" : false, # After some pieces placed field inverts completely
-	"instant_death" : false, # Game ends instantly if piece is landed on block
 	"piece_at_top" : false, # Piece always spawns on top of the field
 	"block_gravity" : false, # Blocks move down after line clear
 	"zone_mode" : false, # Adds some delay before line clear allowing to add more lines
 	"dzen_mode" : false, # No gameover possible
+	"reversi_mode" : false, # After some pieces placed field inverts completely
+	"death_mode" : false, # Game ends instantly if piece is landed on block
 	
 	# Keyboard controls
 	"move_left" : "Left", ## Moves piece in hand left
@@ -91,6 +95,7 @@ var config : Dictionary = {
 
 ## Current profile progression results
 var progress : Dictionary = {
+	
 	"puzzles_solved" : 0,
 }
 

@@ -15,14 +15,16 @@ func _render_piece(piece_type : int) -> void:
 	
 	grid.columns = piece_size
 	
-	for y : int in size:
-		for x : int in size:
+	for y : int in piece_size:
+		for x : int in piece_size:
 			var color_rect : ColorRect = ColorRect.new()
 			
 			if piece_size == 4 : color_rect.custom_minimum_size = Vector2(CELL_4X4, CELL_4X4)
 			else : color_rect.custom_minimum_size = Vector2(CELL_3X3, CELL_3X3)
 			
 			color_rect.color = Block.COLOR_VALUES[piece["color"]]
+			
 			if not piece["positions"].has(Vector2i(x,y)): color_rect.color.a = 0.0
-				
+			else: color_rect.color.a = 1.0
+			
 			grid.add_child(color_rect)

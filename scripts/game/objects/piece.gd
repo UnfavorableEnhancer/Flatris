@@ -42,6 +42,7 @@ enum STATE {
 }
 var current_state : int = STATE.FALLING ## Current piece fall state
 
+var gamemode : Gamemode = null ## Gamemode reference
 var gamefield : Gamefield = null ## Parent gamefield reference
 
 var piece_type : int = 0 ## Type of piece given by [PieceQueue]
@@ -53,23 +54,18 @@ var piece_rotation : int = 0 ## Current piece rotation
 var anchor : Vector2i = Vector2i(3,3) ## Piece top-left position, used for rotation and initial block placement
 var size : int = 3 ## Size of piece matrix, used for rotation
 
-var fall_delay : float = 60 ## How many physics ticks must pass before piece falls down one cell
-var current_fall_delay : float = fall_delay
+var current_fall_delay : float = 60 ## Current delay before block drops down one cell
 
-var current_das_side : int = -1
-var das_delay : float = 10 ## How many physics ticks must pass before DAS activates 
-var current_das_delay : float = das_delay
-var das : float = 5 ## DAS frames
-var current_das : float = das
+var current_das_side : int = -1 ## Latest pressed direction where DAS will go
+var current_das_delay : float = 10 ## Current delay before DAS starts
+var current_das : float = 5 ## Button hold frames left before moving piece one cell
 
 var soft_drop : float = 5 ## How many physics ticks must pass before piece quickly falls one cell down
 var current_soft_drop : float = soft_drop
 
-var total_drop_delay : float = min_drop_delay ## Total added drop_delay amount
-var current_drop_delay : float = min_drop_delay ## How many physics ticks must pass before block finally lands
-var drop_delay_inc : float = 10 ## How much current drop delay raises when piece successfully moves
-var min_drop_delay : float = 30 ## Mimimal drop delay duration
-var max_drop_delay : float = 120 ## Maximum drop delay duration
+var total_drop_delay : float = 30 ## Total added drop_delay amount
+var current_drop_delay : float = 30 ## How many physics ticks must pass before block finally lands
+
 
 
 func _ready() -> void:
@@ -126,7 +122,7 @@ func _physics() -> void:
 	elif current_state == STATE.FALLING and not Input.is_action_pressed(&"soft_drop"):
 		current_fall_delay -= 1
 		if (current_fall_delay <= 0) :
-			current_fall_delay = fall_delay
+			current_fall_delay = gamemode.fall_delay
 			_fall()
 
 
@@ -141,12 +137,12 @@ func _fall() -> void:
 				return
 			
 			if height == 1:
-				current_drop_delay = min_drop_delay
+				current_drop_delay = gamemode.min_drop_delay
 				current_state = STATE.ON_BLOCKS_TOP
 				break
 	
 	if height == 0:
-		current_drop_delay = min_drop_delay
+		current_drop_delay = gamemode.min_drop_delay
 		current_state = STATE.INSIDE_FIELD
 	
 	_update_blocks()
@@ -158,7 +154,7 @@ func _hard_drop() -> void:
 		if gamefield.matrix.has(pos):
 			if (current_state == STATE.FALLING):
 				height = 1
-				current_drop_delay = min_drop_delay
+				current_drop_delay = gamemode.min_drop_delay
 				current_state = STATE.ON_BLOCKS_TOP
 				_update_blocks()
 				return
@@ -206,13 +202,13 @@ func _process_das() -> void:
 		current_das_delay -= 1
 	else:
 		current_das_side = -1
-		current_das_delay = das_delay
+		current_das_delay = gamemode.das_delay
 	
 	if current_das_side > -1 and current_das_delay <= 0:
 		current_das -= 1
 		if current_das <= 0 :
-			current_das = das
-			if not _move(current_das_side) : current_das_delay = das_delay
+			current_das = gamemode.das
+			if not _move(current_das_side) : current_das_delay = gamemode.das_delay
 
 
 ## Moves piece one cell sideways. Returns true on success
@@ -222,17 +218,17 @@ func _move(side : int) -> bool:
 	for pos : Vector2i in blocks.keys():
 		var new_pos = pos + MOVE_VALUES[side]
 		if current_state == STATE.INSIDE_FIELD and gamefield.matrix.has(new_pos) : return false
-		if new_pos.x < 0 or new_pos.x >= gamefield.field_size.x : return false
-		if new_pos.y < 0 or new_pos.y >= gamefield.field_size.y : return false
+		if new_pos.x < 0 or new_pos.x >= gamemode.field_size.x : return false
+		if new_pos.y < 0 or new_pos.y >= gamemode.field_size.y : return false
 		
 		moved_blocks[new_pos] = blocks[pos]
 	
 	anchor += MOVE_VALUES[side]
 	
-	if (current_state == STATE.ON_BLOCKS_TOP or current_state == STATE.INSIDE_FIELD) and total_drop_delay != max_drop_delay: 
+	if (current_state == STATE.ON_BLOCKS_TOP or current_state == STATE.INSIDE_FIELD) and total_drop_delay != gamemode.max_drop_delay: 
 		# This weird shit is needed in case amount of frames left to add before reaching max is less than frames increment
-		current_drop_delay += clampf(max_drop_delay - total_drop_delay, 0, drop_delay_inc)
-		total_drop_delay = clampf(total_drop_delay + drop_delay_inc, min_drop_delay, max_drop_delay)
+		current_drop_delay += clampf(gamemode.max_drop_delay - total_drop_delay, 0, gamemode.drop_delay_inc)
+		total_drop_delay = clampf(total_drop_delay + gamemode.drop_delay_inc, gamemode.min_drop_delay, gamemode.max_drop_delay)
 	
 	blocks = moved_blocks
 	_update_blocks()
@@ -333,23 +329,23 @@ func _srs_rotate(side : int) -> void:
 	piece_rotation = new_rotation
 	_update_blocks()
 	
-	if (current_state == STATE.ON_BLOCKS_TOP or current_state == STATE.INSIDE_FIELD) and total_drop_delay != max_drop_delay: 
+	if (current_state == STATE.ON_BLOCKS_TOP or current_state == STATE.INSIDE_FIELD) and total_drop_delay != gamemode.max_drop_delay: 
 		# This weird shit is needed in case amount of frames left to add before reaching max is less than frames increment
-		current_drop_delay += clampf(max_drop_delay - total_drop_delay, 0, drop_delay_inc)
-		total_drop_delay = clampf(total_drop_delay + drop_delay_inc, min_drop_delay, max_drop_delay)
+		current_drop_delay += clampf(gamemode.max_drop_delay - total_drop_delay, 0, gamemode.drop_delay_inc)
+		total_drop_delay = clampf(total_drop_delay + gamemode.drop_delay_inc, gamemode.min_drop_delay, gamemode.max_drop_delay)
 
 
 ## Tests wallkick for given blocks dictionary and returns kicked blocks dictionary on success
-func _test_wallkick(blocks : Dictionary[Vector2i, Block], wallkick : Vector2i) -> Dictionary[Vector2i, Block]:
+func _test_wallkick(test_blocks : Dictionary[Vector2i, Block], wallkick : Vector2i) -> Dictionary[Vector2i, Block]:
 	var kicked_blocks : Dictionary[Vector2i, Block]
-	for pos : Vector2i in blocks.keys():
+	for pos : Vector2i in test_blocks.keys():
 		var new_pos = pos + wallkick
 		
 		if current_state == STATE.INSIDE_FIELD and gamefield.matrix.has(new_pos) : return {}
-		if new_pos.x < 0 or new_pos.x >= gamefield.field_size.x : return {}
-		if new_pos.y < 0 or new_pos.y >= gamefield.field_size.y : return {}
+		if new_pos.x < 0 or new_pos.x >= gamemode.field_size.x : return {}
+		if new_pos.y < 0 or new_pos.y >= gamemode.field_size.y : return {}
 		
-		kicked_blocks[new_pos] = blocks[pos]
+		kicked_blocks[new_pos] = test_blocks[pos]
 	
 	return kicked_blocks
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://btid6tcaw73b5"]
+[gd_scene load_steps=11 format=3 uid="uid://btid6tcaw73b5"]
 
 [ext_resource type="FontFile" uid="uid://cklk4kjp10w3h" path="res://fonts/visitor1.ttf" id="1_l0fvl"]
 [ext_resource type="Script" uid="uid://demctcae67pi" path="res://scripts/game/foreground/foreground.gd" id="1_u1a0d"]
@@ -7,14 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://terwq3lor4vi" path="res://images/game/foreground/damage_bar.png" id="2_nxhxe"]
 [ext_resource type="Texture2D" uid="uid://cr1q0r0307rd2" path="res://images/game/foreground/damage_bar2.png" id="3_4j72y"]
 [ext_resource type="PackedScene" uid="uid://8b4jdguci2ja" path="res://scenes/game/piece_render.tscn" id="3_wythv"]
-[ext_resource type="Texture2D" uid="uid://ks3wvnp5xm36" path="res://images/game/background/THEME B/background.png" id="7_8ax86"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fvg74"]
 font = ExtResource("1_l0fvl")
 font_size = 18
 
-[sub_resource type="LabelSettings" id="LabelSettings_k2o5n"]
+[sub_resource type="LabelSettings" id="LabelSettings_8ax86"]
 font = ExtResource("1_l0fvl")
+font_size = 12
 
 [sub_resource type="LabelSettings" id="LabelSettings_nxhxe"]
 font = ExtResource("1_l0fvl")
@@ -41,6 +41,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_doqxf")
@@ -53,9 +54,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -34.0
+offset_left = -36.0
 offset_top = -14.0
-offset_right = 38.0
+offset_right = 36.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -70,9 +71,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -34.0
+offset_left = -36.0
 offset_top = -2.0
-offset_right = 38.0
+offset_right = 36.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -82,9 +83,9 @@ horizontal_alignment = 1
 
 [node name="Time" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 26.0
+offset_left = 25.0
 offset_top = 63.0
-offset_right = 98.0
+offset_right = 97.0
 offset_bottom = 97.0
 
 [node name="Frame" type="TextureRect" parent="Time"]
@@ -92,6 +93,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_doqxf")
@@ -104,9 +106,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -35.0
+offset_left = -34.0
 offset_top = -14.0
-offset_right = 37.0
+offset_right = 38.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -121,9 +123,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -35.0
+offset_left = -34.0
 offset_top = -2.0
-offset_right = 37.0
+offset_right = 38.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -143,6 +145,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_doqxf")
@@ -155,9 +158,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -35.0
+offset_left = -33.0
 offset_top = -14.0
-offset_right = 37.0
+offset_right = 39.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -172,15 +175,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -35.0
+offset_left = -33.0
 offset_top = -2.0
-offset_right = 37.0
-offset_bottom = 20.0
+offset_right = 39.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "000000"
-label_settings = SubResource("LabelSettings_k2o5n")
+text = "000000000"
+label_settings = SubResource("LabelSettings_8ax86")
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Lines" type="Control" parent="."]
 anchors_preset = 0
@@ -194,6 +198,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -2.0
+offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_doqxf")
@@ -225,13 +231,14 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -35.0
 offset_top = -2.0
-offset_right = 37.0
-offset_bottom = 20.0
+offset_right = 38.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "0000"
 label_settings = SubResource("LabelSettings_fvg74")
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Hold" type="Control" parent="."]
 anchors_preset = 0
@@ -266,9 +273,9 @@ offset_bottom = 34.0
 
 [node name="Damage" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 26.0
+offset_left = 25.0
 offset_top = 29.0
-offset_right = 26.0
+offset_right = 25.0
 offset_bottom = 29.0
 
 [node name="Bar" type="TextureProgressBar" parent="Damage"]
@@ -277,7 +284,6 @@ offset_right = 104.0
 offset_bottom = 16.0
 max_value = 20.0
 step = 0.01
-value = 19.49
 nine_patch_stretch = true
 texture_under = ExtResource("2_nxhxe")
 texture_progress = ExtResource("3_4j72y")
@@ -327,9 +333,9 @@ stretch_mode = 4
 
 [node name="Frame2" type="TextureRect" parent="Next"]
 layout_mode = 0
-offset_left = 40.0
+offset_left = 43.0
 offset_top = 4.0
-offset_right = 76.0
+offset_right = 79.0
 offset_bottom = 40.0
 texture = ExtResource("2_4j72y")
 expand_mode = 1
@@ -337,9 +343,9 @@ stretch_mode = 4
 
 [node name="Frame3" type="TextureRect" parent="Next"]
 layout_mode = 0
-offset_left = 80.0
+offset_left = 86.0
 offset_top = 4.0
-offset_right = 116.0
+offset_right = 122.0
 offset_bottom = 40.0
 texture = ExtResource("2_4j72y")
 expand_mode = 1
@@ -347,9 +353,9 @@ stretch_mode = 4
 
 [node name="Frame4" type="TextureRect" parent="Next"]
 layout_mode = 0
-offset_left = 120.0
+offset_left = 129.0
 offset_top = 4.0
-offset_right = 156.0
+offset_right = 165.0
 offset_bottom = 40.0
 texture = ExtResource("2_4j72y")
 expand_mode = 1
@@ -364,23 +370,23 @@ offset_bottom = 38.0
 
 [node name="PieceRender2" parent="Next" instance=ExtResource("3_wythv")]
 layout_mode = 1
-offset_left = 42.0
+offset_left = 45.0
 offset_top = 6.0
-offset_right = 74.0
+offset_right = 77.0
 offset_bottom = 38.0
 
 [node name="PieceRender3" parent="Next" instance=ExtResource("3_wythv")]
 layout_mode = 1
-offset_left = 82.0
+offset_left = 88.0
 offset_top = 6.0
-offset_right = 114.0
+offset_right = 120.0
 offset_bottom = 38.0
 
 [node name="PieceRender4" parent="Next" instance=ExtResource("3_wythv")]
 layout_mode = 1
-offset_left = 122.0
+offset_left = 131.0
 offset_top = 6.0
-offset_right = 154.0
+offset_right = 163.0
 offset_bottom = 38.0
 
 [node name="Delimiter" type="Control" parent="."]
@@ -395,13 +401,3 @@ width = 2.0
 [node name="Line2D2" type="Line2D" parent="Delimiter"]
 points = PackedVector2Array(0, 104, 204, 104, 212, 82, 244, 82)
 width = 2.0
-
-[node name="UIBackground" type="TextureRect" parent="."]
-z_index = -10
-z_as_relative = false
-texture_filter = 1
-offset_right = 640.0
-offset_bottom = 104.0
-texture = ExtResource("7_8ax86")
-expand_mode = 1
-stretch_mode = 6
