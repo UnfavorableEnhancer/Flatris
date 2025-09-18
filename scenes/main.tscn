@@ -1,12 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://uxl2bil5i5fs"]
 
 [ext_resource type="Script" uid="uid://c7uo131jcj7ls" path="res://scripts/main.gd" id="1_0wfyh"]
-[ext_resource type="PackedScene" uid="uid://jvkq848h852j" path="res://scenes/game/game.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://xnx4t47uxb04" path="res://scenes/menu/screens/loading.tscn" id="2_0wfyh"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_0wfyh")
-
-[node name="Game" parent="." instance=ExtResource("1_o5qli")]
 
 [node name="Darken" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -15,5 +13,7 @@ z_as_relative = false
 offset_right = 640.0
 offset_bottom = 360.0
 color = Color(0, 0, 0, 1)
+
+[node name="Loading" parent="." instance=ExtResource("2_0wfyh")]
 
 [node name="TotalTime" type="Timer" parent="."]

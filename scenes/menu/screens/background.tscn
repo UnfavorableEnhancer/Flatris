@@ -1,0 +1,307 @@
+[gd_scene load_steps=29 format=3 uid="uid://0xbxx2fomjyi"]
+
+[ext_resource type="Script" uid="uid://kgfl6tag4sgm" path="res://scripts/menu/screens/background.gd" id="1_4d72k"]
+[ext_resource type="Texture2D" uid="uid://cr5b3nd2ekw0r" path="res://images/menu/grid.png" id="1_rl477"]
+[ext_resource type="Texture2D" uid="uid://dgccf23wi14dw" path="res://images/game/pieces/T.png" id="2_4d72k"]
+[ext_resource type="Texture2D" uid="uid://cpdabe5ph8ymc" path="res://images/game/pieces/S.png" id="3_srw7c"]
+[ext_resource type="Texture2D" uid="uid://cebf3ckojm7c6" path="res://images/game/pieces/L.png" id="4_tomrq"]
+[ext_resource type="Texture2D" uid="uid://dex00nx2ohnpd" path="res://images/game/pieces/I.png" id="5_r46hj"]
+[ext_resource type="Texture2D" uid="uid://c0iurwb5v004p" path="res://images/game/pieces/O.png" id="6_q5l1l"]
+[ext_resource type="Texture2D" uid="uid://btb32gi3sghof" path="res://images/game/pieces/Z.png" id="7_avmcj"]
+
+[sub_resource type="Gradient" id="Gradient_srw7c"]
+offsets = PackedFloat32Array(0.42487, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.140381, 0.268259, 0.449219, 0.5)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tomrq"]
+gradient = SubResource("Gradient_srw7c")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4d72k"]
+transparency = 4
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_4d72k")
+
+[sub_resource type="QuadMesh" id="QuadMesh_srw7c"]
+material = SubResource("StandardMaterial3D_4d72k")
+
+[sub_resource type="Gradient" id="Gradient_tomrq"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tomrq"]
+transparency = 4
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_srw7c")
+
+[sub_resource type="QuadMesh" id="QuadMesh_21pyk"]
+material = SubResource("StandardMaterial3D_tomrq")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_21pyk"]
+transparency = 4
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("4_tomrq")
+
+[sub_resource type="QuadMesh" id="QuadMesh_fol8l"]
+material = SubResource("StandardMaterial3D_21pyk")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0y1n"]
+transparency = 4
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("5_r46hj")
+
+[sub_resource type="QuadMesh" id="QuadMesh_v57t1"]
+material = SubResource("StandardMaterial3D_f0y1n")
+flip_faces = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_un1fd"]
+transparency = 4
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("6_q5l1l")
+
+[sub_resource type="QuadMesh" id="QuadMesh_sy354"]
+material = SubResource("StandardMaterial3D_un1fd")
+flip_faces = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ypdy"]
+transparency = 4
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("7_avmcj")
+
+[sub_resource type="QuadMesh" id="QuadMesh_rtapi"]
+material = SubResource("StandardMaterial3D_3ypdy")
+flip_faces = true
+
+[sub_resource type="Gradient" id="Gradient_r46hj"]
+offsets = PackedFloat32Array(0, 0.398964, 0.637306, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0.0730343, 0.179688, 1, 0, 0.058745, 0.144531, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q5l1l"]
+gradient = SubResource("Gradient_r46hj")
+
+[sub_resource type="Animation" id="Animation_21pyk"]
+resource_name = "loop"
+length = 2.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/Grid:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.16)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SubViewportContainer/SubViewport/Grid2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.7, 0), Vector3(0, 0.7, -0.16)]
+}
+
+[sub_resource type="Animation" id="Animation_fol8l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/Grid:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SubViewportContainer/SubViewport/Grid2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.7, -0.16)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r46hj"]
+_data = {
+&"RESET": SubResource("Animation_fol8l"),
+&"loop": SubResource("Animation_21pyk")
+}
+
+[node name="Background" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4d72k")
+
+[node name="Gradient" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 640.0
+offset_right = 1000.0
+offset_bottom = 640.0
+rotation = 1.5708
+texture = SubResource("GradientTexture1D_tomrq")
+
+[node name="Gradient2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = 360.0
+offset_right = 360.0
+offset_bottom = 1000.0
+rotation = 4.71239
+texture = SubResource("GradientTexture1D_tomrq")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+scaling_3d_scale = 2.0
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="Grid" type="Sprite3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, 1, 0, -0.5, -4.37114e-08, 0, 0, 0)
+texture = ExtResource("1_rl477")
+
+[node name="Grid2" type="Sprite3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, 1, 0, -0.5, -4.37114e-08, 0, 0.7, -0.16)
+texture = ExtResource("1_rl477")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 1.8)
+fov = 90.0
+
+[node name="TParticles" type="CPUParticles3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.6)
+lifetime = 4.5
+mesh = SubResource("QuadMesh_srw7c")
+emission_shape = 3
+emission_box_extents = Vector3(2.5, 0, 0)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
+scale_amount_min = 0.25
+scale_amount_max = 0.25
+color = Color(0.505634, 0.193115, 0.882812, 1)
+color_ramp = SubResource("Gradient_tomrq")
+
+[node name="SParticles" type="CPUParticles3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.6)
+lifetime = 4.5
+mesh = SubResource("QuadMesh_21pyk")
+emission_shape = 3
+emission_box_extents = Vector3(2.5, 0, 0)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
+scale_amount_min = 0.25
+scale_amount_max = 0.25
+color = Color(0.197485, 0.808594, 0.192673, 1)
+color_ramp = SubResource("Gradient_tomrq")
+
+[node name="LParticles" type="CPUParticles3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.6)
+lifetime = 5.0
+mesh = SubResource("QuadMesh_fol8l")
+emission_shape = 3
+emission_box_extents = Vector3(2.5, 0, 0)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
+scale_amount_min = 0.25
+scale_amount_max = 0.25
+color = Color(0.882812, 0.578672, 0.148285, 1)
+color_ramp = SubResource("Gradient_tomrq")
+
+[node name="IParticles" type="CPUParticles3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.8, -0.6)
+lifetime = 4.5
+mesh = SubResource("QuadMesh_v57t1")
+emission_shape = 3
+emission_box_extents = Vector3(2.5, 0, 0)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
+scale_amount_min = 0.25
+scale_amount_max = 0.25
+color = Color(0.193115, 0.834318, 0.882812, 1)
+color_ramp = SubResource("Gradient_tomrq")
+
+[node name="OParticles" type="CPUParticles3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.8, -0.6)
+lifetime = 4.5
+mesh = SubResource("QuadMesh_sy354")
+emission_shape = 3
+emission_box_extents = Vector3(2.5, 0, 0)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
+scale_amount_min = 0.25
+scale_amount_max = 0.25
+color = Color(0.789346, 0.808594, 0.192673, 1)
+color_ramp = SubResource("Gradient_tomrq")
+
+[node name="ZParticles" type="CPUParticles3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.8, -0.6)
+lifetime = 4.5
+mesh = SubResource("QuadMesh_rtapi")
+emission_shape = 3
+emission_box_extents = Vector3(2.5, 0, 0)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
+scale_amount_min = 0.25
+scale_amount_max = 0.25
+color = Color(0.882812, 0.148285, 0.148285, 1)
+color_ramp = SubResource("Gradient_tomrq")
+
+[node name="Gradient3" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = 360.0
+offset_right = 360.0
+offset_bottom = 1000.0
+rotation = 4.71239
+texture = SubResource("GradientTexture1D_q5l1l")
+
+[node name="A" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_r46hj")
+}
+autoplay = "loop"

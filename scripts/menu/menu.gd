@@ -22,6 +22,7 @@ signal all_screens_added ## Called when all menu screens in queue were added
 
 const BACKGROUND_SCREEN_Z_INDEX : int = -1500
 const FOREGROUND_SCREEN_Z_INDEX : int = 500
+const STARTUP_SCREEN_Z_INDEX : int = 1000
 
 var main : Main ## Main node instance
 
@@ -30,12 +31,19 @@ var is_loading : bool = false ## If true menu currently loads all its assets
 
 ## All avaiable menu screens (stored as paths to .tscn files)
 var loaded_screens_data : Dictionary = {
-	
+	"foreground" : "res://scenes/menu/screens/foreground.tscn",
+	"background" : "res://scenes/menu/screens/background.tscn",
+	"startup" : "res://scenes/menu/screens/startup.tscn",
+	"splash_screen" : "res://scenes/menu/screens/splash_screen.tscn",
+	"main_menu" : "res://scenes/menu/screens/main_menu.tscn",
 }
+
 ## All avaiable menu music (stored as paths to .mp3 or .ogg)
 var loaded_music_data : Dictionary = {
-	
+	"menu_theme_drums" : "res://music/gymnopedie mini cover_drums.ogg",
+	"menu_theme_calm" : "res://music/gymnopedie mini cover_drumless.ogg"
 }
+
 ## All avaiable system sounds (stored as loaded .mp3 or .ogg instances)
 var loaded_sounds_data : Dictionary = {
 	
@@ -86,8 +94,14 @@ func _reset() -> void:
 		music_player.queue_free()
 		music_player = null
 	
-	background = _add_screen("background")
+	background = _add_screen("background", "null")
+	background.z_as_relative = false
+	background.z_index = BACKGROUND_SCREEN_Z_INDEX
+	
 	foreground = _add_screen("foreground", "null")
+	foreground.z_as_relative = false
+	foreground.z_index = FOREGROUND_SCREEN_Z_INDEX
+	foreground.visible = false
 
 
 ## Starts intro sequence and loads first screens [br]
@@ -100,9 +114,10 @@ func _boot(force_screen : String = "") -> void:
 		return
 
 	var startup_screen : MenuScreen = _add_screen("startup")
+	startup_screen.z_as_relative = false
+	startup_screen.z_index = STARTUP_SCREEN_Z_INDEX
 	await startup_screen.finish
-	_remove_screen("startup", "null")
-	
+	_remove_screen("startup", "end")
 	await all_screens_removed
 	_add_screen("splash_screen")
 
@@ -128,9 +143,6 @@ func _add_screen(screen_name : String, screen_anim : String = "start") -> MenuSc
 
 	current_screen_name = screen_name
 	current_screen = new_screen
-
-	if (screen_name == "foreground") : new_screen.z_as_relative = false; new_screen.z_index = FOREGROUND_SCREEN_Z_INDEX
-	if (screen_name == "background") : new_screen.z_as_relative = false; new_screen.z_index = BACKGROUND_SCREEN_Z_INDEX
 	
 	add_child(new_screen)
 
@@ -216,18 +228,11 @@ func _change_screen(new_screen_name : String, new_screen_anim : String = "start"
 
 ## Reloads menu after game is over and adds menu screen with passed [b]'screen_name'[/b]
 func _return_from_game(screen_name : String = "main_menu") -> void:
-	_add_screen("background")
-	_add_screen("foreground")
-
+	background.visible = true
+	foreground.visible = true
+	
 	main._toggle_darken(false)
-
-	# If we started game in skin playtest mode, return into skin editor.
-	if screen_name == "skin_editor":
-		current_screen = screens["skin_editor"]
-		current_screen_name = "skin_editor"
-		current_screen._end_playtest_skn()
-		return
-
+	
 	_add_screen(screen_name)
 	_change_music(latest_music_sample_name)
 	if music_player != null : music_player.seek(last_music_position)
@@ -239,13 +244,7 @@ func _exit() -> void:
 	is_locked = true
 	
 	# Fade-out menu music
-	if music_player != null: 
-		last_music_position = music_player.get_playback_position()
-		
-		var tween : Tween = create_tween()
-		tween.tween_property(music_player,"volume_db",-99.0,1.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
-		tween.tween_callback(music_player.queue_free)
-		is_music_playing = false
+	_change_music("nothing")
 	
 	for screen_name : String in screens.keys() : _remove_screen(screen_name)
 	
@@ -286,22 +285,21 @@ func _change_music(music_sample_name : String = "", change_speed : float = 1.0) 
 		return
 	
 	if music_sample_name != "nothing" and not loaded_music_data.has(music_sample_name):
-		music_player = null
 		return
 	
 	if music_player != null: 
+		last_music_position = music_player.get_playback_position()
+		
 		var tween : Tween = create_tween()
-		tween.tween_property(music_player,"volume_db",-40.0,change_speed).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
+		tween.tween_property(music_player,"volume_db",-99.0,change_speed).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
 		tween.tween_callback(music_player.queue_free)
+		
 		is_music_playing = false
 		music_player = null
 	
 	latest_music_sample_name = music_sample_name
-
-	if music_sample_name == "nothing":
-		return
 	
-	if current_screen_name == "":
+	if music_sample_name == "nothing":
 		return
 	
 	var music_sample : AudioStream = loaded_music_data[music_sample_name]
@@ -311,7 +309,7 @@ func _change_music(music_sample_name : String = "", change_speed : float = 1.0) 
 	player.stream = music_sample
 	player.bus = "Music"
 	music_player = player
-	create_tween().tween_property(music_player,"volume_db",0.0,change_speed).from(-40.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+	create_tween().tween_property(music_player,"volume_db",0.0,change_speed).from(-99.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
 	is_music_playing = true
 	
 	player.finished.connect(player.play)

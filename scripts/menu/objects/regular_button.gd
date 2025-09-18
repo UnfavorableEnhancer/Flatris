@@ -22,6 +22,7 @@ enum MENU_BUTTON_LAYOUT{
 
 @export var description_node : Node ## Description [Label] node reference
 
+@export var button_color : Color ## Selected button color
 @export var glow_color : Color ## Selected button color
 
 @export_multiline var description : String = "" ## Description shown when button is selected
@@ -55,6 +56,7 @@ func _ready() -> void:
 
 func _process(_delta : float) -> void:
 	$Label.text = text
+	$Back.color = button_color
 
 
 ## Called when this button is selected

@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://dgn3wr1qc7i8g"]
+[gd_scene load_steps=16 format=3 uid="uid://dgn3wr1qc7i8g"]
 
 [ext_resource type="Script" uid="uid://dasr8y2182jhu" path="res://scripts/menu/objects/menu_button.gd" id="1"]
-[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2"]
+[ext_resource type="Texture2D" uid="uid://86hnafk4u074" path="res://images/menu/button_frame.png" id="2_4e0yl"]
+[ext_resource type="FontFile" uid="uid://dt3wklowvtvnc" path="res://fonts/ST-SimpleSquare.otf" id="3_4e0yl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8l7qj"]
 
@@ -26,18 +27,17 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e1awa"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tmjmv"]
-font = ExtResource("2")
-font_size = 10
-font_color = Color(0, 0, 0, 1)
+font = ExtResource("3_4e0yl")
+font_size = 12
+font_color = Color(0.945312, 0.945312, 0.945312, 1)
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_offset = Vector2(0, 1.5)
 
 [node name="Button" type="Button"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(32, 24)
-anchors_preset = -1
-offset_right = 148.0
-offset_bottom = 23.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 87.0
+offset_bottom = 24.0
 focus_mode = 0
 theme_override_font_sizes/font_size = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_8l7qj")
@@ -53,18 +53,23 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_o8ou2")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_e1awa")
 text = "yo"
 script = ExtResource("1")
-description = "write something here"
 button_color = Color(0.984314, 0.2, 0.2, 1)
 
-[node name="Back" type="ColorRect" parent="."]
+[node name="Back" type="NinePatchRect" parent="."]
+self_modulate = Color(0.984314, 0.2, 0.2, 1)
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-color = Color(0.984314, 0.2, 0.2, 1)
+texture = ExtResource("2_4e0yl")
+region_rect = Rect2(4, 4, 56, 56)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
 
 [node name="Glow" type="ColorRect" parent="Back"]
 modulate = Color(1, 1, 1, 0)
@@ -77,26 +82,19 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Icon" type="TextureRect" parent="."]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 1
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 22.0
-offset_bottom = 21.0
-mouse_filter = 2
-expand_mode = 1
-stretch_mode = 5
-
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
-offset_left = 26.0
-offset_top = 4.5
-offset_right = 57.0
-offset_bottom = 20.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 3.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "yo"
 label_settings = SubResource("LabelSettings_tmjmv")
+horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true

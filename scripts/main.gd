@@ -4,8 +4,8 @@ class_name Main
 
 enum INPUT_MODE {KEYBOARD, MOUSE, GAMEPAD}
 
-const VERSION : String = "0.1" ## Current game version
-const BUILD : String = "14.09.2025" ## Latest build date
+const VERSION : String = "1.0" ## Current game version
+const BUILD : String = "18.09.2025" ## Latest build date
 
 const SCREENSHOTS_PATH : String = "screenshots/" ## Path to the game screenshots folder
 const LOGS_PATH : String = "logs/" ## Path to the game logs folder
@@ -23,7 +23,7 @@ static var game : Game ## Game instance
 static var current_input_mode : int = INPUT_MODE.KEYBOARD ## Current input device
 
 @onready var darken : ColorRect = $Darken ## Dark overlay node used to cover everything
-@onready var loading_screen : LoadingScreen = null ## Loading screen overlay node used to cover everything
+@onready var loading_screen : LoadingScreen = $Loading ## Loading screen overlay node used to cover everything
 
 @export var skip_intro : bool = false ## If true, game skips straight into main menu screen
 
@@ -39,9 +39,7 @@ func _ready() -> void:
 	$TotalTime.start(1.0)
 	
 	darken.modulate.a = 0.0
-	return
-	
-	loading_screen._load()
+	loading_screen.modulate.a = 0.0
 	
 	menu = Menu.new()
 	menu.main = self
@@ -79,8 +77,7 @@ func _parse_start_arguments() -> Dictionary:
 func _reset() -> void:
 	if game != null: game.queue_free()
 	
-	Player._load_global_settings()
-	Player._load_latest_profile()
+	Player._load_profile()
 	
 	if skip_intro : menu._boot("main_menu")
 	else : menu._boot()
@@ -177,12 +174,8 @@ func _toggle_darken(on : bool) -> void:
 
 ## Toggles loading screen
 func _toggle_loading(on : bool) -> void:
-	loading_screen._toggle_loading(on)
-
-
-## Sets loading screen message type to one from [LoadingScreen.LOADING_STATUS]
-func _set_loading_message(message_type : int) -> void:
-	loading_screen._set_message(message_type)
+	if on: loading_screen._play()
+	else: loading_screen.stop()
 
 
 func _notification(what : int) -> void:

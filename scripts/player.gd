@@ -105,18 +105,15 @@ var vault_key : String = "0451"
 ## All player statistics
 var stats : Dictionary[String, int] = {
 	# Game general
-	"total_time" : 0,
 	"total_play_time" : 0,
 	"total_score" : 0,
 	"total_lines" : 0,
 	"total_tetrises" : 0,
+	"total_all_clears" : 0,
 	"total_pieces_landed" : 0,
-	"total_pieces_holded" : 0,
-	"top_score_in_marathon" : 0,
-	"top_level_in_marathon" : 0,
-	"top_time_in_marathon" : 0,
-	"top_time_in_ta" : 0,
+	"total_holds" : 0,
 	"top_score_gain" : 0,
+	"pieces_per_second" : 0,
 }
 
 ## Loads profile

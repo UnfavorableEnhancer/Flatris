@@ -1,30 +1,70 @@
-[gd_scene load_steps=5 format=3 uid="uid://de6suo666kuir"]
+[gd_scene load_steps=16 format=3 uid="uid://de6suo666kuir"]
 
 [ext_resource type="Script" uid="uid://dweb03oa63c2m" path="res://scripts/menu/objects/regular_button.gd" id="1"]
-[ext_resource type="FontFile" uid="uid://c2jju53sahmwr" path="res://fonts/lumifont.ttf" id="2"]
+[ext_resource type="FontFile" uid="uid://cklk4kjp10w3h" path="res://fonts/visitor1.ttf" id="1_aslqg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m8uod"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_360yn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0n8rh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wunoi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1lwc1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wm5si"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ce7ew"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5n5db"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3ge34"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rjdva"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jpkf3"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0epxn"]
 blend_mode = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_5paec"]
-font = ExtResource("2")
-font_size = 9
+font = ExtResource("1_aslqg")
+font_size = 11
 
 [node name="Button" type="Button"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(32, 16)
-offset_right = 160.0
+offset_right = 112.0
 offset_bottom = 16.0
 focus_mode = 0
+theme_override_fonts/font = ExtResource("1_aslqg")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m8uod")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_360yn")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0n8rh")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_wunoi")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_1lwc1")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_wm5si")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ce7ew")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_5n5db")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_3ge34")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_rjdva")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jpkf3")
+text = "sda"
+clip_text = true
 script = ExtResource("1")
+button_color = Color(0.21875, 0.21875, 0.21875, 1)
 glow_color = Color(0.12549, 0.623529, 0.701961, 1)
 
 [node name="Back" type="ColorRect" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-color = Color(0.235, 0.235, 0.235, 0.75)
+color = Color(0.21875, 0.21875, 0.21875, 1)
 
 [node name="Glow" type="ColorRect" parent="Back"]
 modulate = Color(1, 1, 1, 0)
@@ -51,8 +91,9 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-text = "sss"
+text = "sda"
 label_settings = SubResource("LabelSettings_5paec")
+horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 3
 uppercase = true
