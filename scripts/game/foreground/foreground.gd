@@ -133,6 +133,10 @@ func _update_hold(piece_in_hold : int) -> void:
 ## Updates damage indicator
 func _set_damage(number : int) -> void:
 	if is_instance_valid(damage_tween) : damage_tween.kill()
+	if number > 20 : number = 20
+	
+	$Damage/Bar.value = DAMAGE_VALUES[number]
 	damage_tween = create_tween()
-	damage_tween.tween_property($Damage/Bar, "value", DAMAGE_VALUES[number], DAMAGE_GROW_SPEED).from(DAMAGE_VALUES[damage]).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	damage_tween.tween_property($Damage/Bar, "tint_progress", Color.RED, 0.1)
+	damage_tween.tween_property($Damage/Bar, "tint_progress", Color.WHITE, 0.1)
 	damage = number

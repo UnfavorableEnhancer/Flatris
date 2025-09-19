@@ -2,9 +2,29 @@ extends Node3D
 
 class_name Game
 
+## All avaiable background themes to load
+enum THEME {A, B, C}
+
 ## All avaiable to play sounds
 const SOUNDS : Dictionary[String, AudioStream] = {
-	
+	"move" : preload("res://sfx/game/move.wav"),
+	"piece_drop" : preload("res://sfx/game/piece_drop2.wav"),
+	"rotate" : preload("res://sfx/game/rotate.wav"),
+	"line_clear1" : preload("res://sfx/game/line_clear1.wav"),
+	"line_clear2" : preload("res://sfx/game/line_clear2.wav"),
+	"line_clear3" : preload("res://sfx/game/line_clear3.wav"),
+	"line_clear4" : preload("res://sfx/game/line_clear4.wav"),
+	"line_clear5" : preload("res://sfx/game/line_clear5.wav"),
+	"line_clear6" : preload("res://sfx/game/line_clear6.wav"),
+	"line_clear7" : preload("res://sfx/game/line_clear7.wav"),
+	"line_clear8" : preload("res://sfx/game/line_clear8.wav"),
+	"line_clear9" : preload("res://sfx/game/line_clear9.wav"),
+	"line_clear10" : preload("res://sfx/game/line_clear10.wav"),
+	"damage" : preload("res://sfx/game/damage.wav"),
+	"all_clear" : preload("res://sfx/game/all_clear.wav"),
+	"reverse" : preload("res://sfx/game/charge.wav"),
+	"game_over" : preload("res://sfx/game/game_over.wav"),
+	"game_over2" : preload("res://sfx/game/game_over2.wav"),
 }
 
 const TICK : float = 1 / 60.0 ## Single game physics tick
@@ -22,14 +42,12 @@ var menu_screen_to_return_name : String = "main_menu" ## Name of the menu screen
 var pause_screen_name : String = "playlist_mode_pause" ## Name of the menu screen created on game pause
 var game_over_screen_name : String = "playlist_mode_gameover" ## Name of the menu screen created on game over
 
-var is_physics_active : bool = true ## If true, game ticks are processed by engine physics thread
+var is_physics_active : bool = false ## If true, game ticks are processed by engine physics thread
 var is_resetting : bool = false ## If true, game is currently resetting
 var is_paused : bool = false ## If true, the game is paused and nothing happens
 var is_game_over : bool = false ## If true, the game is over and needs restart
 
 var gamemode : Gamemode = null ## Current gamemode, defines game rules and goals
-
-var rng : RandomNumberGenerator = RandomNumberGenerator.new() ## Used to generate randomized pieces and other events with defined seed
 
 var background_to_load : String = "THEME_A" ## What background to load at game start
 var background = null ## Contains fancy visuals and music
@@ -53,6 +71,7 @@ func _ready() -> void:
 	gamemode.main = main
 	
 	gamefield.gamemode = gamemode
+	gamefield.game = self
 	gamefield._render_matrix()
 	
 	add_child(gamemode)
@@ -69,7 +88,10 @@ func _reset() -> void:
 	is_resetting = true
 	
 	main._toggle_darken(true)
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(0.5).timeout
+	
+	gamefield.piece_queue._clear()
+	gamefield.piece_queue._shuffle()
 	
 	is_physics_active = false
 	
@@ -84,6 +106,7 @@ func _reset() -> void:
 	_pause(false, false)
 	
 	main._toggle_darken(false)
+	main._toggle_loading(false)
 	await get_tree().create_timer(0.5).timeout
 	
 	reset_ended.emit()

@@ -11,9 +11,6 @@ func _ready() -> void:
 	parent_menu.screens["foreground"].visible = false
 	$Version.text = "Version " + Main.VERSION + "\nBuild " + Main.BUILD
 	
-	main.input_method_changed.connect(_label)
-	_label()
-	
 	var loop_tween : Tween = create_tween().set_loops(0)
 	loop_tween.tween_property($Press, "self_modulate:a", 0.0, 0.25)
 	loop_tween.tween_property($Press, "self_modulate:a", 1.0, 0.25)
@@ -24,39 +21,41 @@ func _ready() -> void:
 	var letter : String = letters.pick_random()
 	letters.erase(letter)
 	tween.tween_property(get_node("Logo/" + letter), "position:y", -8.0, 1.0).from(-500.0)
+	tween.tween_callback(parent_menu._play_sound.bind("intro_drop"))
 	
 	letter = letters.pick_random()
 	letters.erase(letter)
 	tween.tween_property(get_node("Logo/" + letter), "position:y", -8.0, 0.75).from(-500.0)
+	tween.tween_callback(parent_menu._play_sound.bind("intro_drop"))
 	
 	letter = letters.pick_random()
 	letters.erase(letter)
 	tween.tween_property(get_node("Logo/" + letter), "position:y", -8.0, 0.5).from(-500.0)
+	tween.tween_callback(parent_menu._play_sound.bind("intro_drop"))
 	
 	letter = letters.pick_random()
 	letters.erase(letter)
 	tween.tween_property(get_node("Logo/" + letter), "position:y", -8.0, 0.35).from(-500.0)
+	tween.tween_callback(parent_menu._play_sound.bind("intro_drop"))
 	
 	letter = letters.pick_random()
 	letters.erase(letter)
 	tween.tween_property(get_node("Logo/" + letter), "position:y", -8.0, 0.2).from(-500.0)
+	tween.tween_callback(parent_menu._play_sound.bind("intro_drop"))
 	
 	letter = letters.pick_random()
 	letters.erase(letter)
 	tween.tween_property(get_node("Logo/" + letter), "position:y", -8.0, 0.1).from(-500.0)
+	tween.tween_callback(parent_menu._play_sound.bind("intro_drop"))
 	
 	letter = letters.pick_random()
 	letters.erase(letter)
 	tween.tween_property(get_node("Logo/" + letter), "position:y", -8.0, 0.05).from(-500.0)
+	tween.tween_callback(parent_menu._play_sound.bind("intro_drop"))
+	tween.tween_callback(parent_menu._play_sound.bind("enter"))
 	
 	await get_tree().create_timer(4.0).timeout
 	is_exiting = false
-
-
-## Sets start game label depending on current input type
-func _label() -> void:
-	if main.current_input_mode == Main.INPUT_MODE.GAMEPAD: $Press.text = tr("PRESS_START")
-	else: $Press.text = tr("PRESS_ENTER")
 
 
 func _input(event : InputEvent) -> void:
@@ -65,7 +64,7 @@ func _input(event : InputEvent) -> void:
 		if event.is_action_pressed("ui_enter"):
 			is_exiting = true 
 			
-			parent_menu._play_sound("enter")
+			parent_menu._play_sound("start")
 			parent_menu._change_screen("main_menu")
 	
 	# Exit the game

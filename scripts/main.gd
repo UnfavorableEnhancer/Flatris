@@ -26,6 +26,7 @@ static var current_input_mode : int = INPUT_MODE.KEYBOARD ## Current input devic
 @onready var loading_screen : LoadingScreen = $Loading ## Loading screen overlay node used to cover everything
 
 @export var skip_intro : bool = false ## If true, game skips straight into main menu screen
+@export var game_test : bool = false ## If true, game skips straight into marathon game with debug ruleset
 
 
 ## Called on boot
@@ -50,7 +51,8 @@ func _ready() -> void:
 	var start_arguments : Dictionary = _parse_start_arguments()
 	if start_arguments.has("skip_intro") : skip_intro = start_arguments["skip_intro"].is_empty()
 	
-	_reset()
+	if game_test : _start_game(MarathonMode.new())
+	else : _reset()
 
 
 ## Creates all nessesarry for the game dirs
@@ -86,13 +88,11 @@ func _reset() -> void:
 ## Starts the game with passed gamemode
 func _start_game(gamemode : Gamemode) -> void:
 	_toggle_darken(true)
-	_toggle_loading(true)
-
+	
 	menu._exit()
 	await get_tree().create_timer(1.0).timeout
-
-	if menu.currently_removing_screens_amount > 0:
-		await menu.all_screens_removed
+	_toggle_loading(true)
+	await get_tree().create_timer(2.0).timeout
 
 	game = GAME_SCENE.instantiate()
 	game.gamemode = gamemode
@@ -168,14 +168,15 @@ static func _to_time(seconds : int) -> String:
 
 ## Sets dark overlay opacity
 func _toggle_darken(on : bool) -> void:
-	if on : create_tween().tween_property(darken, "modulate:a", 1.0, 0.5)
-	else : create_tween().tween_property(darken, "modulate:a", 0.0, 0.5)
+	var tween : Tween = create_tween()
+	if on : tween.tween_property(darken, "modulate:a", 1.0, 1.0)
+	else : tween.tween_property(darken, "modulate:a", 0.0, 1.0)
 
 
 ## Toggles loading screen
 func _toggle_loading(on : bool) -> void:
 	if on: loading_screen._play()
-	else: loading_screen.stop()
+	else: loading_screen._stop()
 
 
 func _notification(what : int) -> void:
@@ -186,7 +187,6 @@ func _notification(what : int) -> void:
 ## Finishes all processes, saves all nessesary things and closes the game[br]
 ## If [b]'quick'[/b] is true closes game immidiately, without blackout animation
 func _exit(quick : bool = false) -> void:
-	Player._save_global_settings()
 	Player._save_profile()
 	
 	if not quick:

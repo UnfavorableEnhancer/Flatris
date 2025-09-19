@@ -4,15 +4,14 @@ class_name MarathonMode
 
 ## What levels player must reach to get certain rank
 enum RANKINGS  {
-	E = 1,
-	D = 2,
-	C = 5,
-	B = 10,
-	A = 15,
-	S = 20,
-	SX = 30,
-	M = 50,
-	GM = 100
+	E = 1, # Eeh..
+	D = 2, # Damn
+	C = 5, # Cool
+	B = 10, # Banger
+	A = 15, # Awesome
+	S = 20, # Super
+	X = 30, # Excellent!
+	M = 50 # Master
 }
 
 ## All values inside LEVEL_SPEED arrays
@@ -90,6 +89,7 @@ func _on_lines_deleted(amount : int) -> void:
 	# All clear bonus
 	if gamefield.matrix.is_empty():
 		score += 10000 * level
+		game._add_sound("all_clear")
 	else:
 		match amount:
 			1 : score += 100 * level
@@ -105,10 +105,10 @@ func _on_lines_deleted(amount : int) -> void:
 	next_level_req -= amount
 	if next_level_req <= 0 : _level_up()
 	
-	current_damage_recovery -= lines
-	if current_damage_recovery <= 0:
-		current_damage_recovery = damage_recovery
-		if damage > 0:
+	if damage > 0:
+		current_damage_recovery -= amount
+		if current_damage_recovery <= 0:
+			current_damage_recovery = damage_recovery
 			last_chance = false
 			damage -= 1
 			foreground._set_damage(damage)
@@ -119,8 +119,10 @@ func _on_lines_deleted(amount : int) -> void:
 
 ## Called when block tries to spawn in existing one
 func _on_block_overlap() -> void:
-	damage += damage_per_block
-	foreground._set_damage(damage)
+	game._add_sound("damage")
+	
+	damage += 1
+	foreground._set_damage(int(20 * (damage / float(max_damage))))
 	
 	if last_chance : game._game_over()
 	if damage >= max_damage : last_chance = true

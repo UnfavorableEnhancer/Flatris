@@ -52,32 +52,30 @@ func _ready() -> void:
 		current_description = description
 
 	$Label.text = tr(text)
+	$Back.color = button_color
 
 
 func _process(_delta : float) -> void:
 	$Label.text = text
-	$Back.color = button_color
 
 
 ## Called when this button is selected
 func _selected() -> void:
 	parent_menu._play_sound("select")
 
-	var foreground_screen : MenuScreen = parent_menu.screens["foreground"]
-	if is_instance_valid(foreground_screen):
-		foreground_screen._show_button_layout(button_layout)
+	if is_instance_valid(parent_menu.foreground):
+		parent_menu.foreground._show_button_layout(button_layout)
 	
 	if not description_node == null:
 		description_node.text = tr(current_description)
 	
 	$Back.color = glow_color
-	$Back.color.a = 0.75
 	create_tween().tween_property($Back/Glow,"modulate:a",0.0,0.2).from(0.5)
 
 
 ## Called when this button is deselected
 func _deselected() -> void:
-	$Back.color = Color(0.24,0.24,0.24,0.75)
+	$Back.color = button_color
 
 
 ## Called when button is pressed [br]

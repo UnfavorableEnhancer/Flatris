@@ -2,6 +2,8 @@ extends Node3D
 
 class_name Gamefield
 
+enum GRAVITY_SIDE {UP, DOWN, LEFT, RIGHT}
+
 const FIELD_CELL_SIZE : float = 32.0 ## Size of single block cell in pixels
 
 const HEIGTH_FIELD_CELL_SIZE : float = 16.0 ## Heigth of single heigth ghost cell in pixels
@@ -14,8 +16,10 @@ const BLOCK_MARGIN : float = 1.6 ## Distance between blocks in X and Y axis in m
 const BLOCK_Z_MARGIN : float = 0.8 ## Distance between blocks in Z axis in meters
 
 signal block_overlap ## Emitted when some block landed onto existing one
+signal block_deleted(coords : Vector2i) ## Emitted when some block was deleted
 signal lines_cleared(amount : int) ## Emitted when lines were cleared
 
+var game : Game = null ## Parent game reference
 var gamemode : Gamemode = null ## Gamemode reference
 
 var current_appearance_delay : float = 60 ## Current amount of frames left before giving next piece from queue
@@ -29,6 +33,8 @@ var ghosts : Array = [] ## Array of currently shown ghosts
 var height_ghosts : Dictionary[Vector2i, HeightGhost] = {} ## Dictionary of currently shown height ghosts
 
 var scanned_blocks_positions : Array[Vector2i] = [] ## Positions of blocks which passed line check and which must be deleted after appearance_delay passes
+var scanned_rows : Array[int] = [] ## Rows which got lines
+var scanned_columns : Array[int] = [] ## Columns which got lines
 
 var piece : Piece = null
 var has_swapped_hold : bool = false
@@ -36,6 +42,10 @@ var has_swapped_hold : bool = false
 @onready var piece_queue : PieceQueue = $PieceQueue
 @onready var blocks_node : Node3D = $Blocks
 @onready var ghosts_node : Node3D = $Ghosts
+
+
+func _ready() -> void:
+	piece_queue.gamefield = self
 
 
 ## Sets gamefield visual size to match current matrix size
@@ -77,16 +87,26 @@ func _clear_matrix() -> void:
 
 
 ## Places block onto matrix 
-func _place_block(to_position : Vector2i, color : int) -> void:
+func _place_block(to_position : Vector2i, cheese : bool = false) -> void:
 	if matrix.has(to_position):
+		matrix[to_position]._flash_red()
 		block_overlap.emit()
 		return
 	
-	var block : Block = Block.new(Block.TYPE.PLACED, color)
+	var block : Block
+	if cheese : block = Block.new(Block.TYPE.CHEESE)
+	else : block = Block.new(Block.TYPE.PLACED)
 	block.position = Vector3(to_position.x * BLOCK_MARGIN, 0.0, to_position.y * BLOCK_MARGIN) + field_offset
 	matrix[to_position] = block
 	blocks_node.add_child(block)
 	block._flash()
+
+
+## Removes block from matrix 
+func _remove_block(from_position : Vector2i) -> void:
+	if matrix.has(from_position):
+		matrix[from_position].queue_free()
+		matrix.erase(from_position)
 
 
 ## Removes all scanned by line check blocks
@@ -94,6 +114,7 @@ func _remove_scanned_blocks() -> void:
 	for pos : Vector2i in scanned_blocks_positions:
 		if not matrix.has(pos) : continue
 		matrix[pos].queue_free()
+		block_deleted.emit(pos)
 		matrix.erase(pos)
 
 
@@ -105,6 +126,7 @@ func _physics() -> void:
 		current_appearance_delay -= 1
 		if current_appearance_delay <= 0:
 			_remove_scanned_blocks()
+			_gravity_pull()
 			_give_next_piece() 
 		return
 	
@@ -119,6 +141,63 @@ func _physics() -> void:
 	
 	if _line_check() : current_appearance_delay += gamemode.line_clear_delay
 	current_appearance_delay += gamemode.appearance_delay
+
+
+## Pulls all blocks from 4 sides into center, filling empty space left by cleared lines
+func _gravity_pull() -> void:
+	var new_matrix : Dictionary[Vector2i, Block]
+	var move_amount : Array = []
+	move_amount.resize(gamemode.field_size.y)
+	move_amount.fill(0)
+	
+	for y in scanned_rows:
+		if y > field_center.y:
+			for dy in range(y, gamemode.field_size.y):
+				move_amount[dy] += 1
+		else:
+			for dy in range(y, -1, -1):
+				move_amount[dy] += 1
+	
+	for x in gamemode.field_size.x:
+		for y in range(field_center.y, -1 , -1):
+			if matrix.has(Vector2i(x,y)):
+				var block : Block = matrix[Vector2i(x,y)]
+				block.position.z += move_amount[y] * BLOCK_MARGIN
+				new_matrix[Vector2i(x, y + move_amount[y])] = block
+		for y in range(field_center.y+1, gamemode.field_size.y):
+			if matrix.has(Vector2i(x,y)):
+				var block : Block = matrix[Vector2i(x,y)]
+				block.position.z -= move_amount[y] * BLOCK_MARGIN
+				new_matrix[Vector2i(x, y - move_amount[y])] = block
+	
+	matrix = new_matrix.duplicate(true)
+	new_matrix.clear()
+	move_amount.resize(gamemode.field_size.x)
+	move_amount.fill(0)
+	
+	for x in scanned_columns:
+		if x > field_center.x:
+			for dx in range(x, gamemode.field_size.x):
+				move_amount[dx] += 1
+		else:
+			for dx in range(x, -1, -1):
+				move_amount[dx] += 1
+	
+	for y in gamemode.field_size.y:
+		for x in range(field_center.x, -1 , -1):
+			if matrix.has(Vector2i(x,y)):
+				var block : Block = matrix[Vector2i(x,y)]
+				block.position.x += move_amount[x] * BLOCK_MARGIN
+				new_matrix[Vector2i(x + move_amount[x], y)] = block
+		for x in range(field_center.x+1, gamemode.field_size.x):
+			if matrix.has(Vector2i(x,y)):
+				var block : Block = matrix[Vector2i(x,y)]
+				block.position.x -= move_amount[x] * BLOCK_MARGIN
+				new_matrix[Vector2i(x - move_amount[x], y)] = block
+	
+	matrix = new_matrix.duplicate(true)
+	scanned_rows.clear()
+	scanned_columns.clear()
 
 
 ## Checks full blocks lines and erases them if found
@@ -137,6 +216,7 @@ func _line_check() -> bool:
 				scanned_blocks_positions.append(pos)
 			
 			erased_lines_amount += 1
+			scanned_rows.append(y)
 	
 	for x in gamemode.field_size.x:
 		var current_line_blocks_positions : Array[Vector2i] = []
@@ -149,8 +229,12 @@ func _line_check() -> bool:
 				scanned_blocks_positions.append(pos)
 			
 			erased_lines_amount += 1
+			scanned_columns.append(x)
 	
-	if erased_lines_amount > 0 : lines_cleared.emit(erased_lines_amount)
+	if erased_lines_amount > 0 : 
+		lines_cleared.emit(erased_lines_amount)
+		game._add_sound("line_clear" + str(clampi(erased_lines_amount, 1, 10)))
+	
 	return erased_lines_amount > 0
 
 
@@ -188,10 +272,10 @@ func _clear_ghosts() -> void:
 
 
 ## Places ghost block onto matrix. If there's some block, puts ghost on top of block
-func _place_ghost(to_position : Vector2i) -> void:
-	var ghost_block : Block = Block.new(Block.TYPE.GHOST, 0)
-	ghost_block.position = Vector3(to_position.x * BLOCK_MARGIN, 0.0, to_position.y * BLOCK_MARGIN) + field_offset
-	ghosts.append(ghost_block)
+func _place_ghost(to_position : Vector2i, permanent : bool = false) -> void:
+	var ghost_block : Block = Block.new(Block.TYPE.GHOST)
+	ghost_block.position = Vector3(to_position.x * BLOCK_MARGIN, 0.01, to_position.y * BLOCK_MARGIN) + field_offset
+	if not permanent : ghosts.append(ghost_block)
 	ghosts_node.add_child(ghost_block)
 
 

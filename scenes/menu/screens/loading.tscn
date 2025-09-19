@@ -83,6 +83,7 @@ offset_left = 232.0
 offset_top = 104.0
 offset_right = 408.0
 offset_bottom = 248.0
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Progress" type="Label" parent="."]
@@ -105,6 +106,7 @@ offset_top = 120.0
 offset_right = 360.0
 offset_bottom = 200.0
 pivot_offset = Vector2(40, 40)
+mouse_filter = 2
 texture = ExtResource("1")
 expand_mode = 1
 stretch_mode = 4

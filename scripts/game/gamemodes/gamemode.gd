@@ -7,8 +7,8 @@ enum RULESET {
 	STANDARD, # 10x10 field size, 1 damage per block, 15 piece regen
 	HARD, # 9x9 field size, 2 damage per block, 5 piece regen, extended queue
 	EXTREME, # 8x8 field size, instant death, extended queue
-	ZONE, # 9x9 field size, 2 damage per block, 10 piece regen, extended queue, zone mode
 	REVERSI, # 10x10 field size, 2 damage per block, 10 piece regen, extended queue, reverse mode
+	ZONE, # 9x9 field size, 2 damage per block, 10 piece regen, extended queue, zone mode
 	CUSTOM,
 	DEBUG # Test ruleset
 }
@@ -23,6 +23,8 @@ var foreground : Foreground ## Foreground instance
 var gamemode_name : String = "" ## Name of the gamemode
 var ruleset : int = RULESET.DEBUG ## Selected ruleset
 
+var rng : RandomNumberGenerator = RandomNumberGenerator.new() ## Used to generate randomized pieces and other events with defined seed
+
 var time_timer : Timer = null ## Timer which counts current game time
 
 var field_size : Vector3i = Vector3i(10,10,10) ## Size of the game field. X and Y are 2D coordinates and Z is height value
@@ -33,14 +35,11 @@ var reversi_mode : bool = false ## If true game field will reverse after some am
 var death_mode : bool = false ## If true piece landing on block always leads to instant game over
 
 var extended_piece_queue : bool = false ## If true piece queue will use few more non traditional pieces
-var block_gravity : bool = false ## If true all blocks above erased move one cell down
-var piece_at_top : bool = false ## If true piece will always spawn on top like in classic tetris
 
 var max_damage : int = 20 ## Amount of damage which player can take before game over
-var damage_per_block : int = 1 ## Amount of damage dealt per misplaced block
 var last_chance : bool = false ## True if damage reached the max and player has one more chance to avoid putting blocks
 var damage_recovery : int = 10 ## Amount of pieces which must be dropped perfectly to reduce damage by one
-var current_damage_recovery : int = damage_recovery ## Current amount of pieces which must be dropped perfectly to reduce damage by one
+var current_damage_recovery : int = 10 ## Current amount of pieces which must be dropped perfectly to reduce damage by one
 
 var damage : int = 0 ## Total taken damage
 var time : int = 0 ## Total game time
@@ -64,6 +63,7 @@ func _ready() -> void:
 	
 	gamefield.lines_cleared.connect(_on_lines_deleted)
 	gamefield.block_overlap.connect(_on_block_overlap)
+	gamefield.block_deleted.connect(_on_block_deleted)
 	gamefield.piece_queue.hold_updated.connect(foreground._update_hold)
 	gamefield.piece_queue.queue_updated.connect(foreground._update_queue)
 
@@ -77,10 +77,7 @@ func _set_ruleset(type : int) -> void:
 			reversi_mode = false
 			death_mode = false
 			extended_piece_queue = false
-			block_gravity = false
-			piece_at_top = false
 			max_damage = 20
-			damage_per_block = 1
 			damage_recovery = 10
 			
 		RULESET.HARD : 
@@ -90,49 +87,37 @@ func _set_ruleset(type : int) -> void:
 			reversi_mode = false
 			death_mode = false
 			extended_piece_queue = true
-			block_gravity = false
-			piece_at_top = false
 			max_damage = 20
-			damage_per_block = 2
 			damage_recovery = 5
 			
 		RULESET.EXTREME : 
-			field_size = Vector3i(9, 9, 10)
+			field_size = Vector3i(9, 9, 9)
 			dzen_mode = false
 			zone_mode = false
 			reversi_mode = false
 			death_mode = true
 			extended_piece_queue = true
-			block_gravity = false
-			piece_at_top = false
 			max_damage = 4
-			damage_per_block = 5
 			damage_recovery = 1
 			
 		RULESET.ZONE : 
-			field_size = Vector3i(9, 9, 8)
+			field_size = Vector3i(10, 10, 10)
 			dzen_mode = false
 			zone_mode = true
 			reversi_mode = false
 			death_mode = false
-			extended_piece_queue = true
-			block_gravity = false
-			piece_at_top = false
+			extended_piece_queue = false
 			max_damage = 20
-			damage_per_block = 2
 			damage_recovery = 10
 			
 		RULESET.REVERSI : 
-			field_size = Vector3i(10, 10, 10)
+			field_size = Vector3i(8, 8, 8)
 			dzen_mode = false
 			zone_mode = false
 			reversi_mode = true
 			death_mode = false
 			extended_piece_queue = true
-			block_gravity = false
-			piece_at_top = false
 			max_damage = 20
-			damage_per_block = 2
 			damage_recovery = 10
 			
 		RULESET.CUSTOM : 
@@ -142,10 +127,7 @@ func _set_ruleset(type : int) -> void:
 			reversi_mode = Player.config["reversi_mode"]
 			death_mode = Player.config["death_mode"]
 			extended_piece_queue = Player.config["extended_piece_queue"]
-			block_gravity = Player.config["block_gravity"]
-			piece_at_top = Player.config["piece_at_top"]
 			max_damage = Player.config["max_damage"]
-			damage_per_block = Player.config["damage_per_block"]
 			damage_recovery = Player.config["damage_recovery"]
 		
 		RULESET.DEBUG : 
@@ -155,11 +137,10 @@ func _set_ruleset(type : int) -> void:
 			reversi_mode = false
 			death_mode = false
 			extended_piece_queue = false
-			block_gravity = false
-			piece_at_top = false
 			max_damage = 20
-			damage_per_block = 1
 			damage_recovery = 10
+	
+	current_damage_recovery = damage_recovery
 
 
 ## Called when gamefield deletes lines
@@ -169,6 +150,11 @@ func _on_lines_deleted(_amount : int) -> void:
 
 ## Called when block tries to spawn in existing one
 func _on_block_overlap() -> void:
+	pass
+
+
+## Called when some block was deleted
+func _on_block_deleted(_at_position : Vector2i) -> void:
 	pass
 
 

@@ -31,6 +31,8 @@ blend_mode = 1
 [sub_resource type="LabelSettings" id="LabelSettings_5paec"]
 font = ExtResource("1_aslqg")
 font_size = 11
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.5)
 
 [node name="Button" type="Button"]
 self_modulate = Color(1, 1, 1, 0)

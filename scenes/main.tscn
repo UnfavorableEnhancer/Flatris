@@ -12,8 +12,12 @@ z_index = 1000
 z_as_relative = false
 offset_right = 640.0
 offset_bottom = 360.0
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Loading" parent="." instance=ExtResource("2_0wfyh")]
+z_index = 1500
+z_as_relative = false
+mouse_filter = 2
 
 [node name="TotalTime" type="Timer" parent="."]

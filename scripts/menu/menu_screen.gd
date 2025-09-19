@@ -17,8 +17,8 @@ signal cursor_selection_fail(cursor : Vector2, direction : int) ## Called on any
 enum CURSOR_DIRECTION {HERE,LEFT,RIGHT,UP,DOWN} ## Movement sides for cursor
 
 const CURSOR_DASH_DELAY : float = 0.2 ## How many seconds wait before cursor dash
-var BUTTON_SEARCH_RANGE : Array = [-2,-1,1,2] ## Range in which we try to find selectable [MenuSelectableButton]/[MenuSelectableSlider], when cursor fails to select one
-var BUTTON_SEARCH_DISTANCE : int = 5 ## Distance in which we try to find selectable [MenuSelectableButton]/[MenuSelectableSlider], when cursor fails to select one
+var BUTTON_SEARCH_RANGE : Array = [] ## Range in which we try to find selectable [MenuSelectableButton]/[MenuSelectableSlider], when cursor fails to select one
+var BUTTON_SEARCH_DISTANCE : int = 0 ## Distance in which we try to find selectable [MenuSelectableButton]/[MenuSelectableSlider], when cursor fails to select one
 
 var main : Main = null
 var parent_menu : Menu = null ## Parent [Menu] instance
@@ -72,6 +72,13 @@ func _set_selectable_position(selectable : Control, to_position : Vector2i) -> v
 	selectables[to_position] = selectable
 	
 	if selectable is MenuSelectableButton and selectable.is_cancel_button : cancel_cursor_pos = to_position
+
+
+func _remove_selectable_position(to_position : Vector2i) -> void:
+	if selectables.has(to_position):
+		if is_instance_valid(selectables[to_position]): 
+			selectables[to_position].menu_position = Vector2i(-1,-1)
+		selectables.erase(to_position)
 
 
 ## Moves cursor into **'direction'** and selects avaiable [MenuSelectableButton]/[MenuSelectableSlider][br]

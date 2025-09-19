@@ -60,9 +60,6 @@ var current_das_side : int = -1 ## Latest pressed direction where DAS will go
 var current_das_delay : float = 10 ## Current delay before DAS starts
 var current_das : float = 5 ## Button hold frames left before moving piece one cell
 
-var soft_drop : float = 5 ## How many physics ticks must pass before piece quickly falls one cell down
-var current_soft_drop : float = soft_drop
-
 var total_drop_delay : float = 30 ## Total added drop_delay amount
 var current_drop_delay : float = 30 ## How many physics ticks must pass before block finally lands
 
@@ -74,9 +71,13 @@ func _ready() -> void:
 	
 	for pos : Vector2i in PieceQueue.PIECES[piece_type]["positions"]:
 		var real_pos : Vector2i = pos + anchor
-		var block : Block = Block.new(Block.TYPE.PIECE, color)
+		var block : Block = Block.new(Block.TYPE.PIECE)
 		blocks[real_pos] = block
 		add_child(block)
+	
+	current_fall_delay = gamemode.fall_delay
+	current_das = gamemode.das
+	current_drop_delay = gamemode.min_drop_delay
 	
 	_update_blocks()
 
@@ -103,7 +104,6 @@ func _physics() -> void:
 	if (Input.is_action_just_pressed(&"rotate_right")) : _srs_rotate(ROTATE_DIRECTION.CLOCKWISE)
 	if (Input.is_action_just_pressed(&"hard_drop")) : _hard_drop()
 	
-	_process_soft_drop()
 	_process_das()
 	
 	if current_state == STATE.INSIDE_FIELD:
@@ -119,7 +119,7 @@ func _physics() -> void:
 			current_drop_delay = 999999999
 			_fall()
 	
-	elif current_state == STATE.FALLING and not Input.is_action_pressed(&"soft_drop"):
+	elif current_state == STATE.FALLING:
 		current_fall_delay -= 1
 		if (current_fall_delay <= 0) :
 			current_fall_delay = gamemode.fall_delay
@@ -160,26 +160,6 @@ func _hard_drop() -> void:
 				return
 	
 	_land()
-
-
-## Drops piece quicker
-func _process_soft_drop() -> void:
-	if (Input.is_action_pressed(&"soft_drop")):
-		if current_state == STATE.INSIDE_FIELD:
-			return
-		
-		if current_state == STATE.ON_BLOCKS_TOP:
-			for pos in blocks.keys():
-				if gamefield.matrix.has(pos):
-					current_soft_drop = soft_drop
-					return
-		
-		current_soft_drop -= 1
-		if (current_soft_drop <= 0):
-			_fall()
-			current_soft_drop = soft_drop
-	else:
-		current_soft_drop = soft_drop
 
 
 ## Moves piece quicker
@@ -232,6 +212,8 @@ func _move(side : int) -> bool:
 	
 	blocks = moved_blocks
 	_update_blocks()
+	
+	gamefield.game._add_sound("move")
 	return true
 
 
@@ -328,6 +310,7 @@ func _srs_rotate(side : int) -> void:
 	blocks = kicked_blocks
 	piece_rotation = new_rotation
 	_update_blocks()
+	gamefield.game._add_sound("rotate")
 	
 	if (current_state == STATE.ON_BLOCKS_TOP or current_state == STATE.INSIDE_FIELD) and total_drop_delay != gamemode.max_drop_delay: 
 		# This weird shit is needed in case amount of frames left to add before reaching max is less than frames increment
@@ -353,9 +336,10 @@ func _test_wallkick(test_blocks : Dictionary[Vector2i, Block], wallkick : Vector
 ## Stops piece movement and asks gamefield to spawn blocks, then deletes this piece
 func _land() -> void:
 	gamefield._clear_ghosts()
+	gamefield.game._add_sound("piece_drop")
 	
 	current_state = STATE.LANDED
 	for pos : Vector2i in blocks.keys():
-		gamefield._place_block(pos, color)
+		gamefield._place_block(pos)
 	
 	queue_free()

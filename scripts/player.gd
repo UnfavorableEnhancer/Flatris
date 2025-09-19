@@ -44,19 +44,19 @@ var config : Dictionary = {
 	"fullscreen" : false, # Press F1 to toggle
 	"max_fps" : 120, # FPS limit
 	"static_background" : false, # Disables background animation
-	"block_skin" : 0, # Selected blocks skin
+	"block_skin" : 0, # Selected block skin
+	"color_skin" : 0, # Selected color skin
+	"background_theme" : 0, # Selected background theme
 	
 	"save_score_online" : true, # If false, disables saving records to online ranking
 	
+	"ruleset" : Gamemode.RULESET.STANDARD,
 	"gamefield_size_x" : 10,
 	"gamefield_size_y" : 10,
 	"gamefield_size_z" : 10,
 	"max_damage" : 20, # Amount of damage player can take before game over
-	"damage_per_block" : 1, # Amount of damage dealt per misplaced block
 	"damage_recovery" : 10, # Amount of pieces which must be dropped perfectly to reduce damage by one
 	"extended_piece_queue" : false, # Adds some more pieces to the queue
-	"piece_at_top" : false, # Piece always spawns on top of the field
-	"block_gravity" : false, # Blocks move down after line clear
 	"zone_mode" : false, # Adds some delay before line clear allowing to add more lines
 	"dzen_mode" : false, # No gameover possible
 	"reversi_mode" : false, # After some pieces placed field inverts completely

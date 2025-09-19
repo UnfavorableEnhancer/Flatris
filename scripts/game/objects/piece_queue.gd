@@ -86,11 +86,12 @@ var gamefield : Gamefield = null ## Parent gamefield reference
 var queue : Array[int] = [] ## Current queue of pieces
 var hold : int = -1 ## Current piece in hold
 
-var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
-
-func _ready() -> void:
-	_shuffle()
+## Clears piece queue
+func _clear() -> void:
+	queue.clear()
+	hold = -1
+	hold_updated.emit(-1)
 
 
 ## Adds random pieces to the queue with 7-bag system
@@ -98,7 +99,7 @@ func _shuffle() -> void:
 	var raw_bag : Array = [0,1,2,3,4,5,6]
 	
 	while not raw_bag.is_empty():
-		var index = rng.randi_range(0, raw_bag.size() - 1)
+		var index = gamefield.gamemode.rng.randi_range(0, raw_bag.size() - 1)
 		queue.append(raw_bag[index])
 		raw_bag.remove_at(index)
 	

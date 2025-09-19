@@ -46,7 +46,14 @@ var loaded_music_data : Dictionary = {
 
 ## All avaiable system sounds (stored as loaded .mp3 or .ogg instances)
 var loaded_sounds_data : Dictionary = {
-	
+	"intro_drop" : load("res://sfx/menu/intro_drop.wav"),
+	"accept" : load("res://sfx/menu/accept.wav"),
+	"select" : load("res://sfx/menu/select.wav"),
+	"select_skin" : load("res://sfx/menu/skin_select.wav"),
+	"cancel" : load("res://sfx/menu/cancel.wav"),
+	"enter" : load("res://sfx/menu/start.wav"),
+	"start" : load("res://sfx/menu/start3.wav"),
+	"start2" : load("res://sfx/menu/start2.wav"),
 }
 
 var screens : Dictionary = {} ## All currently alive menu screens dictionary
@@ -146,7 +153,9 @@ func _add_screen(screen_name : String, screen_anim : String = "start") -> MenuSc
 	
 	add_child(new_screen)
 
-	move_child(foreground, get_child_count() - 1)
+	if foreground != null:
+		var count = clampi(get_child_count() - 1, 0, 99999999)
+		move_child(foreground, count)
 	
 	_process_added_screen(new_screen,screen_anim)
 	return new_screen
@@ -246,9 +255,13 @@ func _exit() -> void:
 	# Fade-out menu music
 	_change_music("nothing")
 	
-	for screen_name : String in screens.keys() : _remove_screen(screen_name)
+	for screen_name : String in screens.keys() : 
+		if screens[screen_name] == foreground or screens[screen_name] == background : continue
+		_remove_screen(screen_name)
 	
 	await all_screens_removed
+	foreground.visible = false
+	background.visible = false
 	is_locked = false
 
 
@@ -302,7 +315,7 @@ func _change_music(music_sample_name : String = "", change_speed : float = 1.0) 
 	if music_sample_name == "nothing":
 		return
 	
-	var music_sample : AudioStream = loaded_music_data[music_sample_name]
+	var music_sample : AudioStream = load(loaded_music_data[music_sample_name])
 	
 	var player : AudioStreamPlayer = AudioStreamPlayer.new()
 	player.volume_db = -40.0
