@@ -4,17 +4,17 @@ class_name PieceQueue
 
 ## All possible pieces types
 enum PIECE_TYPE {
-	O,
-	I,
-	T,
-	S,
-	Z,
-	L,
-	J,
-	BL,
-	BO,
-	BU,
-	CH,
+	O = 0,
+	I = 1,
+	T = 2,
+	S = 3,
+	Z = 4,
+	L = 5,
+	J = 6,
+	BL = 7,
+	BO = 8,
+	BU = 9,
+	CH = 10,
 }
 
 ## All possible pieces forms

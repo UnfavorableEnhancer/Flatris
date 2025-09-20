@@ -1,95 +1,83 @@
-[gd_scene load_steps=12 format=3 uid="uid://btid6tcaw73b5"]
+[gd_scene load_steps=19 format=3 uid="uid://dj1y14gepnbq6"]
 
-[ext_resource type="FontFile" uid="uid://cklk4kjp10w3h" path="res://fonts/visitor1.ttf" id="1_l0fvl"]
-[ext_resource type="Script" uid="uid://demctcae67pi" path="res://scripts/game/foreground/foreground.gd" id="1_u1a0d"]
-[ext_resource type="Texture2D" uid="uid://bq1fd24oc1ynh" path="res://images/game/foreground/frame.png" id="2_4j72y"]
-[ext_resource type="Texture2D" uid="uid://dydkhrto23hha" path="res://images/game/foreground/frame2.png" id="2_doqxf"]
-[ext_resource type="Texture2D" uid="uid://terwq3lor4vi" path="res://images/game/foreground/damage_bar.png" id="2_nxhxe"]
-[ext_resource type="Texture2D" uid="uid://cr1q0r0307rd2" path="res://images/game/foreground/damage_bar2.png" id="3_4j72y"]
-[ext_resource type="PackedScene" uid="uid://8b4jdguci2ja" path="res://scenes/game/piece_render.tscn" id="3_wythv"]
+[ext_resource type="Script" uid="uid://demctcae67pi" path="res://scripts/game/foreground/foreground.gd" id="1_l5ac2"]
+[ext_resource type="Texture2D" uid="uid://dydkhrto23hha" path="res://images/game/foreground/frame2.png" id="2_d3i6v"]
+[ext_resource type="FontFile" uid="uid://cklk4kjp10w3h" path="res://fonts/visitor1.ttf" id="3_5go48"]
+[ext_resource type="Texture2D" uid="uid://bq1fd24oc1ynh" path="res://images/game/foreground/frame.png" id="4_fa8ub"]
+[ext_resource type="Texture2D" uid="uid://dex00nx2ohnpd" path="res://images/game/pieces/I.png" id="5_iahkl"]
+[ext_resource type="Texture2D" uid="uid://d1hrw33x15qr" path="res://images/game/pieces/J.png" id="6_mvgrr"]
+[ext_resource type="Texture2D" uid="uid://terwq3lor4vi" path="res://images/game/foreground/damage_bar.png" id="6_wpy7r"]
+[ext_resource type="Texture2D" uid="uid://cebf3ckojm7c6" path="res://images/game/pieces/L.png" id="7_ar531"]
+[ext_resource type="Texture2D" uid="uid://cr1q0r0307rd2" path="res://images/game/foreground/damage_bar2.png" id="7_iahkl"]
+[ext_resource type="Texture2D" uid="uid://c0iurwb5v004p" path="res://images/game/pieces/O.png" id="8_o0t7v"]
+[ext_resource type="Texture2D" uid="uid://cpdabe5ph8ymc" path="res://images/game/pieces/S.png" id="9_31hbn"]
+[ext_resource type="Texture2D" uid="uid://dgccf23wi14dw" path="res://images/game/pieces/T.png" id="10_afiei"]
+[ext_resource type="Texture2D" uid="uid://btb32gi3sghof" path="res://images/game/pieces/Z.png" id="11_m0qwm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fvg74"]
-font = ExtResource("1_l0fvl")
+font = ExtResource("3_5go48")
 font_size = 18
 
-[sub_resource type="LabelSettings" id="LabelSettings_8ax86"]
-font = ExtResource("1_l0fvl")
-font_size = 12
+[sub_resource type="LabelSettings" id="LabelSettings_mvgrr"]
+font = ExtResource("3_5go48")
+font_size = 18
 
 [sub_resource type="LabelSettings" id="LabelSettings_nxhxe"]
-font = ExtResource("1_l0fvl")
+font = ExtResource("3_5go48")
 font_size = 12
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_bx46c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_o0t7v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_iahkl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_afiei")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_31hbn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_m0qwm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ar531")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_mvgrr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="LabelSettings" id="LabelSettings_doqxf"]
-font = ExtResource("1_l0fvl")
+font = ExtResource("3_5go48")
 font_size = 8
 
 [node name="Foreground" type="Control"]
+z_index = -1
+z_as_relative = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_u1a0d")
-
-[node name="Level" type="Control" parent="."]
-anchors_preset = 0
-offset_left = 118.0
-offset_top = 63.0
-offset_right = 190.0
-offset_bottom = 97.0
-
-[node name="Frame" type="TextureRect" parent="Level"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -4.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_doqxf")
-expand_mode = 1
-
-[node name="Text" type="Label" parent="Level"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -36.0
-offset_top = -14.0
-offset_right = 36.0
-offset_bottom = 8.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "LEVEL"
-label_settings = SubResource("LabelSettings_fvg74")
-horizontal_alignment = 1
-
-[node name="Num" type="Label" parent="Level"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -36.0
-offset_top = -2.0
-offset_right = 36.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "01"
-label_settings = SubResource("LabelSettings_fvg74")
-horizontal_alignment = 1
+script = ExtResource("1_l5ac2")
 
 [node name="Time" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 25.0
+offset_left = 96.0
 offset_top = 63.0
-offset_right = 97.0
+offset_right = 187.0
 offset_bottom = 97.0
 
 [node name="Frame" type="TextureRect" parent="Time"]
@@ -100,7 +88,7 @@ anchor_bottom = 1.0
 offset_right = 3.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_doqxf")
+texture = ExtResource("2_d3i6v")
 expand_mode = 1
 
 [node name="Text" type="Label" parent="Time"]
@@ -127,74 +115,37 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -34.0
+offset_left = -40.5
 offset_top = -2.0
-offset_right = 38.0
+offset_right = 8.5
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "00:00"
-label_settings = SubResource("LabelSettings_fvg74")
-horizontal_alignment = 1
+label_settings = SubResource("LabelSettings_mvgrr")
+horizontal_alignment = 2
 
-[node name="Score" type="Control" parent="."]
-anchors_preset = 0
-offset_left = 448.0
-offset_top = 63.0
-offset_right = 520.0
-offset_bottom = 97.0
-
-[node name="Frame" type="TextureRect" parent="Score"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_doqxf")
-expand_mode = 1
-
-[node name="Text" type="Label" parent="Score"]
+[node name="Num2" type="Label" parent="Time"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -33.0
-offset_top = -14.0
-offset_right = 39.0
-offset_bottom = 8.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "SCORE"
-label_settings = SubResource("LabelSettings_fvg74")
-horizontal_alignment = 1
-
-[node name="Num" type="Label" parent="Score"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -33.0
+offset_left = 7.5
 offset_top = -2.0
-offset_right = 39.0
-offset_bottom = 16.0
+offset_right = 48.5
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "000000000"
-label_settings = SubResource("LabelSettings_8ax86")
-horizontal_alignment = 1
-vertical_alignment = 1
+text = ".000"
+label_settings = SubResource("LabelSettings_mvgrr")
 
 [node name="Lines" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 540.0
+offset_left = 450.0
 offset_top = 63.0
-offset_right = 612.0
+offset_right = 541.0
 offset_bottom = 97.0
 
 [node name="Frame" type="TextureRect" parent="Lines"]
@@ -206,7 +157,7 @@ offset_left = -2.0
 offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_doqxf")
+texture = ExtResource("2_d3i6v")
 expand_mode = 1
 
 [node name="Text" type="Label" parent="Lines"]
@@ -239,7 +190,7 @@ offset_right = 38.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "0000"
+text = "00/40"
 label_settings = SubResource("LabelSettings_fvg74")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -264,16 +215,15 @@ horizontal_alignment = 1
 layout_mode = 0
 offset_right = 36.0
 offset_bottom = 36.0
-texture = ExtResource("2_4j72y")
+texture = ExtResource("4_fa8ub")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="PieceRender" parent="Hold" instance=ExtResource("3_wythv")]
-layout_mode = 1
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 34.0
-offset_bottom = 34.0
+[node name="Piece" type="AnimatedSprite2D" parent="Hold"]
+texture_filter = 1
+position = Vector2(18, 18)
+scale = Vector2(0.273438, 0.273438)
+sprite_frames = SubResource("SpriteFrames_bx46c")
 
 [node name="Damage" type="Control" parent="."]
 anchors_preset = 0
@@ -289,15 +239,15 @@ offset_bottom = 16.0
 max_value = 20.0
 step = 0.01
 nine_patch_stretch = true
-texture_under = ExtResource("2_nxhxe")
-texture_progress = ExtResource("3_4j72y")
+texture_under = ExtResource("6_wpy7r")
+texture_progress = ExtResource("7_iahkl")
 
 [node name="Texture" type="TextureRect" parent="Damage"]
 visible = false
 layout_mode = 0
 offset_right = 104.0
 offset_bottom = 16.0
-texture = ExtResource("2_nxhxe")
+texture = ExtResource("6_wpy7r")
 expand_mode = 1
 stretch_mode = 4
 
@@ -325,15 +275,15 @@ offset_bottom = 16.0
 max_value = 20.0
 step = 0.01
 nine_patch_stretch = true
-texture_under = ExtResource("2_nxhxe")
-texture_progress = ExtResource("3_4j72y")
+texture_under = ExtResource("6_wpy7r")
+texture_progress = ExtResource("7_iahkl")
 
 [node name="Texture" type="TextureRect" parent="Reversi"]
 visible = false
 layout_mode = 0
 offset_right = 104.0
 offset_bottom = 16.0
-texture = ExtResource("2_nxhxe")
+texture = ExtResource("6_wpy7r")
 expand_mode = 1
 stretch_mode = 4
 
@@ -368,7 +318,7 @@ layout_mode = 0
 offset_top = 4.0
 offset_right = 36.0
 offset_bottom = 40.0
-texture = ExtResource("2_4j72y")
+texture = ExtResource("4_fa8ub")
 expand_mode = 1
 stretch_mode = 4
 
@@ -378,7 +328,7 @@ offset_left = 43.0
 offset_top = 4.0
 offset_right = 79.0
 offset_bottom = 40.0
-texture = ExtResource("2_4j72y")
+texture = ExtResource("4_fa8ub")
 expand_mode = 1
 stretch_mode = 4
 
@@ -388,7 +338,7 @@ offset_left = 86.0
 offset_top = 4.0
 offset_right = 122.0
 offset_bottom = 40.0
-texture = ExtResource("2_4j72y")
+texture = ExtResource("4_fa8ub")
 expand_mode = 1
 stretch_mode = 4
 
@@ -398,37 +348,37 @@ offset_left = 129.0
 offset_top = 4.0
 offset_right = 165.0
 offset_bottom = 40.0
-texture = ExtResource("2_4j72y")
+texture = ExtResource("4_fa8ub")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="PieceRender1" parent="Next" instance=ExtResource("3_wythv")]
-layout_mode = 1
-offset_left = 2.0
-offset_top = 6.0
-offset_right = 34.0
-offset_bottom = 38.0
+[node name="Piece1" type="AnimatedSprite2D" parent="Next"]
+texture_filter = 1
+position = Vector2(18, 22)
+scale = Vector2(0.273438, 0.273438)
+sprite_frames = SubResource("SpriteFrames_bx46c")
+frame = 1
 
-[node name="PieceRender2" parent="Next" instance=ExtResource("3_wythv")]
-layout_mode = 1
-offset_left = 45.0
-offset_top = 6.0
-offset_right = 77.0
-offset_bottom = 38.0
+[node name="Piece2" type="AnimatedSprite2D" parent="Next"]
+texture_filter = 1
+position = Vector2(61, 22)
+scale = Vector2(0.273438, 0.273438)
+sprite_frames = SubResource("SpriteFrames_bx46c")
+frame = 1
 
-[node name="PieceRender3" parent="Next" instance=ExtResource("3_wythv")]
-layout_mode = 1
-offset_left = 88.0
-offset_top = 6.0
-offset_right = 120.0
-offset_bottom = 38.0
+[node name="Piece3" type="AnimatedSprite2D" parent="Next"]
+texture_filter = 1
+position = Vector2(104, 22)
+scale = Vector2(0.273438, 0.273438)
+sprite_frames = SubResource("SpriteFrames_bx46c")
+frame = 1
 
-[node name="PieceRender4" parent="Next" instance=ExtResource("3_wythv")]
-layout_mode = 1
-offset_left = 131.0
-offset_top = 6.0
-offset_right = 163.0
-offset_bottom = 38.0
+[node name="Piece4" type="AnimatedSprite2D" parent="Next"]
+texture_filter = 1
+position = Vector2(147, 22)
+scale = Vector2(0.273438, 0.273438)
+sprite_frames = SubResource("SpriteFrames_bx46c")
+frame = 1
 
 [node name="Delimiter" type="Control" parent="."]
 anchors_preset = 0

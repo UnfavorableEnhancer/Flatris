@@ -4,14 +4,13 @@ class_name TimeAttackMode
 
 ## What completion time player must reach to get certain rank
 enum RANKINGS  {
-	E = 600, # Eeh..
-	D = 300, # Damn
-	C = 180, # Cool
-	B = 120, # Banger
-	A = 90, # Awesome
-	S = 60, # Super
-	X = 45, # Excellent!
-	M = 30 # Master
+	D = 600000, # Damn
+	C = 300000, # Cool
+	B = 180000, # Banger
+	A = 120000, # Awesome
+	S = 90000, # Super
+	X = 60000, # Excellent!
+	M = 42000 # Master
 }
 
 ## All values inside LEVEL_SPEED arrays
@@ -36,10 +35,11 @@ const RULESET_SPEED : Dictionary = {
 	RULESET.DEBUG : [30, 20, 5, 10, 30, 120, 10, 50],
 }
 
-const LINES_AMOUNT : int = 40 ## Amount of lines required to delete to finish TA attempt
+const LINES_GOAL : int = 40 ## Amount of lines required to delete to finish TA attempt
 
 var lines : int = 0 ## Total amount of deleted lines
 var ta_start_ticks : int = 0 ## Ticks from which time attack started
+var ta_pause_ticks : int = 0 ## Ticks on which game was paused
 
 
 func _init() -> void:
@@ -48,7 +48,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	super()
-	game.reset_ended.connect(_start_countdown)
+	game.game_over_screen_name = "ta_game_over"
 
 
 func _set_ruleset(type : int) -> void:
@@ -64,32 +64,84 @@ func _set_ruleset(type : int) -> void:
 	line_clear_delay = RULESET_SPEED[type][LEVEL_ARRAY.LINE_CLEAR_DELAY]
 
 
-## Stores tick when TA started
-func _start_countdown() -> void:
+## Called on game reset
+func _reset() -> void:
+	super()
+	
+	lines = 0
+	foreground.lines_goal = LINES_GOAL
+	foreground._set_lines(0)
+
+
+## Called on game reset end
+func _on_reset_ended() -> void:
+	super()
+	
 	ta_start_ticks = Time.get_ticks_msec()
+
+
+func _process(_delta: float) -> void:
+	if ta_start_ticks > 0 and ta_pause_ticks == 0:
+		foreground._set_time_in_milliseconds(Time.get_ticks_msec() - ta_start_ticks)
+
+
+## Called on game pause
+func _pause(on : bool) -> void:
+	super(on)
+	if on : ta_pause_ticks = Time.get_ticks_msec()
+	else : 
+		ta_start_ticks += Time.get_ticks_msec() - ta_pause_ticks
+		ta_pause_ticks = 0
 
 
 ## Called when gamefield deletes lines
 func _on_lines_deleted(amount : int) -> void:
-	lines += amount
+	super(amount)
 	
-	current_damage_recovery -= lines
-	if current_damage_recovery <= 0:
-		current_damage_recovery = damage_recovery
-		if damage > 0:
-			last_chance = false
-			damage -= 1
-			foreground._set_damage(damage)
+	lines += amount
+	if lines >= LINES_GOAL: game._game_over()
 	
 	foreground._set_lines_animated(lines)
 
 
-## Called when block tries to spawn in existing one
-func _on_block_overlap() -> void:
-	game._add_sound("damage")
+## Called on game over
+func _game_over(game_over_screen : MenuScreen) -> void:
+	var goal_complete : bool = lines >= LINES_GOAL
 	
-	damage += 1
-	foreground._set_damage(int(20 * (damage / float(max_damage))))
+	if goal_complete:
+		game_over_screen.get_node("Sign/Label").text = "FINISH!"
 	
-	if last_chance : game._game_over()
-	if damage >= max_damage : last_chance = true
+	var result_time : int = Time.get_ticks_msec() - ta_start_ticks
+	ta_start_ticks = 0
+	var flash_color : Color
+	
+	if result_time <= RANKINGS.M : 
+		game_over_screen.get_node("Results/Letter").text = "M"
+		flash_color = Color("ff1d9c")
+	elif result_time <= RANKINGS.X : 
+		game_over_screen.get_node("Results/Letter").text = "X"
+		flash_color = Color("1dffaa")
+	elif result_time <= RANKINGS.S : 
+		game_over_screen.get_node("Results/Letter").text = "S"
+		flash_color = Color("1df4ff")
+	elif result_time <= RANKINGS.A : 
+		game_over_screen.get_node("Results/Letter").text = "A"
+		flash_color = Color("ff421d")
+	elif result_time <= RANKINGS.B : 
+		game_over_screen.get_node("Results/Letter").text = "B"
+		flash_color = Color("ffb33c")
+	elif result_time <= RANKINGS.C : 
+		game_over_screen.get_node("Results/Letter").text = "C"
+		flash_color = Color("fff66d")
+	elif result_time <= RANKINGS.D : 
+		game_over_screen.get_node("Results/Letter").text = "D"
+		flash_color = Color.WHITE
+	else : 
+		game_over_screen.get_node("Results/Letter").text = "E"
+		flash_color = Color.WHITE
+	
+	var flash_tween : Tween = create_tween().set_loops()
+	flash_tween.tween_property(game_over_screen.get_node("Results/Letter"), "self_modulate", flash_color, 0.2)
+	flash_tween.tween_property(game_over_screen.get_node("Results/Letter"), "self_modulate", Color.WHITE, 0.2)
+	
+	game_over_screen.get_node("Results/Value").text = foreground.get_node("Time/Num").text + foreground.get_node("Time/Num2").text

@@ -33,6 +33,7 @@ const DAMAGE_VALUES : Dictionary[int, float] = {
 
 var score : int = 0 ## Latest set score value
 var lines : int = 0 ## Latest set lines value
+var lines_goal : int = 0 ## Goal lines amount value
 var damage : int = 0 ## Latest set damage value
 
 var score_tween : Tween ## Tween used to animate score text grow
@@ -81,11 +82,18 @@ func _set_lines(number : int) -> void:
 	var text = "0000"
 	var str_number = str(number)
 	
-	if str_number.length() > 4:
-		$Lines/Num.text = str_number
+	if lines_goal == 0:
+		if str_number.length() > 4:
+			$Lines/Num.text = str_number
+		else:
+			text = text.left(4 - str_number.length()) + str_number
+			$Lines/Num.text = text
 	else:
-		text = text.left(4 - str_number.length()) + str_number
-		$Lines/Num.text = text
+		if str_number.length() > 2:
+			$Lines/Num.text = str_number + "/" + str(lines_goal)
+		else:
+			text = text.left(2 - str_number.length()) + str_number
+			$Lines/Num.text = text + "/" + str(lines_goal)
 
 
 ## Sets time text
@@ -94,14 +102,40 @@ func _set_time(seconds : int) -> void:
 	var hour_str : String = str(hour) + ":"
 	if seconds < 3600 : hour_str = ""
 	
-	var minute : String = str(int(seconds / 60.0) - 60 * hour) + ":"
-	if int(seconds / 60.0 - 60 * hour) < 10 : minute = "0" + str(int(seconds / 60.0) - 60 * hour) + ":"
+	var minute : int = int(seconds / 60.0) - 60 * hour
+	var minute_str : String = str(minute) + ":"
+	if minute < 10 : minute_str = "0" + str(minute) + ":"
 
-	var secs : String = str(seconds % 60)
-	if seconds % 60 < 10 : secs = "0" + str(seconds % 60)
+	var secs : int = seconds % 60
+	var seconds_str : String = str(secs)
+	if secs < 10 : seconds_str = "0" + str(secs)
 	
-	var time_str = str(hour_str + minute + secs)
+	var time_str = str(hour_str + minute_str + seconds_str)
 	$Time/Num.text = time_str
+
+
+## Sets time text in milliseconds
+func _set_time_in_milliseconds(milliseconds : int) -> void:
+	var hour : int = int(milliseconds / 3600000.0)
+	var hour_str : String = str(hour) + ":"
+	if milliseconds < 3600000 : hour_str = ""
+	
+	var minute : int = int(milliseconds / 60000.0) - 60000 * hour
+	var minute_str : String = str(minute) + ":"
+	if minute < 10 : minute_str = "0" + str(minute) + ":"
+
+	var secs : int = milliseconds / 1000.0 - 60 * minute
+	var seconds_str : String = str(secs)
+	if secs < 10 : seconds_str = "0" + str(secs)
+	
+	var millisecs : int = milliseconds % 1000
+	var milliseconds_str : String = "." + str(millisecs)
+	if millisecs < 100 : milliseconds_str = ".0" + str(millisecs)
+	if millisecs < 10 : milliseconds_str = ".00" + str(millisecs)
+	
+	var time_str = str(hour_str + minute_str + seconds_str)
+	$Time/Num.text = time_str
+	$Time/Num2.text = milliseconds_str
 
 
 ## Sets level text
@@ -122,18 +156,22 @@ func _update_queue(queue : Array[int]) -> void:
 	queue_copy.reverse()
 	for i : int in queue_copy.size():
 		if i >= 4 : return
-		get_node("Next/PieceRender" + str(i + 1))._render_piece(queue_copy[i])
+		get_node("Next/Piece" + str(i + 1)).frame = queue_copy[i] + 1
+		get_node("Next/Piece" + str(i + 1)).modulate = Block.COLOR_VALUES[PieceQueue.PIECES[queue_copy[i]]["color"]]
 
 
 ## Updates hold visuals
 func _update_hold(piece_in_hold : int) -> void:
-	$Hold/PieceRender._render_piece(piece_in_hold)
+	if piece_in_hold == -1 : return
+	$Hold/Piece.frame = piece_in_hold + 1
+	$Hold/Piece.modulate = Block.COLOR_VALUES[PieceQueue.PIECES[piece_in_hold]["color"]]
 
 
 ## Updates damage indicator
 func _set_damage(number : int) -> void:
 	if is_instance_valid(damage_tween) : damage_tween.kill()
 	if number > 20 : number = 20
+	if number < 0 : number = 0
 	
 	$Damage/Bar.value = DAMAGE_VALUES[number]
 	damage_tween = create_tween()

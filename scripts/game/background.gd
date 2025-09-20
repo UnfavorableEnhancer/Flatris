@@ -12,6 +12,7 @@ func _ready() -> void:
 
 
 func _start_music() -> void:
+	music_player.volume_db = 0.0
 	music_player.play()
 
 
@@ -21,3 +22,12 @@ func _stop_music() -> void:
 
 func _pause_music(on : bool) -> void:
 	music_player.stream_paused = on
+
+
+func _muffle_music(on : bool) -> void:
+	if on : create_tween().tween_property(music_player, "volume_db", -20.0, 2.0)
+	else : create_tween().tween_property(music_player, "volume_db", 0.0, 2.0)
+
+
+func _fade_out() -> void:
+	create_tween().tween_property(music_player, "volume_db", -99.0, 3.0).set_trans(Tween.TRANS_CUBIC)

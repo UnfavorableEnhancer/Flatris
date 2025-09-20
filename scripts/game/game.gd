@@ -55,9 +55,9 @@ var gamemode : Gamemode = null ## Current gamemode, defines game rules and goals
 
 var background_to_load : int = THEME.A ## What background to load at game start
 var background : Background = null ## Contains fancy visuals and music
+var foreground : Foreground = null ## Contains all game GUI which is controlled by current gamemode
 
 @onready var gamefield : Gamefield = $Gamefield ## Contains all blocks and gamey stuff
-@onready var foreground : Foreground = $Foreground ## Contains all game GUI which is controlled by current gamemode
 @onready var pause_background : ColorRect = $PauseBackground  ## ColorRect which covers game screen when its paused
 
 @onready var sounds : Node = $Sounds ## Contains all game sound effects
@@ -85,6 +85,13 @@ func _ready() -> void:
 	background = load(background_path).instantiate()
 	add_child(background)
 	
+	if gamemode is MarathonMode or gamemode is CheeseMode:
+		foreground = load("res://scenes/game/foreground/marathon_foreground.tscn").instantiate()
+		add_child(foreground)
+	elif gamemode is TimeAttackMode:
+		foreground = load("res://scenes/game/foreground/time_attack_foreground.tscn").instantiate()
+		add_child(foreground)
+	
 	gamemode.game = self
 	gamemode.foreground = foreground
 	gamemode.gamefield = gamefield
@@ -104,9 +111,13 @@ func _reset() -> void:
 	if is_resetting : return
 	is_resetting = true
 	
+	if menu.screens.size() > 2 : 
+		menu._exit()
+		await menu.all_screens_removed
+	
 	main._toggle_darken(true)
 	background._stop_music()
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(1.0).timeout
 	
 	gamefield.piece_queue._clear()
 	gamefield.piece_queue._shuffle()
@@ -121,12 +132,12 @@ func _reset() -> void:
 	playing_sounds.clear()
 	
 	is_game_over = false
-	_pause(false, false)
 	
 	main._toggle_darken(false)
 	main._toggle_loading(false)
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(1.0).timeout
 	
+	_pause(false, false)
 	background._start_music()
 	reset_ended.emit()
 	is_physics_active = true
@@ -147,8 +158,10 @@ func _retry() -> void:
 ## Finishes the game and adds predefined in **'menu_screen_to_return'** menu screen
 func _end() -> void:
 	gamemode._end()
-	if menu.screens.size() > 0 : menu._exit()
-
+	if menu.screens.size() > 0 : 
+		menu._exit()
+		await menu.all_screens_removed
+	
 	main._toggle_darken(true)
 	await get_tree().create_timer(1.0).timeout
 	
@@ -164,36 +177,38 @@ func _game_over() -> void:
 	for i : Node in sounds.get_children(): i.queue_free()
 	playing_sounds.clear()
 	
+	create_tween().tween_property(pause_background, "modulate:a", 0.8, 1.0).from(0.0)
 	var gameover_screen : MenuScreen = menu._add_screen(game_over_screen_name)
 	gameover_screen._setup(self)
 	
 	game_over.emit()
-	gamemode._game_over()
+	gamemode._game_over(gameover_screen)
 
 
 ## Sets pause state to **'on'** value[br]
 ## - **'pause_screen'** - If true, adds menu screen as predefined in **'pause_screen_name'** if 'on' is true and waits for its closure if 'on' is false
 func _pause(on : bool = true, use_pause_screen : bool = true) -> void:
 	if use_pause_screen and not on: 
-		menu._remove_screen("foreground")
-		menu._remove_screen(pause_screen_name)
+		menu.foreground.visible = false
+		menu._remove_screen("pause")
 		await menu.all_screens_removed
-
+	
 	is_paused = on
-
+	
 	gamemode._pause(on)
 	paused.emit(on)
-	background._pause_music(on)
-
+	background._muffle_music(on)
+	
 	if on : create_tween().tween_property(pause_background, "modulate:a", 0.8, 1.0).from(0.0)
-	else : create_tween().tween_property(pause_background, "modulate:a", 0.0, 1.0).from(0.8)
-		
+	else : create_tween().tween_property(pause_background, "modulate:a", 0.0, 1.0)
+	
 	if on and use_pause_screen:
-		menu._add_screen("foreground")
-		var pause_screen : MenuScreen = menu._add_screen(pause_screen_name)
+		menu.foreground.visible = true
+		
+		var pause_screen : MenuScreen = menu._add_screen("pause")
 		pause_screen._setup(self)
-
-		menu._play_sound("confirm4")
+		
+		menu._play_sound("cancel")
 
 
 ## Processes single game tick

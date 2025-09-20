@@ -3,7 +3,7 @@ extends MeshInstance3D
 class_name Block
 
 
-const GHOST_BLOCK_MAT : Material = preload("res://materials/piece_ghost.material")
+const GHOST_BLOCK_MAT : String = "res://materials/piece_ghost.material"
 const PLACED_BLOCK_MAT : String = "res://materials/base.material"
 const PIECE_BLOCK_MAT : String = "res://materials/piece.material"
 
@@ -33,10 +33,10 @@ const COLOR_VALUES : Dictionary[int, Color] = {
 	COLOR.CYAN : Color("05d3f6"),
 	COLOR.YELLOW : Color("f2dc04"),
 	COLOR.PURPLE : Color("861eff"),
-	COLOR.GREEN : Color("11d43f"),
-	COLOR.RED : Color("de2e2e"),
-	COLOR.BLUE : Color("1e45a8"),
-	COLOR.ORANGE : Color("e05e1f"),
+	COLOR.GREEN : Color("13ff0b"),
+	COLOR.RED : Color("ef1717"),
+	COLOR.BLUE : Color("0e1bea"),
+	COLOR.ORANGE : Color("ff3608"),
 	COLOR.BROWN : Color("4b2e12"),
 	COLOR.WHITE : Color("cfcfcf"),
 	COLOR.LIME : Color("3ab557"),
@@ -74,29 +74,35 @@ const BLOCK_TEXTURES : Dictionary[int, Texture] = {
 
 var color : int
 
+signal removed
 
-func _init(type : int) -> void:
+
+func _init(type : int, new_color : int = 0) -> void:
 	mesh = BoxMesh.new()
 	mesh.size = Vector3(1.5,0.1,1.5)
-	color = Player.config["color_skin"]
 	
 	match type:
 		TYPE.GHOST : 
+			color = new_color
 			name = "BlockGhost"
-			mesh.material = GHOST_BLOCK_MAT
+			mesh.material = load(GHOST_BLOCK_MAT).duplicate(true)
+			mesh.material.albedo_color = COLOR_VALUES[color]
 		TYPE.PLACED : 
+			color = Player.config["color_skin"]
 			name = "Block"
 			mesh.material = load(PLACED_BLOCK_MAT).duplicate(true)
 			mesh.material.albedo_color = COLOR_VALUES[color]
 			mesh.material.albedo_texture = BLOCK_TEXTURES[Player.config["block_skin"]]
 		TYPE.PIECE : 
+			color = new_color
 			name = "PieceBlock"
 			mesh.material = load(PIECE_BLOCK_MAT).duplicate(true)
 			mesh.material.albedo_color = COLOR_VALUES[color]
 		TYPE.CHEESE :
+			color = COLOR.CHEESE
 			name = "CHEESE"
 			mesh.material = load(PLACED_BLOCK_MAT).duplicate(true)
-			mesh.material.albedo_color = COLOR_VALUES[COLOR.CHEESE]
+			mesh.material.albedo_color = COLOR_VALUES[color]
 			mesh.material.albedo_texture = BLOCK_TEXTURES[42]
 
 

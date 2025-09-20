@@ -51,7 +51,9 @@ func _ready() -> void:
 	var start_arguments : Dictionary = _parse_start_arguments()
 	if start_arguments.has("skip_intro") : skip_intro = start_arguments["skip_intro"].is_empty()
 	
-	if game_test : _start_game(MarathonMode.new(), Game.THEME.C)
+	if game_test : 
+		menu._reset()
+		_start_game(CheeseMode.new(), Game.THEME.B)
 	else : _reset()
 
 
@@ -93,16 +95,18 @@ func _start_game(gamemode : Gamemode, theme : int) -> void:
 	await get_tree().create_timer(1.0).timeout
 	_toggle_loading(true)
 	
+	menu.background.visible = false
+	menu.foreground.visible = false
+	
 	game = GAME_SCENE.instantiate()
 	game.background_to_load = theme
 	game.gamemode = gamemode
 	game.menu = menu
 	game.main = self
-
+	
 	add_child(game)
 	move_child(game,0) # Move game node to top of the tree to make it overlayable by menu and other things
 	
-	await get_tree().create_timer(2.0).timeout
 	game._reset()
 
 

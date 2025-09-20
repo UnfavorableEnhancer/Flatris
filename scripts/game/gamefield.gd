@@ -16,13 +16,13 @@ const BLOCK_MARGIN : float = 1.6 ## Distance between blocks in X and Y axis in m
 const BLOCK_Z_MARGIN : float = 0.8 ## Distance between blocks in Z axis in meters
 
 signal block_overlap ## Emitted when some block landed onto existing one
-signal block_deleted(coords : Vector2i) ## Emitted when some block was deleted
+signal block_deleted(coords : Vector2i, is_cheese : bool) ## Emitted when some block was deleted
 signal lines_cleared(amount : int) ## Emitted when lines were cleared
 
 var game : Game = null ## Parent game reference
 var gamemode : Gamemode = null ## Gamemode reference
 
-var current_appearance_delay : float = 60 ## Current amount of frames left before giving next piece from queue
+var current_appearance_delay : float = 1 ## Current amount of frames left before giving next piece from queue
 
 var height_ghost_offset : Vector3 ## Offset which points to (0,0) in matrix.x + height coordinates
 var field_offset : Vector3 ## Offset which points to (0,0) in matrix coordinates
@@ -84,6 +84,8 @@ func _render_matrix() -> void:
 func _clear_matrix() -> void:
 	for block in matrix.values() : block.queue_free()
 	matrix.clear()
+	scanned_rows.clear()
+	scanned_columns.clear()
 
 
 ## Places block onto matrix 
@@ -113,8 +115,12 @@ func _remove_block(from_position : Vector2i) -> void:
 func _remove_scanned_blocks() -> void:
 	for pos : Vector2i in scanned_blocks_positions:
 		if not matrix.has(pos) : continue
-		matrix[pos].queue_free()
-		block_deleted.emit(pos)
+		var block : Block = matrix[pos]
+		
+		if block.color == Block.COLOR.CHEESE: block_deleted.emit(pos, true)
+		else: block_deleted.emit(pos, false)
+		
+		block.queue_free()
 		matrix.erase(pos)
 
 
@@ -272,19 +278,19 @@ func _clear_ghosts() -> void:
 
 
 ## Places ghost block onto matrix. If there's some block, puts ghost on top of block
-func _place_ghost(to_position : Vector2i, permanent : bool = false) -> void:
-	var ghost_block : Block = Block.new(Block.TYPE.GHOST)
+func _place_ghost(to_position : Vector2i, color : int, permanent : bool = false) -> void:
+	var ghost_block : Block = Block.new(Block.TYPE.GHOST, color)
 	ghost_block.position = Vector3(to_position.x * BLOCK_MARGIN, 0.01, to_position.y * BLOCK_MARGIN) + field_offset
 	if not permanent : ghosts.append(ghost_block)
 	ghosts_node.add_child(ghost_block)
 
 
 ## Places height ghost
-func _place_heigth_ghost(to_position : Vector2i) -> void:
+func _place_height_ghost(to_position : Vector2i, color : int) -> void:
 	if height_ghosts.has(to_position) : return
 	if to_position.y == 0 : return
 	
-	var height_ghost : HeightGhost = HeightGhost.new()
+	var height_ghost : HeightGhost = HeightGhost.new(color)
 	height_ghost.position = Vector3(to_position.x * BLOCK_MARGIN, to_position.y * BLOCK_Z_MARGIN, 0.0) + height_ghost_offset
 	
 	height_ghosts[to_position] = height_ghost

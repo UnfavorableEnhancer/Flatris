@@ -71,7 +71,7 @@ func _ready() -> void:
 	
 	for pos : Vector2i in PieceQueue.PIECES[piece_type]["positions"]:
 		var real_pos : Vector2i = pos + anchor
-		var block : Block = Block.new(Block.TYPE.PIECE)
+		var block : Block = Block.new(Block.TYPE.PIECE, color)
 		blocks[real_pos] = block
 		add_child(block)
 	
@@ -91,8 +91,8 @@ func _update_blocks() -> void:
 		block.position = Vector3(pos.x * Gamefield.BLOCK_MARGIN, height * Gamefield.BLOCK_Z_MARGIN, pos.y * Gamefield.BLOCK_MARGIN) + gamefield.field_offset
 		
 		if height > 0:
-			gamefield._place_ghost(pos)
-			gamefield._place_heigth_ghost(Vector2i(pos.x, height))
+			gamefield._place_ghost(pos, color)
+			gamefield._place_height_ghost(Vector2i(pos.x, height), color)
 
 
 ## Advances piece physics

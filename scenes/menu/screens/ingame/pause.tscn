@@ -1,0 +1,956 @@
+[gd_scene load_steps=21 format=3 uid="uid://duli8dumx7awb"]
+
+[ext_resource type="Script" uid="uid://cnx22cxsv0llh" path="res://scripts/menu/screens/pause.gd" id="1_4t8p0"]
+[ext_resource type="Texture2D" uid="uid://86hnafk4u074" path="res://images/menu/button_frame.png" id="4_f1wm7"]
+[ext_resource type="FontFile" uid="uid://cklk4kjp10w3h" path="res://fonts/visitor1.ttf" id="5_he0sb"]
+[ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://scenes/menu/regular_button.tscn" id="6_6smnl"]
+[ext_resource type="FontFile" uid="uid://byl3d4xpe5wyb" path="res://fonts/Welbut.ttf" id="7_f1wm7"]
+[ext_resource type="PackedScene" uid="uid://160thw0yemok" path="res://scenes/menu/slider.tscn" id="8_he0sb"]
+[ext_resource type="Texture2D" uid="uid://bneuaaghw0bmc" path="res://images/menu/unk.png" id="9_6smnl"]
+
+[sub_resource type="Animation" id="Animation_rxj13"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sign:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sign:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Options:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("OptionsWindow:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("OptionsWindow:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Options:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_c6024"]
+resource_name = "start"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sign:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sign:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Options:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Options:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("OptionsWindow:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("OptionsWindow:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4t8p0"]
+resource_name = "end"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sign:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.5),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sign:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Options:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Options:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("OptionsWindow:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("OptionsWindow:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(5.96046e-08, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ufvm"]
+_data = {
+&"RESET": SubResource("Animation_rxj13"),
+&"end": SubResource("Animation_4t8p0"),
+&"start": SubResource("Animation_c6024")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_pkyej"]
+font = ExtResource("5_he0sb")
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ln5li"]
+font = ExtResource("7_f1wm7")
+font_size = 8
+shadow_color = Color(0, 0, 0, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k8i45"]
+bg_color = Color(0.867188, 0.867188, 0.867188, 1)
+border_width_left = 1
+border_width_right = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pxwvd"]
+content_margin_left = 4.0
+bg_color = Color(0.105469, 0.105469, 0.105469, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="Theme" id="Theme_wpfuj"]
+VScrollBar/icons/decrement = null
+VScrollBar/icons/decrement_highlight = null
+VScrollBar/icons/decrement_pressed = null
+VScrollBar/icons/increment = null
+VScrollBar/icons/increment_highlight = null
+VScrollBar/icons/increment_pressed = null
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_k8i45")
+VScrollBar/styles/grabber_highlight = null
+VScrollBar/styles/grabber_pressed = null
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_pxwvd")
+VScrollBar/styles/scroll_focus = null
+
+[sub_resource type="LabelSettings" id="LabelSettings_p1o0g"]
+font = ExtResource("5_he0sb")
+font_size = 13
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_r6slt"]
+font = ExtResource("5_he0sb")
+font_size = 11
+
+[sub_resource type="LabelSettings" id="LabelSettings_1chut"]
+font = ExtResource("5_he0sb")
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_nw8re"]
+font = ExtResource("5_he0sb")
+font_size = 14
+
+[node name="Pause" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4t8p0")
+metadata/_edit_lock_ = true
+
+[node name="A" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3ufvm")
+}
+
+[node name="Sign" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 56.0
+offset_top = 64.0
+offset_right = 584.0
+offset_bottom = 100.0
+pivot_offset = Vector2(264, 20)
+
+[node name="Back" type="NinePatchRect" parent="Sign"]
+modulate = Color(1, 0.128906, 0.618896, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_f1wm7")
+region_rect = Rect2(4, 4, 56, 56)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Label" type="Label" parent="Sign"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -14.5
+offset_right = 96.0
+offset_bottom = 14.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_pkyej")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Options" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 56.0
+offset_top = 108.0
+offset_right = 192.0
+offset_bottom = 280.0
+
+[node name="Back" type="NinePatchRect" parent="Options"]
+modulate = Color(1, 0.128906, 0.618896, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_f1wm7")
+region_rect = Rect2(4, 4, 56, 56)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Continue" parent="Options" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6_6smnl")]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 32.0
+offset_right = 128.0
+offset_bottom = 60.0
+text = "CONTINUE"
+glow_color = Color(0.197549, 0.701961, 0.12549, 1)
+press_sound_name = "cancel"
+call_function_name = "_continue"
+parent_screen = NodePath("../..")
+
+[node name="Retry" parent="Options" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6_6smnl")]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 68.0
+offset_right = 128.0
+offset_bottom = 96.0
+text = "RESTART"
+glow_color = Color(0.12549, 0.701961, 0.661428, 1)
+menu_position = Vector2i(0, 1)
+press_sound_name = "start"
+call_function_name = "_restart"
+parent_screen = NodePath("../..")
+
+[node name="Exit" parent="Options" node_paths=PackedStringArray("parent_screen") instance=ExtResource("6_6smnl")]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 104.0
+offset_right = 128.0
+offset_bottom = 132.0
+text = "BACK TO MENU"
+glow_color = Color(0.863281, 0.5322, 0.145004, 1)
+menu_position = Vector2i(0, 2)
+press_sound_name = "cancel"
+call_function_name = "_exit"
+parent_screen = NodePath("../..")
+
+[node name="OptionsWindow" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 200.0
+offset_top = 108.0
+offset_right = 584.0
+offset_bottom = 280.0
+pivot_offset = Vector2(0, 172)
+
+[node name="Back" type="NinePatchRect" parent="OptionsWindow"]
+modulate = Color(1, 0.128906, 0.618896, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_f1wm7")
+region_rect = Rect2(4, 4, 56, 56)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Bar" type="ColorRect" parent="OptionsWindow"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 124.0
+offset_right = 376.0
+offset_bottom = 126.0
+color = Color(1, 1, 1, 0.5)
+
+[node name="DescBack" type="ColorRect" parent="OptionsWindow"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 132.0
+offset_right = 376.0
+offset_bottom = 164.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="Desc" type="Label" parent="OptionsWindow"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 134.0
+offset_right = 376.0
+offset_bottom = 164.0
+text = "Normal rules lol
+with ehhhh"
+label_settings = SubResource("LabelSettings_ln5li")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Scroll" type="ScrollContainer" parent="OptionsWindow"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 376.0
+offset_bottom = 120.0
+theme = SubResource("Theme_wpfuj")
+horizontal_scroll_mode = 0
+
+[node name="V" type="VBoxContainer" parent="OptionsWindow/Scroll"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsWindow/Scroll/V"]
+layout_mode = 2
+text = "General settings :"
+label_settings = SubResource("LabelSettings_p1o0g")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Music" type="ColorRect" parent="OptionsWindow/Scroll/V"]
+custom_minimum_size = Vector2(360, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="Text" type="Label" parent="OptionsWindow/Scroll/V/Music"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 140.0
+offset_bottom = 16.0
+text = "muSIC VOLUME"
+label_settings = SubResource("LabelSettings_r6slt")
+vertical_alignment = 1
+
+[node name="Slider" parent="OptionsWindow/Scroll/V/Music" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("8_he0sb")]
+layout_mode = 2
+offset_left = 158.0
+offset_top = 4.0
+offset_right = 268.0
+offset_bottom = 13.0
+description_node = NodePath("../../../../Desc")
+description = "Set music volume percentage"
+menu_position = Vector2i(1, 0)
+call_string = "music_volume"
+parent_screen = NodePath("")
+
+[node name="Power" type="Label" parent="OptionsWindow/Scroll/V/Music/Slider"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = -4.0
+offset_right = 196.0
+offset_bottom = 12.0
+text = "80.0"
+label_settings = SubResource("LabelSettings_1chut")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Sound" type="ColorRect" parent="OptionsWindow/Scroll/V"]
+custom_minimum_size = Vector2(360, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="Text" type="Label" parent="OptionsWindow/Scroll/V/Sound"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 140.0
+offset_bottom = 16.0
+text = "SOUNDS VOLUME"
+label_settings = SubResource("LabelSettings_r6slt")
+vertical_alignment = 1
+
+[node name="Slider" parent="OptionsWindow/Scroll/V/Sound" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("8_he0sb")]
+layout_mode = 2
+offset_left = 158.0
+offset_top = 4.0
+offset_right = 268.0
+offset_bottom = 13.0
+description_node = NodePath("../../../../Desc")
+description = "Set sound effects volume percentage"
+menu_position = Vector2i(1, 1)
+call_string = "sound_volume"
+parent_screen = NodePath("")
+
+[node name="Power" type="Label" parent="OptionsWindow/Scroll/V/Sound/Slider"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = -4.0
+offset_right = 196.0
+offset_bottom = 12.0
+text = "80.0"
+label_settings = SubResource("LabelSettings_1chut")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Fullscreen" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
+custom_minimum_size = Vector2(320, 16)
+layout_mode = 2
+text = "FULLSCREEN MODE"
+description_node = NodePath("../../../Desc")
+description = "Toggle fullscreen mode
+Pressing F11 also toggles fullscreen"
+is_setting_button = true
+menu_position = Vector2i(1, 2)
+work_mode = 4
+press_sound_name = "accept"
+call_string = "fullscreen"
+parent_screen = NodePath("")
+
+[node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/Fullscreen"]
+layout_mode = 0
+offset_left = 322.0
+offset_right = 354.0
+offset_bottom = 16.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="IO" type="Label" parent="OptionsWindow/Scroll/V/Fullscreen"]
+layout_mode = 0
+offset_left = 322.0
+offset_right = 354.0
+offset_bottom = 15.0
+text = "ON"
+label_settings = SubResource("LabelSettings_nw8re")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Resolution" type="ColorRect" parent="OptionsWindow/Scroll/V"]
+custom_minimum_size = Vector2(360, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="Text" type="Label" parent="OptionsWindow/Scroll/V/Resolution"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 140.0
+offset_bottom = 16.0
+text = "RESOLUTION"
+label_settings = SubResource("LabelSettings_r6slt")
+vertical_alignment = 1
+
+[node name="Slider" parent="OptionsWindow/Scroll/V/Resolution" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("8_he0sb")]
+layout_mode = 2
+offset_left = 158.0
+offset_top = 4.0
+offset_right = 268.0
+offset_bottom = 13.0
+max_value = 5.0
+value = 0.0
+description_node = NodePath("../../../../Desc")
+description = "Set windowed mode resolution"
+menu_position = Vector2i(1, 3)
+call_string = "resolution"
+parent_screen = NodePath("")
+
+[node name="Power" type="Label" parent="OptionsWindow/Scroll/V/Resolution/Slider"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = -4.0
+offset_right = 196.0
+offset_bottom = 12.0
+text = "1280x720"
+label_settings = SubResource("LabelSettings_1chut")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="FPSLimit" type="ColorRect" parent="OptionsWindow/Scroll/V"]
+custom_minimum_size = Vector2(360, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="Text" type="Label" parent="OptionsWindow/Scroll/V/FPSLimit"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 140.0
+offset_bottom = 16.0
+text = "FPS LIMIT"
+label_settings = SubResource("LabelSettings_r6slt")
+vertical_alignment = 1
+
+[node name="Slider" parent="OptionsWindow/Scroll/V/FPSLimit" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("8_he0sb")]
+layout_mode = 2
+offset_left = 158.0
+offset_top = 4.0
+offset_right = 268.0
+offset_bottom = 13.0
+max_value = 300.0
+value = 1.0
+description_node = NodePath("../../../../Desc")
+description = "Set maximum amount of rendered frames per second
+Pressing F1 shows current FPS"
+menu_position = Vector2i(1, 4)
+call_string = "max_fps"
+parent_screen = NodePath("")
+
+[node name="Power" type="Label" parent="OptionsWindow/Scroll/V/FPSLimit/Slider"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = -4.0
+offset_right = 196.0
+offset_bottom = 12.0
+text = "120 fps"
+label_settings = SubResource("LabelSettings_1chut")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SaveOnline" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
+custom_minimum_size = Vector2(320, 16)
+layout_mode = 2
+text = "SAVE SCORE TO ONLINE LEADERBOARDS"
+description_node = NodePath("../../../Desc")
+description = "Toggle automatic saving of your best results into online leaderboard"
+menu_position = Vector2i(1, 5)
+work_mode = 4
+press_sound_name = "accept"
+call_string = "save_score_online"
+parent_screen = NodePath("")
+
+[node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/SaveOnline"]
+layout_mode = 0
+offset_left = 322.0
+offset_right = 354.0
+offset_bottom = 16.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="IO" type="Label" parent="OptionsWindow/Scroll/V/SaveOnline"]
+layout_mode = 0
+offset_left = 322.0
+offset_right = 354.0
+offset_bottom = 15.0
+text = "ON"
+label_settings = SubResource("LabelSettings_nw8re")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StaticBack" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
+custom_minimum_size = Vector2(320, 16)
+layout_mode = 2
+text = "STATIC THEME BACKGROUND"
+description_node = NodePath("../../../Desc")
+description = "Disables animations on theme background"
+menu_position = Vector2i(1, 6)
+work_mode = 4
+press_sound_name = "accept"
+call_string = "static_background"
+parent_screen = NodePath("")
+
+[node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/StaticBack"]
+layout_mode = 0
+offset_left = 322.0
+offset_right = 354.0
+offset_bottom = 16.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="IO" type="Label" parent="OptionsWindow/Scroll/V/StaticBack"]
+layout_mode = 0
+offset_left = 322.0
+offset_right = 354.0
+offset_bottom = 15.0
+text = "ON"
+label_settings = SubResource("LabelSettings_nw8re")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sep" type="ColorRect" parent="OptionsWindow/Scroll/V"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(1, 1, 1, 0.5)
+
+[node name="Label2" type="Label" parent="OptionsWindow/Scroll/V"]
+layout_mode = 2
+text = "CONTROL ASSIGN :"
+label_settings = SubResource("LabelSettings_p1o0g")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="MoveLeft" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
+custom_minimum_size = Vector2(320, 24)
+layout_mode = 2
+text = "MOVE LEFT"
+description_node = NodePath("../../../Desc")
+description = "Assign button to move piece left"
+menu_position = Vector2i(1, 7)
+press_sound_name = "accept"
+call_function_name = "_assign_control"
+parent_screen = NodePath("")
+
+[node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/MoveLeft"]
+layout_mode = 0
+offset_left = 326.0
+offset_right = 350.0
+offset_bottom = 24.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="Icon" type="TextureRect" parent="OptionsWindow/Scroll/V/MoveLeft"]
+layout_mode = 0
+offset_left = 326.0
+offset_right = 350.0
+offset_bottom = 24.0
+texture = ExtResource("9_6smnl")
+expand_mode = 1
+
+[node name="MoveRight" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
+custom_minimum_size = Vector2(320, 24)
+layout_mode = 2
+text = "MOVE RIGHT"
+description_node = NodePath("../../../Desc")
+description = "Assign button to move piece right"
+menu_position = Vector2i(1, 8)
+press_sound_name = "accept"
+call_function_name = "_assign_control"
+parent_screen = NodePath("")
+
+[node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/MoveRight"]
+layout_mode = 0
+offset_left = 326.0
+offset_right = 350.0
+offset_bottom = 24.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="Icon" type="TextureRect" parent="OptionsWindow/Scroll/V/MoveRight"]
+layout_mode = 0
+offset_left = 326.0
+offset_right = 350.0
+offset_bottom = 24.0
+texture = ExtResource("9_6smnl")
+expand_mode = 1
+
+[node name="MoveUp" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
+custom_minimum_size = Vector2(320, 24)
+layout_mode = 2
+text = "MOVE UP"
+description_node = NodePath("../../../Desc")
+description = "Assign button to move piece up"
+menu_position = Vector2i(1, 9)
+press_sound_name = "accept"
+call_function_name = "_assign_control"
+parent_screen = NodePath("")
+
+[node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/MoveUp"]
+layout_mode = 0
+offset_left = 326.0
+offset_right = 350.0
+offset_bottom = 24.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="Icon" type="TextureRect" parent="OptionsWindow/Scroll/V/MoveUp"]
+layout_mode = 0
+offset_left = 326.0
+offset_right = 350.0
+offset_bottom = 24.0
+texture = ExtResource("9_6smnl")
+expand_mode = 1
+
+[node name="MoveDown" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
+custom_minimum_size = Vector2(320, 24)
+layout_mode = 2
+text = "MOVE DOWN"
+description_node = NodePath("../../../Desc")
+description = "Assign button to move piece down"
+menu_position = Vector2i(1, 9)
+press_sound_name = "accept"
+call_function_name = "_assign_control"
+parent_screen = NodePath("")
+
+[node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/MoveDown"]
+layout_mode = 0
+offset_left = 326.0
+offset_right = 350.0
+offset_bottom = 24.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="Icon" type="TextureRect" parent="OptionsWindow/Scroll/V/MoveDown"]
+layout_mode = 0
+offset_left = 326.0
+offset_right = 350.0
+offset_bottom = 24.0
+texture = ExtResource("9_6smnl")
+expand_mode = 1
+
+[node name="RotateRight" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
+custom_minimum_size = Vector2(320, 24)
+layout_mode = 2
+text = "ROTATE CLOCKWISE"
+description_node = NodePath("../../../Desc")
+description = "Assign button to rotate piece clockswise"
+menu_position = Vector2i(1, 10)
+press_sound_name = "accept"
+call_function_name = "_assign_control"
+parent_screen = NodePath("")
+
+[node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/RotateRight"]
+layout_mode = 0
+offset_left = 326.0
+offset_right = 350.0
+offset_bottom = 24.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="Icon" type="TextureRect" parent="OptionsWindow/Scroll/V/RotateRight"]
+layout_mode = 0
+offset_left = 326.0
+offset_right = 350.0
+offset_bottom = 24.0
+texture = ExtResource("9_6smnl")
+expand_mode = 1
+
+[node name="RotateLeft" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
+custom_minimum_size = Vector2(320, 24)
+layout_mode = 2
+text = "ROTATE COUNTERCLOCKWISE"
+description_node = NodePath("../../../Desc")
+description = "Assign button to rotate piece counterclockswise"
+menu_position = Vector2i(1, 11)
+press_sound_name = "accept"
+call_function_name = "_assign_control"
+parent_screen = NodePath("")
+
+[node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/RotateLeft"]
+layout_mode = 0
+offset_left = 326.0
+offset_right = 350.0
+offset_bottom = 24.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="Icon" type="TextureRect" parent="OptionsWindow/Scroll/V/RotateLeft"]
+layout_mode = 0
+offset_left = 326.0
+offset_right = 350.0
+offset_bottom = 24.0
+texture = ExtResource("9_6smnl")
+expand_mode = 1
+
+[node name="HardDrop" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
+custom_minimum_size = Vector2(320, 24)
+layout_mode = 2
+text = "HARD DROP"
+description_node = NodePath("../../../Desc")
+description = "Assign button to hard drop piece"
+menu_position = Vector2i(1, 12)
+press_sound_name = "accept"
+call_function_name = "_assign_control"
+parent_screen = NodePath("")
+
+[node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/HardDrop"]
+layout_mode = 0
+offset_left = 326.0
+offset_right = 350.0
+offset_bottom = 24.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="Icon" type="TextureRect" parent="OptionsWindow/Scroll/V/HardDrop"]
+layout_mode = 0
+offset_left = 326.0
+offset_right = 350.0
+offset_bottom = 24.0
+texture = ExtResource("9_6smnl")
+expand_mode = 1
+
+[node name="Hold" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
+custom_minimum_size = Vector2(320, 24)
+layout_mode = 2
+text = "SWITCH PIECE IN HOLD"
+description_node = NodePath("../../../Desc")
+description = "Assign button to switch piece in hold"
+menu_position = Vector2i(1, 13)
+press_sound_name = "accept"
+call_function_name = "_assign_control"
+parent_screen = NodePath("")
+
+[node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/Hold"]
+layout_mode = 0
+offset_left = 326.0
+offset_right = 350.0
+offset_bottom = 24.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="Icon" type="TextureRect" parent="OptionsWindow/Scroll/V/Hold"]
+layout_mode = 0
+offset_left = 326.0
+offset_right = 350.0
+offset_bottom = 24.0
+texture = ExtResource("9_6smnl")
+expand_mode = 1

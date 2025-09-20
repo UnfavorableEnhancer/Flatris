@@ -13,7 +13,8 @@ enum RULESET {
 	DEBUG # Test ruleset
 }
 
-const REVERSE_PIECES = 25 ## Amount of pieces needed for field reverse
+const REVERSE_PIECES = 20 ## Amount of pieces needed for field reverse
+const LAST_CHANCE_DELAY = 20 ## Amount of frames until last chance can be wasted
 
 var main : Main ## Main instance
 var game : Game ## Game instance
@@ -37,7 +38,7 @@ var death_mode : bool = false ## If true piece landing on block always leads to 
 var extended_piece_queue : bool = false ## If true piece queue will use few more non traditional pieces
 
 var max_damage : int = 20 ## Amount of damage which player can take before game over
-var last_chance : bool = false ## True if damage reached the max and player has one more chance to avoid putting blocks
+var last_chance_tick : int = 0 ## If damage reached the max, store the tick on which this happened, player has one more chance to avoid putting blocks
 var damage_recovery : int = 10 ## Amount of pieces which must be dropped perfectly to reduce damage by one
 var current_damage_recovery : int = 10 ## Current amount of pieces which must be dropped perfectly to reduce damage by one
 
@@ -61,6 +62,7 @@ func _ready() -> void:
 	time_timer.timeout.connect(func() -> void: time += 1; foreground._set_time(time))
 	add_child(time_timer)
 	
+	game.reset_ended.connect(_on_reset_ended)
 	gamefield.lines_cleared.connect(_on_lines_deleted)
 	gamefield.block_overlap.connect(_on_block_overlap)
 	gamefield.block_deleted.connect(_on_block_deleted)
@@ -144,23 +146,40 @@ func _set_ruleset(type : int) -> void:
 
 
 ## Called when gamefield deletes lines
-func _on_lines_deleted(_amount : int) -> void:
-	pass
+func _on_lines_deleted(amount : int) -> void:
+	if damage > 0:
+		current_damage_recovery -= amount
+		if current_damage_recovery <= 0:
+			current_damage_recovery = damage_recovery
+			last_chance_tick = 0
+			damage -= int(max_damage / 10.0) # Recover 10% of HP
+			foreground._set_damage(damage)
 
 
 ## Called when block tries to spawn in existing one
 func _on_block_overlap() -> void:
-	pass
+	game._add_sound("damage")
+	
+	damage += 1
+	foreground._set_damage(int(20 * (damage / float(max_damage))))
+	
+	if last_chance_tick > 0 and Time.get_ticks_msec() - last_chance_tick > LAST_CHANCE_DELAY : game._game_over()
+	if damage >= max_damage : last_chance_tick = Time.get_ticks_msec()
 
 
 ## Called when some block was deleted
-func _on_block_deleted(_at_position : Vector2i) -> void:
+func _on_block_deleted(_at_position : Vector2i, _is_cheese : bool) -> void:
 	pass
+
+
+## Called on game reset end
+func _on_reset_ended() -> void:
+	time_timer.start(1.0)
 
 
 ## Called on game reset
 func _reset() -> void:
-	time_timer.start(1.0)
+	foreground._set_time(0)
 
 
 ## Called on game pause
@@ -169,7 +188,7 @@ func _pause(on : bool) -> void:
 
 
 ## Called on game over
-func _game_over() -> void:
+func _game_over(game_over_screen : MenuScreen) -> void:
 	pass
 
 

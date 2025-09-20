@@ -1,0 +1,442 @@
+[gd_scene load_steps=13 format=3 uid="uid://cet2digahayqk"]
+
+[ext_resource type="Texture2D" uid="uid://86hnafk4u074" path="res://images/menu/button_frame.png" id="1_0taoh"]
+[ext_resource type="AudioStream" uid="uid://dlapb1sgoll8d" path="res://sfx/menu/intro_drop.wav" id="1_go2jx"]
+[ext_resource type="Script" uid="uid://bn3tciilxpv0w" path="res://scripts/menu/screens/game_over.gd" id="1_pkyej"]
+[ext_resource type="FontFile" uid="uid://cklk4kjp10w3h" path="res://fonts/visitor1.ttf" id="2_lhxck"]
+[ext_resource type="AudioStream" uid="uid://du1kmbht15ap" path="res://sfx/game/game_over.wav" id="2_pkyej"]
+[ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://scenes/menu/regular_button.tscn" id="3_go2jx"]
+
+[sub_resource type="Animation" id="Animation_go2jx"]
+resource_name = "end"
+length = 1.5
+step = 0.1
+
+[sub_resource type="Animation" id="Animation_c6024"]
+resource_name = "start"
+length = 4.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sign:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sign:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Anvilsound")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("1_go2jx")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_pkyej")
+}],
+"times": PackedFloat32Array(0.3, 2)
+}
+tracks/2/use_blend = true
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Results/Back:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Results/Rank:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2, 2.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Results/Letter:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Results/Score:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 2.1, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Results/Lines:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 2.2, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Results/Time:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 2.3, 2.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Results/Level:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 2.4, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Results/Letter:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 2, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Options:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 2.5, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ufvm"]
+_data = {
+&"end": SubResource("Animation_go2jx"),
+&"start": SubResource("Animation_c6024")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_pkyej"]
+font = ExtResource("2_lhxck")
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_c6024"]
+font = ExtResource("2_lhxck")
+font_size = 64
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rxj13"]
+font = ExtResource("2_lhxck")
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pkyej")
+metadata/_edit_lock_ = true
+
+[node name="A" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3ufvm")
+}
+
+[node name="Anvilsound" type="AudioStreamPlayer" parent="."]
+
+[node name="Sign" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 80.0
+offset_top = 64.0
+offset_right = 568.0
+offset_bottom = 100.0
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(244, 16)
+
+[node name="Back" type="NinePatchRect" parent="Sign"]
+modulate = Color(0.131622, 0.621255, 0.886719, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_0taoh")
+region_rect = Rect2(4, 4, 56, 56)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Label" type="Label" parent="Sign"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -14.5
+offset_right = 96.0
+offset_bottom = 14.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "GAME OVER!"
+label_settings = SubResource("LabelSettings_pkyej")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Results" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 80.0
+offset_top = 108.0
+offset_right = 320.0
+offset_bottom = 240.0
+
+[node name="Back" type="NinePatchRect" parent="Results"]
+modulate = Color(0.131622, 0.621255, 0.886719, 1)
+self_modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_0taoh")
+region_rect = Rect2(4, 4, 56, 56)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Rank" type="Label" parent="Results"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -50.0
+offset_right = 40.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "RANK :"
+label_settings = SubResource("LabelSettings_pkyej")
+vertical_alignment = 1
+
+[node name="Letter" type="Label" parent="Results"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 36.0
+offset_top = -66.0
+offset_right = 75.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(0, 28)
+text = "E"
+label_settings = SubResource("LabelSettings_c6024")
+vertical_alignment = 1
+
+[node name="Score" type="Label" parent="Results"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = -6.0
+offset_right = 108.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "SCORE : 000000"
+label_settings = SubResource("LabelSettings_rxj13")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Lines" type="Label" parent="Results"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = 10.0
+offset_right = 108.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "LINES : 0000"
+label_settings = SubResource("LabelSettings_rxj13")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="Results"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = 26.0
+offset_right = 108.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "TIME : 00:00:00"
+label_settings = SubResource("LabelSettings_rxj13")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level" type="Label" parent="Results"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = 42.0
+offset_right = 108.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "LEVEL : 00"
+label_settings = SubResource("LabelSettings_rxj13")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Options" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 80.0
+offset_top = 248.0
+offset_right = 320.0
+offset_bottom = 304.0
+
+[node name="Back" type="NinePatchRect" parent="Options"]
+modulate = Color(0.131622, 0.621255, 0.886719, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_0taoh")
+region_rect = Rect2(4, 4, 56, 56)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Retry" parent="Options" node_paths=PackedStringArray("parent_screen") instance=ExtResource("3_go2jx")]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 232.0
+offset_bottom = 24.0
+text = "RESTART"
+glow_color = Color(0.12549, 0.701961, 0.661428, 1)
+press_sound_name = "start"
+call_function_name = "_restart"
+parent_screen = NodePath("../..")
+
+[node name="Exit" parent="Options" node_paths=PackedStringArray("parent_screen") instance=ExtResource("3_go2jx")]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 32.0
+offset_right = 232.0
+offset_bottom = 48.0
+text = "BACK TO MENU"
+glow_color = Color(0.863281, 0.5322, 0.145004, 1)
+menu_position = Vector2i(0, 1)
+press_sound_name = "cancel"
+call_function_name = "_exit"
+parent_screen = NodePath("../..")

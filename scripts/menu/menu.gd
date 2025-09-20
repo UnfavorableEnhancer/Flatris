@@ -36,6 +36,10 @@ var loaded_screens_data : Dictionary = {
 	"startup" : "res://scenes/menu/screens/startup.tscn",
 	"splash_screen" : "res://scenes/menu/screens/splash_screen.tscn",
 	"main_menu" : "res://scenes/menu/screens/main_menu.tscn",
+	"pause" : "res://scenes/menu/screens/ingame/pause.tscn",
+	"ma_game_over" : "res://scenes/menu/screens/ingame/marathon_game_over.tscn",
+	"ta_game_over" : "res://scenes/menu/screens/ingame/time_attack_game_over.tscn",
+	"ch_game_over" : "res://scenes/menu/screens/ingame/cheese_game_over.tscn",
 }
 
 ## All avaiable menu music (stored as paths to .mp3 or .ogg)

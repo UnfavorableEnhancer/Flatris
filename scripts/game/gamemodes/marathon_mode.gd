@@ -86,8 +86,39 @@ func _init() -> void:
 	name = "MarathonMode"
 
 
+func _ready() -> void:
+	super()
+	game.game_over_screen_name = "ma_game_over"
+
+
+## Called on game reset
+func _reset() -> void:
+	super()
+	
+	lines = 0
+	score = 0
+	level = 1
+	
+	fall_delay = LEVEL_SPEED[1][LEVEL_ARRAY.FALL_DELAY]
+	das_delay = LEVEL_SPEED[1][LEVEL_ARRAY.DAS_DELAY]
+	das = LEVEL_SPEED[1][LEVEL_ARRAY.DAS]
+	drop_delay_inc = LEVEL_SPEED[1][LEVEL_ARRAY.DROP_DELAY_INC]
+	min_drop_delay = LEVEL_SPEED[1][LEVEL_ARRAY.DROP_DELAY_MIN]
+	max_drop_delay = LEVEL_SPEED[1][LEVEL_ARRAY.DROP_DELAY_MAX]
+	appearance_delay = LEVEL_SPEED[1][LEVEL_ARRAY.APPEARANCE_DELAY]
+	line_clear_delay = LEVEL_SPEED[1][LEVEL_ARRAY.LINE_CLEAR_DELAY]
+	latest_next_level_req = LEVEL_SPEED[1][LEVEL_ARRAY.NEXT_LEVEL_REQ]
+	next_level_req = latest_next_level_req
+	
+	foreground._set_score(0)
+	foreground._set_lines(0)
+	foreground._set_level(0)
+
+
 ## Called when gamefield deletes lines
 func _on_lines_deleted(amount : int) -> void:
+	super(amount)
+	
 	lines += amount
 	
 	# All clear bonus
@@ -109,27 +140,8 @@ func _on_lines_deleted(amount : int) -> void:
 	next_level_req -= amount
 	if next_level_req <= 0 : _level_up()
 	
-	if damage > 0:
-		current_damage_recovery -= amount
-		if current_damage_recovery <= 0:
-			current_damage_recovery = damage_recovery
-			last_chance = false
-			damage -= 1
-			foreground._set_damage(damage)
-	
 	foreground._set_score_animated(score)
 	foreground._set_lines_animated(lines)
-
-
-## Called when block tries to spawn in existing one
-func _on_block_overlap() -> void:
-	game._add_sound("damage")
-	
-	damage += 1
-	foreground._set_damage(int(20 * (damage / float(max_damage))))
-	
-	if last_chance : game._game_over()
-	if damage >= max_damage : last_chance = true
 
 
 ## Raises game level by one
@@ -149,3 +161,44 @@ func _level_up() -> void:
 		latest_next_level_req = LEVEL_SPEED[level][LEVEL_ARRAY.NEXT_LEVEL_REQ]
 	
 	next_level_req = latest_next_level_req
+
+
+## Called on game over
+func _game_over(game_over_screen : MenuScreen) -> void:
+	var flash_color : Color
+	
+	if level >= RANKINGS.M : 
+		game_over_screen.get_node("Results/Letter").text = "M"
+		flash_color = Color("ff1d9c")
+	elif level >= RANKINGS.X : 
+		game_over_screen.get_node("Results/Letter").text = "X"
+		flash_color = Color("1dffaa")
+	elif level >= RANKINGS.S : 
+		game_over_screen.get_node("Results/Letter").text = "S"
+		flash_color = Color("1df4ff")
+	elif level >= RANKINGS.A : 
+		game_over_screen.get_node("Results/Letter").text = "A"
+		flash_color = Color("ff421d")
+	elif level >= RANKINGS.B : 
+		game_over_screen.get_node("Results/Letter").text = "B"
+		flash_color = Color("ffb33c")
+	elif level >= RANKINGS.C : 
+		game_over_screen.get_node("Results/Letter").text = "C"
+		flash_color = Color("fff66d")
+	elif level >= RANKINGS.D : 
+		game_over_screen.get_node("Results/Letter").text = "D"
+		flash_color = Color.WHITE
+	elif level >= RANKINGS.E : 
+		game_over_screen.get_node("Results/Letter").text = "E"
+		flash_color = Color.WHITE
+	
+	var flash_tween : Tween = create_tween().set_loops(100)
+	flash_tween.tween_property(game_over_screen.get_node("Results/Letter"), "self_modulate", flash_color, 0.1)
+	flash_tween.tween_property(game_over_screen.get_node("Results/Letter"), "self_modulate", Color.WHITE, 0.1)
+	
+	game_over_screen.get_node("Results/Score").text = "Score : " + foreground.get_node("Score/Num").text
+	game_over_screen.get_node("Results/Lines").text = "Lines : " + foreground.get_node("Lines/Num").text
+	game_over_screen.get_node("Results/Time").text = "Time : " + foreground.get_node("Time/Num").text
+	game_over_screen.get_node("Results/Level").text = "Level : " + foreground.get_node("Level/Num").text
+	
+	
