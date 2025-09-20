@@ -1,14 +1,61 @@
-[gd_scene load_steps=14 format=3 uid="uid://bsishg6ht7av3"]
+[gd_scene load_steps=20 format=3 uid="uid://bsishg6ht7av3"]
 
 [ext_resource type="AudioStream" uid="uid://c4blicno2cqcn" path="res://music/Tetris Theme B Remix.ogg" id="1_opdei"]
-[ext_resource type="Texture2D" uid="uid://ks3wvnp5xm36" path="res://images/game/background/THEME B/background.png" id="2_0cbm0"]
-[ext_resource type="PackedScene" uid="uid://btid6tcaw73b5" path="res://scenes/game/foreground.tscn" id="3_6jywk"]
+[ext_resource type="Script" uid="uid://76m6ao0ownrv" path="res://scripts/game/background.gd" id="1_xwqhl"]
+[ext_resource type="Texture2D" uid="uid://d4n3cay8t8qro" path="res://images/game/background/THEME B/background.png" id="2_oyly8"]
 [ext_resource type="Texture2D" uid="uid://s1kssm7krxav" path="res://images/game/background/THEME B/border.png" id="3_opdei"]
-[ext_resource type="Texture2D" uid="uid://ejrxkhitl5ax" path="res://images/game/background/THEME B/sand.png" id="4_noamw"]
-[ext_resource type="Texture2D" uid="uid://dkuitayv22exe" path="res://images/game/background/THEME B/grass1.png" id="5_0cbm0"]
+[ext_resource type="Texture2D" uid="uid://rdv30vulb7ia" path="res://images/game/background/THEME B/sand.png" id="4_oyly8"]
 [ext_resource type="Texture2D" uid="uid://bweqfvtga2y6w" path="res://images/game/background/THEME B/bubble1.png" id="5_oyly8"]
-[ext_resource type="Texture2D" uid="uid://ceangr01harw1" path="res://images/game/background/THEME B/shell1.png" id="6_oyly8"]
-[ext_resource type="Texture2D" uid="uid://gwykbme3ncry" path="res://images/game/background/THEME B/corall1.png" id="7_6jywk"]
+[ext_resource type="Texture2D" uid="uid://bjreitf6bgnom" path="res://images/game/background/THEME B/grass.png" id="6_mew0o"]
+[ext_resource type="Texture2D" uid="uid://utk86i6xe6hg" path="res://images/game/background/THEME B/fish.png" id="6_xwqhl"]
+[ext_resource type="Texture2D" uid="uid://b4n8mwdgjy3lw" path="res://images/game/background/THEME B/coral3.png" id="7_xwqhl"]
+[ext_resource type="Texture2D" uid="uid://j7f6lkvqyxwh" path="res://images/game/background/THEME B/coral2.png" id="8_5jsg7"]
+[ext_resource type="Texture2D" uid="uid://byu2cj6nmaoxp" path="res://images/game/background/THEME B/coral1.png" id="9_f2kt5"]
+
+[sub_resource type="Animation" id="Animation_mew0o"]
+resource_name = "anim"
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bubbles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bubbles2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Fish:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xwqhl"]
+_data = {
+&"anim": SubResource("Animation_mew0o")
+}
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6jywk"]
 transparency = 4
@@ -31,12 +78,31 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_5jsg7"]
 offsets = PackedFloat32Array(0, 0.396825)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5jsg7"]
+transparency = 4
+shading_mode = 0
+albedo_texture = ExtResource("6_xwqhl")
+texture_filter = 0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_f2kt5"]
+material = SubResource("StandardMaterial3D_5jsg7")
+
 [node name="THEME B" type="Node3D"]
+script = ExtResource("1_xwqhl")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_opdei")
-autoplay = true
 bus = &"Music"
+
+[node name="A" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_xwqhl")
+}
 
 [node name="UIBackground" type="TextureRect" parent="."]
 z_index = -10
@@ -44,11 +110,9 @@ z_as_relative = false
 texture_filter = 1
 offset_right = 640.0
 offset_bottom = 104.0
-texture = ExtResource("2_0cbm0")
+texture = ExtResource("2_oyly8")
 expand_mode = 1
 stretch_mode = 6
-
-[node name="Foreground" parent="." instance=ExtResource("3_6jywk")]
 
 [node name="Border" type="Sprite3D" parent="."]
 transform = Transform3D(0.8, 0, 0, 0, -3.49691e-08, 1, 0, -0.8, -4.37114e-08, 0, -0.3, 0)
@@ -61,13 +125,14 @@ metadata/_edit_lock_ = true
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.4, 0)
 pixel_size = 0.1
 texture_filter = 0
-texture = ExtResource("4_noamw")
+texture = ExtResource("4_oyly8")
 region_enabled = true
 region_rect = Rect2(0, 0, 1024, 1024)
 metadata/_edit_lock_ = true
 
 [node name="Bubbles" type="CPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.6, 3.2, 0)
+emitting = false
 amount = 16
 lifetime = 3.0
 mesh = SubResource("QuadMesh_mew0o")
@@ -81,6 +146,7 @@ color_ramp = SubResource("Gradient_5jsg7")
 
 [node name="Bubbles2" type="CPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9, 3.2, 0)
+emitting = false
 amount = 16
 lifetime = 3.0
 mesh = SubResource("QuadMesh_mew0o")
@@ -92,6 +158,20 @@ scale_amount_max = 2.0
 scale_amount_curve = SubResource("Curve_xwqhl")
 color_ramp = SubResource("Gradient_5jsg7")
 
+[node name="Fish" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.1, 5.9, -0.8)
+emitting = false
+amount = 6
+lifetime = 6.0
+randomness = 1.0
+mesh = SubResource("QuadMesh_f2kt5")
+emission_shape = 3
+emission_box_extents = Vector3(1, 2, 10)
+gravity = Vector3(-4, 0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_5jsg7")
+
 [node name="OCEAN" type="Node3D" parent="."]
 
 [node name="Grass" type="Sprite3D" parent="OCEAN"]
@@ -101,7 +181,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass8" type="Sprite3D" parent="OCEAN"]
@@ -111,7 +191,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass25" type="Sprite3D" parent="OCEAN"]
@@ -121,7 +201,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass2" type="Sprite3D" parent="OCEAN"]
@@ -131,17 +211,17 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass38" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.9, 0.6, -13)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.9, 0.6, -13)
 sorting_offset = -10.0
 pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass39" type="Sprite3D" parent="OCEAN"]
@@ -151,7 +231,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass20" type="Sprite3D" parent="OCEAN"]
@@ -161,27 +241,27 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass21" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.1, 0.6, -2.2)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -13.8, 0.6, 4)
 sorting_offset = -10.0
 pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass22" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 1, -23.8, 0.6, 3.1)
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 1, -19.3, 0.6, 5.9)
 sorting_offset = -10.0
 pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass23" type="Sprite3D" parent="OCEAN"]
@@ -191,7 +271,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass35" type="Sprite3D" parent="OCEAN"]
@@ -201,7 +281,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass46" type="Sprite3D" parent="OCEAN"]
@@ -211,7 +291,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass47" type="Sprite3D" parent="OCEAN"]
@@ -221,7 +301,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass48" type="Sprite3D" parent="OCEAN"]
@@ -231,27 +311,27 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass36" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.2, 0.6, -15.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.7, 0.6, -15.5)
 sorting_offset = -10.0
 pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass37" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.2, 0.6, -8.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.2, 0.6, -3.4)
 sorting_offset = -10.0
 pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass24" type="Sprite3D" parent="OCEAN"]
@@ -261,7 +341,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass3" type="Sprite3D" parent="OCEAN"]
@@ -271,27 +351,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Corall" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1, -12.8, 0.6, -2.6)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("7_6jywk")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Corall2" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 1, -10.3, 0.6, 0.2)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("7_6jywk")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass4" type="Sprite3D" parent="OCEAN"]
@@ -301,7 +361,17 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Grass7" type="Sprite3D" parent="OCEAN"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -28.5, 0.6, -9.9)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass9" type="Sprite3D" parent="OCEAN"]
@@ -311,57 +381,17 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Shell6" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -12.5, 0.6, 5.2)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("6_oyly8")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Corall3" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -14.3, 0.6, 0.6)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("7_6jywk")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Corall13" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 1, 21.9, 0.6, 3.9)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("7_6jywk")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Corall7" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 1, -14.7, 0.6, 8.6)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("7_6jywk")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass5" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1, -19.3, 0.6, -1)
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1, -18.4, 0.6, -1)
 sorting_offset = -10.0
 pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass30" type="Sprite3D" parent="OCEAN"]
@@ -371,7 +401,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass31" type="Sprite3D" parent="OCEAN"]
@@ -381,17 +411,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Shell2" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1, 13, 0.6, 0.7)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("6_oyly8")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass6" type="Sprite3D" parent="OCEAN"]
@@ -401,7 +421,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass26" type="Sprite3D" parent="OCEAN"]
@@ -411,7 +431,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass16" type="Sprite3D" parent="OCEAN"]
@@ -421,7 +441,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass42" type="Sprite3D" parent="OCEAN"]
@@ -431,7 +451,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass43" type="Sprite3D" parent="OCEAN"]
@@ -441,77 +461,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Corall4" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 1, 12, 0.6, -7.3)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("7_6jywk")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Corall16" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 1, -3.2, 0.6, -13.1)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("7_6jywk")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Shell7" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 1, 15.4, 0.6, 3.2)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("6_oyly8")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Grass10" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 1, 12.8, 0.6, 7.5)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("5_0cbm0")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Grass11" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 1, 11.2, 0.6, 3)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("5_0cbm0")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Shell8" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 17, 0.6, -8.2)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("6_oyly8")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Corall5" type="Sprite3D" parent="OCEAN"]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 1, 19.7, 0.6, -2.8)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("7_6jywk")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass12" type="Sprite3D" parent="OCEAN"]
@@ -521,7 +471,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass32" type="Sprite3D" parent="OCEAN"]
@@ -531,7 +481,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass40" type="Sprite3D" parent="OCEAN"]
@@ -541,7 +491,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass41" type="Sprite3D" parent="OCEAN"]
@@ -551,7 +501,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass44" type="Sprite3D" parent="OCEAN"]
@@ -561,7 +511,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass33" type="Sprite3D" parent="OCEAN"]
@@ -571,7 +521,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass34" type="Sprite3D" parent="OCEAN"]
@@ -581,7 +531,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Grass13" type="Sprite3D" parent="OCEAN"]
@@ -591,7 +541,77 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("5_0cbm0")
+texture = ExtResource("6_mew0o")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Grass10" type="Sprite3D" parent="OCEAN"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 1, 12.43, 0.6, 7.5)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("6_mew0o")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Grass14" type="Sprite3D" parent="OCEAN"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 14.795, 0.72, 5.485)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("6_mew0o")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Grass11" type="Sprite3D" parent="OCEAN"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 1, 11.2, 0.65, 3)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("6_mew0o")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Shell6" type="Sprite3D" parent="OCEAN"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -9.245, 0.935, 4)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("7_xwqhl")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Shell2" type="Sprite3D" parent="OCEAN"]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1, 12.59, 0.765, 2.285)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("7_xwqhl")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Shell7" type="Sprite3D" parent="OCEAN"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 1, 15.955, 0.395, 2.32)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("7_xwqhl")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Shell8" type="Sprite3D" parent="OCEAN"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 17, 0.6, -8.2)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("7_xwqhl")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Shell4" type="Sprite3D" parent="OCEAN"]
@@ -601,5 +621,85 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("6_oyly8")
+texture = ExtResource("7_xwqhl")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Corall" type="Sprite3D" parent="OCEAN"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1, -14.285, 0.61, -4.54)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("8_5jsg7")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Corall2" type="Sprite3D" parent="OCEAN"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 1, -10.3, 0.6, 0.2)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("9_f2kt5")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Corall3" type="Sprite3D" parent="OCEAN"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -14.3, 0.6, 0.6)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("9_f2kt5")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Corall13" type="Sprite3D" parent="OCEAN"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 1, 21.9, 0.6, 3.9)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("8_5jsg7")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Corall7" type="Sprite3D" parent="OCEAN"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 1, -13.905, 1.975, 8.12)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("9_f2kt5")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Corall4" type="Sprite3D" parent="OCEAN"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 1, 12.08, 0.6, -7.3)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("9_f2kt5")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Corall16" type="Sprite3D" parent="OCEAN"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 1, -2.98, 0.6, -14.095)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("8_5jsg7")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Corall5" type="Sprite3D" parent="OCEAN"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 1, 19.59, 0.6, -2.8)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("9_f2kt5")
 region_rect = Rect2(0, 0, 1024, 1024)

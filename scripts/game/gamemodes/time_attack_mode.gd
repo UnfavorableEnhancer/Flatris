@@ -42,6 +42,10 @@ var lines : int = 0 ## Total amount of deleted lines
 var ta_start_ticks : int = 0 ## Ticks from which time attack started
 
 
+func _init() -> void:
+	name = "TimeAttackMode"
+
+
 func _ready() -> void:
 	super()
 	game.reset_ended.connect(_start_countdown)

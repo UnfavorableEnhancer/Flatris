@@ -421,7 +421,7 @@ func _start_game() -> void:
 			gamemode = CheeseMode.new()
 			gamemode.ruleset = selected_ruleset
 	
-	main._start_game(gamemode)
+	main._start_game(gamemode, selected_theme)
 
 
 func _visit(what : String) -> void:

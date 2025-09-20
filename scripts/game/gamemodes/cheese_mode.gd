@@ -67,6 +67,9 @@ var score : int = 0 ## Total game score
 var lines : int = 0 ## Total amount of deleted lines
 
 
+func _init() -> void:
+	name = "CheeseMode"
+
 
 func _set_ruleset(type : int) -> void:
 	super(type)

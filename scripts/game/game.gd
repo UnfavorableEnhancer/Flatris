@@ -27,6 +27,10 @@ const SOUNDS : Dictionary[String, AudioStream] = {
 	"game_over2" : preload("res://sfx/game/game_over2.wav"),
 }
 
+const THEME_A_BACKGROUND : String = "res://scenes/game/background/theme_a.tscn"
+const THEME_B_BACKGROUND : String = "res://scenes/game/background/theme_b.tscn"
+const THEME_C_BACKGROUND : String = "res://scenes/game/background/theme_c.tscn"
+
 const TICK : float = 1 / 60.0 ## Single game physics tick
 
 signal reset_started ## Emitted when game reset is started
@@ -49,8 +53,8 @@ var is_game_over : bool = false ## If true, the game is over and needs restart
 
 var gamemode : Gamemode = null ## Current gamemode, defines game rules and goals
 
-var background_to_load : String = "THEME_A" ## What background to load at game start
-var background = null ## Contains fancy visuals and music
+var background_to_load : int = THEME.A ## What background to load at game start
+var background : Background = null ## Contains fancy visuals and music
 
 @onready var gamefield : Gamefield = $Gamefield ## Contains all blocks and gamey stuff
 @onready var foreground : Foreground = $Foreground ## Contains all game GUI which is controlled by current gamemode
@@ -63,7 +67,23 @@ var playing_sounds : Dictionary[String, AudioStreamPlayer] = {} ## All currently
 func _ready() -> void:
 	pause_background.modulate.a = 0.0
 	
-	gamemode = MarathonMode.new()
+	var background_path
+	match background_to_load:
+		THEME.A : 
+			background_path = THEME_A_BACKGROUND
+			gamefield.get_node("Field").texture = load("res://images/game/theme_a_cell.png")
+			gamefield.get_node("HeigthField").texture = load("res://images/game/theme_a_heigth_cell.png")
+		THEME.B : 
+			background_path = THEME_B_BACKGROUND
+			gamefield.get_node("Field").texture = load("res://images/game/theme_b_cell.png")
+			gamefield.get_node("HeigthField").texture = load("res://images/game/theme_b_heigth_cell.png")
+		THEME.C : 
+			background_path = THEME_C_BACKGROUND
+			gamefield.get_node("Field").texture = load("res://images/game/theme_c_cell.png")
+			gamefield.get_node("HeigthField").texture = load("res://images/game/theme_c_heigth_cell.png")
+	
+	background = load(background_path).instantiate()
+	add_child(background)
 	
 	gamemode.game = self
 	gamemode.foreground = foreground
@@ -77,9 +97,6 @@ func _ready() -> void:
 	add_child(gamemode)
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	
-	gamemode._reset()
-	is_physics_active = true
 
 
 ## Resets game to the initial state and starts it
@@ -88,6 +105,7 @@ func _reset() -> void:
 	is_resetting = true
 	
 	main._toggle_darken(true)
+	background._stop_music()
 	await get_tree().create_timer(0.5).timeout
 	
 	gamefield.piece_queue._clear()
@@ -109,6 +127,7 @@ func _reset() -> void:
 	main._toggle_loading(false)
 	await get_tree().create_timer(0.5).timeout
 	
+	background._start_music()
 	reset_ended.emit()
 	is_physics_active = true
 	is_resetting = false
@@ -164,6 +183,7 @@ func _pause(on : bool = true, use_pause_screen : bool = true) -> void:
 
 	gamemode._pause(on)
 	paused.emit(on)
+	background._pause_music(on)
 
 	if on : create_tween().tween_property(pause_background, "modulate:a", 0.8, 1.0).from(0.0)
 	else : create_tween().tween_property(pause_background, "modulate:a", 0.0, 1.0).from(0.8)

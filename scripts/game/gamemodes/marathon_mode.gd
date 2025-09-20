@@ -82,6 +82,10 @@ var next_level_req : int = 4 ## Amount of lines needed to clear before level up
 var latest_next_level_req : int = 4 ## Latest amount of lines needed to clear before level up
 
 
+func _init() -> void:
+	name = "MarathonMode"
+
+
 ## Called when gamefield deletes lines
 func _on_lines_deleted(amount : int) -> void:
 	lines += amount

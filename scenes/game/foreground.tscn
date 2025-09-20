@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://btid6tcaw73b5"]
+[gd_scene load_steps=12 format=3 uid="uid://btid6tcaw73b5"]
 
 [ext_resource type="FontFile" uid="uid://cklk4kjp10w3h" path="res://fonts/visitor1.ttf" id="1_l0fvl"]
 [ext_resource type="Script" uid="uid://demctcae67pi" path="res://scripts/game/foreground/foreground.gd" id="1_u1a0d"]
@@ -19,6 +19,10 @@ font_size = 12
 [sub_resource type="LabelSettings" id="LabelSettings_nxhxe"]
 font = ExtResource("1_l0fvl")
 font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_doqxf"]
+font = ExtResource("1_l0fvl")
+font_size = 8
 
 [node name="Foreground" type="Control"]
 layout_mode = 3
@@ -336,11 +340,11 @@ stretch_mode = 4
 [node name="Text" type="Label" parent="Reversi"]
 layout_mode = 0
 offset_left = 22.0
-offset_top = -12.0
+offset_top = 16.0
 offset_right = 73.0
-offset_bottom = -1.0
+offset_bottom = 27.0
 text = "REVERSI"
-label_settings = SubResource("LabelSettings_nxhxe")
+label_settings = SubResource("LabelSettings_doqxf")
 horizontal_alignment = 1
 
 [node name="Next" type="Control" parent="."]

@@ -1,22 +1,90 @@
-[gd_scene load_steps=8 format=3 uid="uid://d4in6dtauuiu1"]
+[gd_scene load_steps=17 format=3 uid="uid://d4in6dtauuiu1"]
 
+[ext_resource type="Script" uid="uid://76m6ao0ownrv" path="res://scripts/game/background.gd" id="1_isbbf"]
 [ext_resource type="AudioStream" uid="uid://27avhunmgpdt" path="res://music/Tetris Theme C W3Rz Cover.ogg" id="1_s4g2f"]
 [ext_resource type="Texture2D" uid="uid://ih4sswmndawd" path="res://images/game/background/THEME C/border.png" id="2_1cpxn"]
-[ext_resource type="Texture2D" uid="uid://dk6avp5fag05k" path="res://images/game/background/THEME C/snow_pixel.png" id="3_isbbf"]
-[ext_resource type="Texture2D" uid="uid://qw6csd5v64fm" path="res://images/game/background/THEME C/background.png" id="3_jfxfa"]
-[ext_resource type="Texture2D" uid="uid://cm50lg1ocnnls" path="res://images/game/background/THEME C/tree.png" id="4_jfxfa"]
+[ext_resource type="Texture2D" uid="uid://cbvs7mvb3jd00" path="res://images/game/background/THEME C/background.png" id="3_jfxfa"]
+[ext_resource type="Texture2D" uid="uid://bd4rjhfiwnk4g" path="res://images/game/background/THEME C/flake2.png" id="5_btc8a"]
 [ext_resource type="Texture2D" uid="uid://b7hd4tu7erie6" path="res://images/game/background/THEME C/flake1.png" id="5_efsaa"]
+[ext_resource type="Texture2D" uid="uid://dai8sjighf6fi" path="res://images/game/background/THEME C/flake3.png" id="6_feqjt"]
+[ext_resource type="Texture2D" uid="uid://cfhmfj2gu80yl" path="res://images/game/background/THEME C/snow.png" id="6_vot1m"]
+[ext_resource type="Texture2D" uid="uid://bypeje1ift56g" path="res://images/game/background/THEME C/tree4.png" id="7_8jsuf"]
+[ext_resource type="Texture2D" uid="uid://dsveosgyu1ics" path="res://images/game/background/THEME C/flake4.png" id="7_o0cm5"]
+[ext_resource type="Texture2D" uid="uid://dgcvrk0isrp58" path="res://images/game/background/THEME C/tree3.png" id="8_fqrhx"]
+[ext_resource type="Texture2D" uid="uid://fk53ge61ikxh" path="res://images/game/background/THEME C/tree1.png" id="9_btc8a"]
+[ext_resource type="Texture2D" uid="uid://cs0b4crpd2o5v" path="res://images/game/background/THEME C/tree2.png" id="10_feqjt"]
+
+[sub_resource type="Animation" id="Animation_btc8a"]
+resource_name = "anim"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flakes1:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4995),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flakes2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4995),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flakes3:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.4995),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Flakes4:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.4995),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_feqjt"]
+_data = {
+&"anim": SubResource("Animation_btc8a")
+}
 
 [sub_resource type="Gradient" id="Gradient_1cpxn"]
 offsets = PackedFloat32Array(0.0846561, 0.444444, 0.73545, 1)
 colors = PackedColorArray(0, 0.0665283, 0.425781, 1, 1, 1, 1, 1, 0.771507, 0.771507, 0.771507, 0.741176, 0.117188, 0.117188, 0.117188, 0)
 
 [node name="THEME C" type="Node3D"]
+script = ExtResource("1_isbbf")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_s4g2f")
-autoplay = true
 bus = &"Music"
+
+[node name="A" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_feqjt")
+}
 
 [node name="UIBackground" type="TextureRect" parent="."]
 z_index = -10
@@ -28,23 +96,91 @@ texture = ExtResource("3_jfxfa")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+[node name="Flakes1" type="CPUParticles2D" parent="."]
 z_index = -20
-position = Vector2(320, 96)
-amount = 64
+position = Vector2(320, -56)
+emitting = false
+amount = 16
 texture = ExtResource("5_efsaa")
-lifetime = 2.5
+lifetime = 4.0
 emission_shape = 3
 emission_rect_extents = Vector2(300, 1)
-gravity = Vector2(0, 100)
-angular_velocity_min = -3.0
-angular_velocity_max = 3.0
-orbit_velocity_min = -0.03
-orbit_velocity_max = 0.03
+gravity = Vector2(0, 80)
+angular_velocity_min = -5.0
+angular_velocity_max = 5.0
+orbit_velocity_min = -0.04
+orbit_velocity_max = 0.04
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 0.75
+scale_amount_max = 1.5
+color = Color(0.8125, 0.907715, 1, 1)
+color_ramp = SubResource("Gradient_1cpxn")
+
+[node name="Flakes2" type="CPUParticles2D" parent="."]
+z_index = -20
+position = Vector2(320, -56)
+emitting = false
+amount = 16
+texture = ExtResource("5_btc8a")
+lifetime = 4.0
+emission_shape = 3
+emission_rect_extents = Vector2(300, 1)
+gravity = Vector2(0, 80)
+angular_velocity_min = -5.0
+angular_velocity_max = 5.0
+orbit_velocity_min = -0.04
+orbit_velocity_max = 0.04
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 0.75
+scale_amount_max = 1.5
+color = Color(0.8125, 0.907715, 1, 1)
+color_ramp = SubResource("Gradient_1cpxn")
+
+[node name="Flakes3" type="CPUParticles2D" parent="."]
+z_index = -20
+position = Vector2(528, -56)
+emitting = false
+amount = 64
+texture = ExtResource("6_feqjt")
+lifetime = 4.0
+emission_shape = 3
+emission_rect_extents = Vector2(300, 1)
+direction = Vector2(-1, 0)
+gravity = Vector2(0, 80)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+angular_velocity_min = -5.0
+angular_velocity_max = 5.0
+orbit_velocity_min = -0.04
+orbit_velocity_max = 0.04
 angle_min = -45.0
 angle_max = 45.0
 scale_amount_min = 0.5
-scale_amount_max = 1.5
+color = Color(0.8125, 0.907715, 1, 1)
+color_ramp = SubResource("Gradient_1cpxn")
+
+[node name="Flakes4" type="CPUParticles2D" parent="."]
+z_index = -20
+position = Vector2(528, -56)
+emitting = false
+amount = 64
+texture = ExtResource("7_o0cm5")
+lifetime = 4.0
+emission_shape = 3
+emission_rect_extents = Vector2(300, 1)
+direction = Vector2(-1, 0)
+gravity = Vector2(0, 80)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+angular_velocity_min = -5.0
+angular_velocity_max = 5.0
+orbit_velocity_min = -0.04
+orbit_velocity_max = 0.04
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 0.5
 color = Color(0.8125, 0.907715, 1, 1)
 color_ramp = SubResource("Gradient_1cpxn")
 
@@ -58,22 +194,22 @@ texture = ExtResource("2_1cpxn")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.4, 0)
 pixel_size = 0.1
 texture_filter = 0
-texture = ExtResource("3_isbbf")
+texture = ExtResource("6_vot1m")
 region_enabled = true
 region_rect = Rect2(0, 0, 1024, 1024)
 metadata/_edit_lock_ = true
 
 [node name="TREES" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Tree" type="Sprite3D" parent="TREES"]
+[node name="Tree1" type="Sprite3D" parent="TREES"]
 transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 1, 19, 0.6, 0)
+rotation_edit_mode = 2
 sorting_offset = -10.0
 pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("7_8jsuf")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree2" type="Sprite3D" parent="TREES"]
@@ -83,27 +219,7 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Tree35" type="Sprite3D" parent="TREES"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0.6, -13)
-sorting_offset = -10.0
-pixel_size = 0.1
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("4_jfxfa")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Tree36" type="Sprite3D" parent="TREES"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0.6, -8)
-sorting_offset = -10.0
-pixel_size = 0.1
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("8_fqrhx")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree3" type="Sprite3D" parent="TREES"]
@@ -113,7 +229,7 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("10_feqjt")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree4" type="Sprite3D" parent="TREES"]
@@ -123,7 +239,7 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("10_feqjt")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree5" type="Sprite3D" parent="TREES"]
@@ -133,7 +249,7 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("7_8jsuf")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree6" type="Sprite3D" parent="TREES"]
@@ -143,7 +259,7 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("7_8jsuf")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree7" type="Sprite3D" parent="TREES"]
@@ -153,7 +269,37 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("10_feqjt")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Tree8" type="Sprite3D" parent="TREES"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0.6, -5)
+sorting_offset = -10.0
+pixel_size = 0.1
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("7_8jsuf")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Tree9" type="Sprite3D" parent="TREES"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1, 34, 0.6, -14)
+sorting_offset = -10.0
+pixel_size = 0.1
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("10_feqjt")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Tree10" type="Sprite3D" parent="TREES"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28, 0.6, -8)
+sorting_offset = -10.0
+pixel_size = 0.1
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("9_btc8a")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree11" type="Sprite3D" parent="TREES"]
@@ -163,7 +309,7 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("8_fqrhx")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree12" type="Sprite3D" parent="TREES"]
@@ -173,7 +319,7 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("8_fqrhx")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree13" type="Sprite3D" parent="TREES"]
@@ -183,7 +329,7 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("9_btc8a")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree14" type="Sprite3D" parent="TREES"]
@@ -193,17 +339,7 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Tree18" type="Sprite3D" parent="TREES"]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 1, 17, 0.6, -18)
-sorting_offset = -10.0
-pixel_size = 0.1
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("9_btc8a")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree15" type="Sprite3D" parent="TREES"]
@@ -213,7 +349,7 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("8_fqrhx")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree16" type="Sprite3D" parent="TREES"]
@@ -223,7 +359,7 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("7_8jsuf")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree17" type="Sprite3D" parent="TREES"]
@@ -233,7 +369,37 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("9_btc8a")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Tree18" type="Sprite3D" parent="TREES"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 1, 17, 0.6, -18)
+sorting_offset = -10.0
+pixel_size = 0.1
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("10_feqjt")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Tree19" type="Sprite3D" parent="TREES"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0.6, -13)
+sorting_offset = -10.0
+pixel_size = 0.1
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("8_fqrhx")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Tree20" type="Sprite3D" parent="TREES"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 1, 24, 0.6, -16)
+sorting_offset = -10.0
+pixel_size = 0.1
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("9_btc8a")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree21" type="Sprite3D" parent="TREES"]
@@ -243,7 +409,7 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("9_btc8a")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree22" type="Sprite3D" parent="TREES"]
@@ -253,7 +419,7 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("10_feqjt")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree23" type="Sprite3D" parent="TREES"]
@@ -263,27 +429,7 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Tree37" type="Sprite3D" parent="TREES"]
-transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1, 34, 0.6, -14)
-sorting_offset = -10.0
-pixel_size = 0.1
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("4_jfxfa")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Tree38" type="Sprite3D" parent="TREES"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0.6, -5)
-sorting_offset = -10.0
-pixel_size = 0.1
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("8_fqrhx")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree24" type="Sprite3D" parent="TREES"]
@@ -293,17 +439,7 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Tree28" type="Sprite3D" parent="TREES"]
-transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 1, 24, 0.6, -16)
-sorting_offset = -10.0
-pixel_size = 0.1
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("9_btc8a")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree25" type="Sprite3D" parent="TREES"]
@@ -313,7 +449,7 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("9_btc8a")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree26" type="Sprite3D" parent="TREES"]
@@ -323,5 +459,5 @@ pixel_size = 0.1
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("4_jfxfa")
+texture = ExtResource("9_btc8a")
 region_rect = Rect2(0, 0, 1024, 1024)
