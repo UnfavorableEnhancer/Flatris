@@ -18,15 +18,38 @@
 [ext_resource type="Texture2D" uid="uid://cp31olj5xbvgl" path="res://images/menu/splash/S_shadow.png" id="14_jn0aw"]
 [ext_resource type="Texture2D" uid="uid://86hnafk4u074" path="res://images/menu/button_frame.png" id="16_f57dq"]
 [ext_resource type="FontFile" uid="uid://cklk4kjp10w3h" path="res://fonts/visitor1.ttf" id="17_elnxd"]
-[ext_resource type="Texture2D" uid="uid://cuky8lhd51fro" path="res://images/menu/theme_a_icon.png" id="17_yv3d3"]
+[ext_resource type="Texture2D" uid="uid://cuky8lhd51fro" path="res://images/menu/theme_a_icon_old.png" id="17_yv3d3"]
 [ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://scenes/menu/regular_button.tscn" id="18_aykpa"]
-[ext_resource type="Texture2D" uid="uid://dxx786wt43sgw" path="res://images/menu/theme_b_icon.png" id="19_dj3m4"]
-[ext_resource type="Texture2D" uid="uid://ckfxlidf1u1bk" path="res://images/menu/theme_c_icon.png" id="20_6o65b"]
-[ext_resource type="Texture2D" uid="uid://b01lxdnqqimri" path="res://images/game/blocks.png" id="20_pxwvd"]
+[ext_resource type="Texture2D" uid="uid://c7m8ynqw13qxd" path="res://images/game/blocks/block1.png" id="19_optuh"]
+[ext_resource type="Texture2D" uid="uid://dosixtje5xqij" path="res://images/game/blocks/block2.png" id="20_wifit"]
+[ext_resource type="Texture2D" uid="uid://dc4oc66ob20ca" path="res://images/game/blocks/block3.png" id="21_8glcf"]
+[ext_resource type="Texture2D" uid="uid://di1v1m2oq6srk" path="res://images/menu/theme_b_icon_new.png" id="21_pxwvd"]
+[ext_resource type="Texture2D" uid="uid://drju6wd5depxy" path="res://images/game/blocks/block4.png" id="22_cnu1j"]
+[ext_resource type="Texture2D" uid="uid://b3efejwmygu08" path="res://images/menu/theme_c_icon_new.png" id="22_jn0aw"]
+[ext_resource type="Texture2D" uid="uid://cq4pepurn2puh" path="res://images/game/blocks/block5.png" id="23_n0xo0"]
 [ext_resource type="FontFile" uid="uid://6qx2h4s31gar" path="res://fonts/public_pixel.ttf" id="23_yv3d3"]
+[ext_resource type="Texture2D" uid="uid://blt6auyvcrl1w" path="res://images/game/blocks/block6.png" id="24_1bvep"]
 [ext_resource type="FontFile" uid="uid://byl3d4xpe5wyb" path="res://fonts/Welbut.ttf" id="24_6o65b"]
+[ext_resource type="Texture2D" uid="uid://b3xehrjgjxj8f" path="res://images/game/blocks/block7.png" id="25_3epy5"]
 [ext_resource type="PackedScene" uid="uid://160thw0yemok" path="res://scenes/menu/slider.tscn" id="25_6o65b"]
 [ext_resource type="Texture2D" uid="uid://bneuaaghw0bmc" path="res://images/menu/unk.png" id="26_k8i45"]
+[ext_resource type="Texture2D" uid="uid://dvfxhggx3n3e8" path="res://images/game/blocks/block8.png" id="26_q7rk3"]
+[ext_resource type="Texture2D" uid="uid://bva0hldafmkym" path="res://images/game/blocks/block9.png" id="27_acvrf"]
+[ext_resource type="Texture2D" uid="uid://cp2vvd1mfw588" path="res://images/game/blocks/block10.png" id="28_ymvj2"]
+[ext_resource type="Texture2D" uid="uid://cufdy1jr7brcy" path="res://images/game/blocks/block11.png" id="29_tfu2k"]
+[ext_resource type="Texture2D" uid="uid://b2jryhau5mjpb" path="res://images/game/blocks/block12.png" id="30_wofmo"]
+[ext_resource type="Texture2D" uid="uid://k653psfpnkyo" path="res://images/game/blocks/block13.png" id="31_u2n4f"]
+[ext_resource type="Texture2D" uid="uid://cd0adlio5t4j8" path="res://images/game/blocks/block14.png" id="32_akdlq"]
+[ext_resource type="Texture2D" uid="uid://dy0r5nn8wjlao" path="res://images/game/blocks/block15.png" id="33_ei5qt"]
+[ext_resource type="Texture2D" uid="uid://bgxxdjrj1wpxt" path="res://images/game/blocks/block16.png" id="34_bddax"]
+[ext_resource type="Texture2D" uid="uid://b5g3eo28fcl3l" path="res://images/game/blocks/block17.png" id="35_3qeov"]
+[ext_resource type="Texture2D" uid="uid://cuqfykve6yfra" path="res://images/game/blocks/block18.png" id="36_pljov"]
+[ext_resource type="Texture2D" uid="uid://dbyob0cyrqra2" path="res://images/game/blocks/block19.png" id="37_2p8ee"]
+[ext_resource type="Texture2D" uid="uid://2jvrs7i63sdo" path="res://images/game/blocks/block20.png" id="38_i233n"]
+[ext_resource type="Texture2D" uid="uid://3mircom3efqk" path="res://images/game/blocks/block21.png" id="39_2lk40"]
+[ext_resource type="Texture2D" uid="uid://3dxpvnayyx3u" path="res://images/game/blocks/block22.png" id="40_g6iub"]
+[ext_resource type="Texture2D" uid="uid://qr30crixl3lq" path="res://images/game/blocks/block23.png" id="41_361k0"]
+[ext_resource type="Texture2D" uid="uid://dpvdqmc87liwl" path="res://images/game/blocks/block24.png" id="42_60x5n"]
 
 [sub_resource type="Animation" id="Animation_jn0aw"]
 length = 0.001
@@ -475,176 +498,80 @@ outline_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_2a65p"]
 font = ExtResource("17_elnxd")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jn0aw"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(32, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ct7gg"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nirrs"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(96, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o2geb"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(128, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_edv7b"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(0, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rrdn6"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(96, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_foryg"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(32, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g6eq7"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(128, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g4xak"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(0, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n7qsm"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7bmyi"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pc2n8"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i8lta"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4uada"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fu6ia"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1p20c"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(64, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yovr6"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(64, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rqb2s"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(64, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ddil5"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(96, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jbukq"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(128, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_enub8"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(0, 128, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mx5cr"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(32, 128, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_optuh"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(64, 128, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wifit"]
-atlas = ExtResource("20_pxwvd")
-region = Rect2(96, 128, 32, 32)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_8glcf"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jn0aw")
+"texture": ExtResource("19_optuh")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ct7gg")
+"texture": ExtResource("20_wifit")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nirrs")
+"texture": ExtResource("21_8glcf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_o2geb")
+"texture": ExtResource("22_cnu1j")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_edv7b")
+"texture": ExtResource("23_n0xo0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rrdn6")
+"texture": ExtResource("24_1bvep")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_foryg")
+"texture": ExtResource("25_3epy5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_g6eq7")
+"texture": ExtResource("26_q7rk3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_g4xak")
+"texture": ExtResource("27_acvrf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n7qsm")
+"texture": ExtResource("28_ymvj2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7bmyi")
+"texture": ExtResource("29_tfu2k")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pc2n8")
+"texture": ExtResource("30_wofmo")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_i8lta")
+"texture": ExtResource("31_u2n4f")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4uada")
+"texture": ExtResource("32_akdlq")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fu6ia")
+"texture": ExtResource("33_ei5qt")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1p20c")
+"texture": ExtResource("34_bddax")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yovr6")
+"texture": ExtResource("35_3qeov")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rqb2s")
+"texture": ExtResource("36_pljov")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ddil5")
+"texture": ExtResource("37_2p8ee")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jbukq")
+"texture": ExtResource("38_i233n")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_enub8")
+"texture": ExtResource("39_2lk40")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mx5cr")
+"texture": ExtResource("40_g6iub")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_optuh")
+"texture": ExtResource("41_361k0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wifit")
+"texture": ExtResource("42_60x5n")
 }],
 "loop": true,
 "name": &"default",
@@ -667,9 +594,9 @@ shadow_color = Color(0, 0, 0, 1)
 font = ExtResource("23_yv3d3")
 font_size = 10
 
-[sub_resource type="LabelSettings" id="LabelSettings_aykpa"]
+[sub_resource type="LabelSettings" id="LabelSettings_edv7b"]
 font = ExtResource("17_elnxd")
-font_size = 13
+font_size = 10
 shadow_size = 0
 shadow_color = Color(0, 0, 0, 1)
 
@@ -729,6 +656,12 @@ shadow_color = Color(0, 0, 0, 0.5)
 [sub_resource type="LabelSettings" id="LabelSettings_pxwvd"]
 font = ExtResource("17_elnxd")
 font_size = 10
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_aykpa"]
+font = ExtResource("17_elnxd")
+font_size = 13
 shadow_size = 0
 shadow_color = Color(0, 0, 0, 1)
 
@@ -953,7 +886,8 @@ text = ""
 description_node = NodePath("../../../Main/GameWindow/Desc")
 button_color = Color(0.219, 0.219, 0.219, 0.5)
 glow_color = Color(0.580228, 0.404663, 0.863281, 1)
-press_sound_name = "select"
+description = "Select previous placed blocks skin."
+press_sound_name = "cancel"
 call_function_name = "_prev_block_skin"
 parent_screen = NodePath("../../..")
 
@@ -968,7 +902,8 @@ text = "  "
 description_node = NodePath("../../../Main/GameWindow/Desc")
 button_color = Color(0.219, 0.219, 0.219, 0.5)
 glow_color = Color(0.580228, 0.404663, 0.863281, 1)
-press_sound_name = "select"
+description = "Select next placed blocks skin."
+press_sound_name = "cancel"
 call_function_name = "_next_block_skin"
 parent_screen = NodePath("../../..")
 
@@ -1029,7 +964,8 @@ text = ""
 description_node = NodePath("../../../Main/GameWindow/Desc")
 button_color = Color(0.219, 0.219, 0.219, 0.5)
 glow_color = Color(0.580228, 0.404663, 0.863281, 1)
-press_sound_name = "select"
+description = "Select previous placed blocks color."
+press_sound_name = "cancel"
 call_function_name = "_prev_color"
 parent_screen = NodePath("../../..")
 
@@ -1044,7 +980,8 @@ text = "  "
 description_node = NodePath("../../../Main/GameWindow/Desc")
 button_color = Color(0.219, 0.219, 0.219, 0.5)
 glow_color = Color(0.580228, 0.404663, 0.863281, 1)
-press_sound_name = "select"
+description = "Select next placed blocks color."
+press_sound_name = "cancel"
 call_function_name = "_next_color"
 parent_screen = NodePath("../../..")
 
@@ -1096,6 +1033,7 @@ text = ""
 description_node = NodePath("../../../Main/GameWindow/Desc")
 button_color = Color(0.219, 0.219, 0.219, 0)
 glow_color = Color(0, 0.372059, 0.898438, 0.442)
+description = "Select background THEME A. Featuring russian city with some well-known attributes."
 press_sound_name = "accept"
 call_string = "A"
 call_function_name = "_select_theme"
@@ -1142,6 +1080,7 @@ text = ""
 description_node = NodePath("../../../Main/GameWindow/Desc")
 button_color = Color(0.219, 0.219, 0.219, 0)
 glow_color = Color(0.621, 0.727, 0.023, 0.47)
+description = "Select background THEME B. Featuring deep depths or some russian river."
 press_sound_name = "accept"
 call_string = "B"
 call_function_name = "_select_theme"
@@ -1156,7 +1095,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("19_dj3m4")
+texture = ExtResource("21_pxwvd")
 expand_mode = 1
 metadata/_edit_group_ = true
 
@@ -1188,6 +1127,7 @@ text = ""
 description_node = NodePath("../../../Main/GameWindow/Desc")
 button_color = Color(0.219, 0.219, 0.219, 0)
 glow_color = Color(0.381, 0.965, 0.65, 0.448)
+description = "Select background THEME C. Featuring far away frozen taiga where snow never ends."
 press_sound_name = "accept"
 call_string = "C"
 call_function_name = "_select_theme"
@@ -1202,7 +1142,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("20_6o65b")
+texture = ExtResource("22_jn0aw")
 expand_mode = 1
 metadata/_edit_group_ = true
 
@@ -1232,6 +1172,7 @@ offset_left = 38.0
 offset_top = 108.0
 offset_right = 184.0
 offset_bottom = 136.0
+scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(2, 28)
 text = "Marathon"
 button_color = Color(0.128906, 0.612091, 1, 1)
@@ -1243,6 +1184,7 @@ offset_left = 38.0
 offset_top = 140.0
 offset_right = 184.0
 offset_bottom = 168.0
+scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(2, 28)
 text = "Time ATTACK"
 button_color = Color(1, 0.128906, 0.618896, 1)
@@ -1254,6 +1196,7 @@ offset_left = 38.0
 offset_top = 172.0
 offset_right = 184.0
 offset_bottom = 200.0
+scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(2, 28)
 text = "CHEESE"
 button_color = Color(1, 0.707275, 0.148438, 1)
@@ -1265,6 +1208,7 @@ offset_left = 38.0
 offset_top = 204.0
 offset_right = 184.0
 offset_bottom = 232.0
+scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(2, 28)
 text = "OPTIONS"
 button_color = Color(0.128906, 1, 0.591675, 1)
@@ -1276,6 +1220,7 @@ offset_left = 38.0
 offset_top = 236.0
 offset_right = 184.0
 offset_bottom = 264.0
+scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(2, 28)
 text = "STATS"
 button_color = Color(0.519562, 0.324219, 1, 1)
@@ -1287,6 +1232,7 @@ offset_left = 38.0
 offset_top = 268.0
 offset_right = 184.0
 offset_bottom = 296.0
+scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(2, 28)
 text = "ABOUT"
 button_color = Color(1, 0.28125, 0.28125, 1)
@@ -1298,6 +1244,7 @@ offset_left = 38.0
 offset_top = 300.0
 offset_right = 184.0
 offset_bottom = 328.0
+scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(2, 28)
 text = "QUIT"
 button_color = Color(0.625, 0.625, 0.625, 1)
@@ -1360,7 +1307,7 @@ vertical_alignment = 1
 layout_mode = 0
 offset_left = 14.0
 offset_top = 30.0
-offset_right = 114.0
+offset_right = 84.0
 offset_bottom = 48.0
 text = "STANDARD"
 description_node = NodePath("../Desc")
@@ -1374,8 +1321,8 @@ parent_screen = NodePath("../../..")
 
 [node name="Rank" type="ColorRect" parent="Main/GameWindow/Std"]
 layout_mode = 0
-offset_left = 108.0
-offset_right = 126.0
+offset_left = 74.0
+offset_right = 92.0
 offset_bottom = 18.0
 color = Color(0, 0, 0, 0.8)
 
@@ -1392,7 +1339,7 @@ label_settings = SubResource("LabelSettings_yv3d3")
 layout_mode = 0
 offset_left = 14.0
 offset_top = 52.0
-offset_right = 114.0
+offset_right = 84.0
 offset_bottom = 70.0
 text = "HARD"
 description_node = NodePath("../Desc")
@@ -1406,8 +1353,8 @@ parent_screen = NodePath("../../..")
 
 [node name="Rank" type="ColorRect" parent="Main/GameWindow/Hrd"]
 layout_mode = 0
-offset_left = 108.0
-offset_right = 126.0
+offset_left = 74.0
+offset_right = 92.0
 offset_bottom = 18.0
 color = Color(0, 0, 0, 0.8)
 
@@ -1424,7 +1371,7 @@ label_settings = SubResource("LabelSettings_yv3d3")
 layout_mode = 0
 offset_left = 14.0
 offset_top = 74.0
-offset_right = 114.0
+offset_right = 84.0
 offset_bottom = 92.0
 text = "EXTREME"
 description_node = NodePath("../Desc")
@@ -1438,8 +1385,8 @@ parent_screen = NodePath("../../..")
 
 [node name="Rank" type="ColorRect" parent="Main/GameWindow/Xtr"]
 layout_mode = 0
-offset_left = 108.0
-offset_right = 126.0
+offset_left = 74.0
+offset_right = 92.0
 offset_bottom = 18.0
 color = Color(0, 0, 0, 0.8)
 
@@ -1456,7 +1403,7 @@ label_settings = SubResource("LabelSettings_yv3d3")
 layout_mode = 0
 offset_left = 14.0
 offset_top = 96.0
-offset_right = 114.0
+offset_right = 84.0
 offset_bottom = 114.0
 text = "REVERSI"
 description_node = NodePath("../Desc")
@@ -1470,8 +1417,8 @@ parent_screen = NodePath("../../..")
 
 [node name="Rank" type="ColorRect" parent="Main/GameWindow/Rev"]
 layout_mode = 0
-offset_left = 108.0
-offset_right = 126.0
+offset_left = 74.0
+offset_right = 92.0
 offset_bottom = 18.0
 color = Color(0, 0, 0, 0.8)
 
@@ -1488,7 +1435,7 @@ label_settings = SubResource("LabelSettings_yv3d3")
 layout_mode = 0
 offset_left = 14.0
 offset_top = 118.0
-offset_right = 114.0
+offset_right = 84.0
 offset_bottom = 136.0
 text = "ZONE"
 description_node = NodePath("../Desc")
@@ -1502,8 +1449,8 @@ parent_screen = NodePath("../../..")
 
 [node name="Rank" type="ColorRect" parent="Main/GameWindow/Zon"]
 layout_mode = 0
-offset_left = 108.0
-offset_right = 126.0
+offset_left = 74.0
+offset_right = 92.0
 offset_bottom = 18.0
 color = Color(0, 0, 0, 0.8)
 
@@ -1520,7 +1467,7 @@ label_settings = SubResource("LabelSettings_yv3d3")
 layout_mode = 0
 offset_left = 14.0
 offset_top = 144.0
-offset_right = 140.0
+offset_right = 106.0
 offset_bottom = 162.0
 text = "CUSTOM"
 description_node = NodePath("../Desc")
@@ -1535,18 +1482,17 @@ parent_screen = NodePath("../../..")
 [node name="Label" type="Label" parent="Main/GameWindow"]
 layout_mode = 0
 offset_left = 14.0
-offset_top = 12.0
-offset_right = 132.0
-offset_bottom = 26.5
+offset_top = 10.0
+offset_right = 106.0
+offset_bottom = 25.0
 text = "Select ruleset :"
-label_settings = SubResource("LabelSettings_aykpa")
-horizontal_alignment = 1
+label_settings = SubResource("LabelSettings_edv7b")
 vertical_alignment = 1
 uppercase = true
 
 [node name="Window" type="ColorRect" parent="Main/GameWindow"]
 layout_mode = 0
-offset_left = 154.0
+offset_left = 120.0
 offset_top = 30.0
 offset_right = 382.0
 offset_bottom = 162.0
@@ -1554,18 +1500,19 @@ color = Color(0, 0, 0, 0.5)
 
 [node name="CustomRuleset" type="ScrollContainer" parent="Main/GameWindow"]
 layout_mode = 0
-offset_left = -462.0
-offset_top = 36.0
-offset_right = -245.0
-offset_bottom = 156.0
+offset_left = -490.0
+offset_top = 2.0
+offset_right = -236.0
+offset_bottom = 126.0
 theme = SubResource("Theme_pxwvd")
+scroll_vertical = 92
 horizontal_scroll_mode = 0
 
 [node name="V" type="VBoxContainer" parent="Main/GameWindow/CustomRuleset"]
 layout_mode = 2
 
 [node name="SizeX" type="ColorRect" parent="Main/GameWindow/CustomRuleset/V"]
-custom_minimum_size = Vector2(208, 16)
+custom_minimum_size = Vector2(244, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
 
@@ -1581,9 +1528,9 @@ vertical_alignment = 1
 
 [node name="Slider" parent="Main/GameWindow/CustomRuleset/V/SizeX" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("25_6o65b")]
 layout_mode = 2
-offset_left = 106.0
+offset_left = 114.0
 offset_top = 4.0
-offset_right = 174.0
+offset_right = 208.0
 offset_bottom = 13.0
 min_value = 3.0
 max_value = 10.0
@@ -1595,9 +1542,9 @@ parent_screen = NodePath("../../../../../..")
 
 [node name="Power" type="Label" parent="Main/GameWindow/CustomRuleset/V/SizeX/Slider"]
 layout_mode = 0
-offset_left = 68.0
+offset_left = 92.0
 offset_top = -4.0
-offset_right = 98.0
+offset_right = 122.0
 offset_bottom = 12.0
 text = "10"
 label_settings = SubResource("LabelSettings_jn0aw")
@@ -1621,9 +1568,9 @@ vertical_alignment = 1
 
 [node name="Slider" parent="Main/GameWindow/CustomRuleset/V/SizeY" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("25_6o65b")]
 layout_mode = 2
-offset_left = 106.0
+offset_left = 114.0
 offset_top = 4.0
-offset_right = 174.0
+offset_right = 208.0
 offset_bottom = 13.0
 min_value = 3.0
 max_value = 10.0
@@ -1635,9 +1582,9 @@ parent_screen = NodePath("../../../../../..")
 
 [node name="Power" type="Label" parent="Main/GameWindow/CustomRuleset/V/SizeY/Slider"]
 layout_mode = 0
-offset_left = 68.0
+offset_left = 92.0
 offset_top = -4.0
-offset_right = 98.0
+offset_right = 122.0
 offset_bottom = 12.0
 text = "10"
 label_settings = SubResource("LabelSettings_jn0aw")
@@ -1661,9 +1608,9 @@ vertical_alignment = 1
 
 [node name="Slider" parent="Main/GameWindow/CustomRuleset/V/SizeZ" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("25_6o65b")]
 layout_mode = 2
-offset_left = 106.0
+offset_left = 114.0
 offset_top = 4.0
-offset_right = 174.0
+offset_right = 208.0
 offset_bottom = 13.0
 min_value = 3.0
 max_value = 10.0
@@ -1675,9 +1622,9 @@ parent_screen = NodePath("../../../../../..")
 
 [node name="Power" type="Label" parent="Main/GameWindow/CustomRuleset/V/SizeZ/Slider"]
 layout_mode = 0
-offset_left = 68.0
+offset_left = 92.0
 offset_top = -4.0
-offset_right = 98.0
+offset_right = 122.0
 offset_bottom = 12.0
 text = "10"
 label_settings = SubResource("LabelSettings_jn0aw")
@@ -1701,9 +1648,9 @@ vertical_alignment = 1
 
 [node name="Slider" parent="Main/GameWindow/CustomRuleset/V/MaxDamage" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("25_6o65b")]
 layout_mode = 2
-offset_left = 106.0
+offset_left = 114.0
 offset_top = 4.0
-offset_right = 174.0
+offset_right = 208.0
 offset_bottom = 13.0
 value = 20.0
 description_node = NodePath("../../../../Desc")
@@ -1713,9 +1660,9 @@ parent_screen = NodePath("../../../../../..")
 
 [node name="Power" type="Label" parent="Main/GameWindow/CustomRuleset/V/MaxDamage/Slider"]
 layout_mode = 0
-offset_left = 68.0
+offset_left = 92.0
 offset_top = -4.0
-offset_right = 98.0
+offset_right = 122.0
 offset_bottom = 12.0
 text = "10"
 label_settings = SubResource("LabelSettings_jn0aw")
@@ -1739,9 +1686,9 @@ vertical_alignment = 1
 
 [node name="Slider" parent="Main/GameWindow/CustomRuleset/V/DamageRec" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("25_6o65b")]
 layout_mode = 2
-offset_left = 106.0
+offset_left = 114.0
 offset_top = 4.0
-offset_right = 174.0
+offset_right = 208.0
 offset_bottom = 13.0
 value = 10.0
 description_node = NodePath("../../../../Desc")
@@ -1751,9 +1698,9 @@ parent_screen = NodePath("../../../../../..")
 
 [node name="Power" type="Label" parent="Main/GameWindow/CustomRuleset/V/DamageRec/Slider"]
 layout_mode = 0
-offset_left = 68.0
+offset_left = 92.0
 offset_top = -4.0
-offset_right = 98.0
+offset_right = 122.0
 offset_bottom = 12.0
 text = "10"
 label_settings = SubResource("LabelSettings_jn0aw")
@@ -1761,7 +1708,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Extend" parent="Main/GameWindow/CustomRuleset/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(172, 16)
+custom_minimum_size = Vector2(208, 16)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "EXTENDED PIECE BAG"
@@ -1775,22 +1722,51 @@ parent_screen = NodePath("../../../../..")
 
 [node name="Rect" type="ColorRect" parent="Main/GameWindow/CustomRuleset/V/Extend"]
 layout_mode = 0
-offset_left = 176.0
-offset_right = 208.0
+offset_left = 212.0
+offset_right = 244.0
 offset_bottom = 16.0
 color = Color(0, 0, 0, 0.8)
 
 [node name="IO" type="Label" parent="Main/GameWindow/CustomRuleset/V/Extend"]
 layout_mode = 0
-offset_left = 176.0
-offset_right = 208.0
+offset_left = 212.0
+offset_right = 244.0
+offset_bottom = 15.0
+text = "ON"
+label_settings = SubResource("LabelSettings_ct7gg")
+horizontal_alignment = 1
+
+[node name="Gravity" parent="Main/GameWindow/CustomRuleset/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+custom_minimum_size = Vector2(208, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "BLOCK GRAVITY"
+description_node = NodePath("../../../Desc")
+description = "Attracts blocks to the center of the game field after line clear."
+is_setting_button = true
+work_mode = 4
+press_sound_name = "accept"
+call_string = "block_gravity"
+parent_screen = NodePath("../../../../..")
+
+[node name="Rect" type="ColorRect" parent="Main/GameWindow/CustomRuleset/V/Gravity"]
+layout_mode = 0
+offset_left = 212.0
+offset_right = 244.0
+offset_bottom = 16.0
+color = Color(0, 0, 0, 0.8)
+
+[node name="IO" type="Label" parent="Main/GameWindow/CustomRuleset/V/Gravity"]
+layout_mode = 0
+offset_left = 212.0
+offset_right = 244.0
 offset_bottom = 15.0
 text = "ON"
 label_settings = SubResource("LabelSettings_ct7gg")
 horizontal_alignment = 1
 
 [node name="Zone" parent="Main/GameWindow/CustomRuleset/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(172, 16)
+custom_minimum_size = Vector2(208, 16)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "ZONE MODE"
@@ -1804,80 +1780,22 @@ parent_screen = NodePath("../../../../..")
 
 [node name="Rect" type="ColorRect" parent="Main/GameWindow/CustomRuleset/V/Zone"]
 layout_mode = 0
-offset_left = 176.0
-offset_right = 208.0
+offset_left = 212.0
+offset_right = 244.0
 offset_bottom = 16.0
 color = Color(0, 0, 0, 0.8)
 
 [node name="IO" type="Label" parent="Main/GameWindow/CustomRuleset/V/Zone"]
 layout_mode = 0
-offset_left = 176.0
-offset_right = 208.0
-offset_bottom = 15.0
-text = "ON"
-label_settings = SubResource("LabelSettings_ct7gg")
-horizontal_alignment = 1
-
-[node name="Dzen" parent="Main/GameWindow/CustomRuleset/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(172, 16)
-layout_mode = 2
-size_flags_horizontal = 0
-text = "DZEN MODE"
-description_node = NodePath("../../../Desc")
-description = "Game over wouldn't be possible. Play as long as you wish!"
-is_setting_button = true
-work_mode = 4
-press_sound_name = "accept"
-call_string = "dzen_mode"
-parent_screen = NodePath("../../../../..")
-
-[node name="Rect" type="ColorRect" parent="Main/GameWindow/CustomRuleset/V/Dzen"]
-layout_mode = 0
-offset_left = 176.0
-offset_right = 208.0
-offset_bottom = 16.0
-color = Color(0, 0, 0, 0.8)
-
-[node name="IO" type="Label" parent="Main/GameWindow/CustomRuleset/V/Dzen"]
-layout_mode = 0
-offset_left = 176.0
-offset_right = 208.0
-offset_bottom = 15.0
-text = "ON"
-label_settings = SubResource("LabelSettings_ct7gg")
-horizontal_alignment = 1
-
-[node name="Death" parent="Main/GameWindow/CustomRuleset/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(172, 16)
-layout_mode = 2
-size_flags_horizontal = 0
-text = "DEATH MODE"
-description_node = NodePath("../../../Desc")
-description = "If piece lands onto placed block the game will end instantly."
-is_setting_button = true
-work_mode = 4
-press_sound_name = "accept"
-call_string = "death_mode"
-parent_screen = NodePath("../../../../..")
-
-[node name="Rect" type="ColorRect" parent="Main/GameWindow/CustomRuleset/V/Death"]
-layout_mode = 0
-offset_left = 176.0
-offset_right = 208.0
-offset_bottom = 16.0
-color = Color(0, 0, 0, 0.8)
-
-[node name="IO" type="Label" parent="Main/GameWindow/CustomRuleset/V/Death"]
-layout_mode = 0
-offset_left = 176.0
-offset_right = 208.0
+offset_left = 212.0
+offset_right = 244.0
 offset_bottom = 15.0
 text = "ON"
 label_settings = SubResource("LabelSettings_ct7gg")
 horizontal_alignment = 1
 
 [node name="Reversi" parent="Main/GameWindow/CustomRuleset/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(172, 16)
+custom_minimum_size = Vector2(208, 16)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "REVERSI MODE"
@@ -1891,15 +1809,74 @@ parent_screen = NodePath("../../../../..")
 
 [node name="Rect" type="ColorRect" parent="Main/GameWindow/CustomRuleset/V/Reversi"]
 layout_mode = 0
-offset_left = 176.0
-offset_right = 208.0
+offset_left = 212.0
+offset_right = 244.0
 offset_bottom = 16.0
 color = Color(0, 0, 0, 0.8)
 
 [node name="IO" type="Label" parent="Main/GameWindow/CustomRuleset/V/Reversi"]
 layout_mode = 0
-offset_left = 176.0
-offset_right = 208.0
+offset_left = 212.0
+offset_right = 244.0
+offset_bottom = 15.0
+text = "ON"
+label_settings = SubResource("LabelSettings_ct7gg")
+horizontal_alignment = 1
+
+[node name="Dzen" parent="Main/GameWindow/CustomRuleset/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+custom_minimum_size = Vector2(208, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "DZEN MODE"
+description_node = NodePath("../../../Desc")
+description = "Game over wouldn't be possible. Play as long as you wish!"
+is_setting_button = true
+work_mode = 4
+press_sound_name = "accept"
+call_string = "dzen_mode"
+parent_screen = NodePath("../../../../..")
+
+[node name="Rect" type="ColorRect" parent="Main/GameWindow/CustomRuleset/V/Dzen"]
+layout_mode = 0
+offset_left = 212.0
+offset_right = 244.0
+offset_bottom = 16.0
+color = Color(0, 0, 0, 0.8)
+
+[node name="IO" type="Label" parent="Main/GameWindow/CustomRuleset/V/Dzen"]
+layout_mode = 0
+offset_left = 212.0
+offset_right = 244.0
+offset_bottom = 15.0
+text = "ON"
+label_settings = SubResource("LabelSettings_ct7gg")
+horizontal_alignment = 1
+
+[node name="Death" parent="Main/GameWindow/CustomRuleset/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+custom_minimum_size = Vector2(208, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "DEATH MODE"
+description_node = NodePath("../../../Desc")
+description = "If piece lands onto placed block the game will end instantly."
+is_setting_button = true
+work_mode = 4
+press_sound_name = "accept"
+move_down_override = Vector2i(1, 7)
+call_string = "death_mode"
+parent_screen = NodePath("../../../../..")
+
+[node name="Rect" type="ColorRect" parent="Main/GameWindow/CustomRuleset/V/Death"]
+layout_mode = 0
+offset_left = 212.0
+offset_right = 244.0
+offset_bottom = 16.0
+color = Color(0, 0, 0, 0.8)
+
+[node name="IO" type="Label" parent="Main/GameWindow/CustomRuleset/V/Death"]
+layout_mode = 0
+offset_left = 212.0
+offset_right = 244.0
 offset_bottom = 15.0
 text = "ON"
 label_settings = SubResource("LabelSettings_ct7gg")
@@ -1914,8 +1891,9 @@ offset_bottom = 158.0
 
 [node name="V" type="VBoxContainer" parent="Main/GameWindow/Leaderboard"]
 layout_mode = 0
+offset_left = -34.0
 offset_right = 220.0
-offset_bottom = 40.0
+offset_bottom = 106.0
 
 [node name="TableLegend" type="HBoxContainer" parent="Main/GameWindow/Leaderboard/V"]
 layout_mode = 2
@@ -2041,10 +2019,12 @@ layout_mode = 2
 color = Color(0.179688, 0.135928, 0.0322876, 1)
 
 [node name="H" type="HBoxContainer" parent="Main/GameWindow/Leaderboard/V/mockup"]
-layout_mode = 0
-offset_top = 1.0
-offset_right = 220.0
-offset_bottom = 13.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="rak" type="Label" parent="Main/GameWindow/Leaderboard/V/mockup/H"]
 custom_minimum_size = Vector2(24, 0)
@@ -2093,10 +2073,12 @@ layout_mode = 2
 color = Color(0, 0, 0, 1)
 
 [node name="H" type="HBoxContainer" parent="Main/GameWindow/Leaderboard/V/mockup2"]
-layout_mode = 0
-offset_top = 1.0
-offset_right = 220.0
-offset_bottom = 13.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="rak" type="Label" parent="Main/GameWindow/Leaderboard/V/mockup2/H"]
 custom_minimum_size = Vector2(24, 0)
@@ -2145,10 +2127,12 @@ layout_mode = 2
 color = Color(0, 0, 0, 1)
 
 [node name="H" type="HBoxContainer" parent="Main/GameWindow/Leaderboard/V/mockup3"]
-layout_mode = 0
-offset_top = 1.0
-offset_right = 220.0
-offset_bottom = 13.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="rak" type="Label" parent="Main/GameWindow/Leaderboard/V/mockup3/H"]
 custom_minimum_size = Vector2(24, 0)
@@ -2197,10 +2181,12 @@ layout_mode = 2
 color = Color(0, 0, 0, 1)
 
 [node name="H" type="HBoxContainer" parent="Main/GameWindow/Leaderboard/V/mockup4"]
-layout_mode = 0
-offset_top = 1.0
-offset_right = 220.0
-offset_bottom = 13.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="rak" type="Label" parent="Main/GameWindow/Leaderboard/V/mockup4/H"]
 custom_minimum_size = Vector2(24, 0)
@@ -2249,10 +2235,12 @@ layout_mode = 2
 color = Color(0, 0, 0, 1)
 
 [node name="H" type="HBoxContainer" parent="Main/GameWindow/Leaderboard/V/mockup5"]
-layout_mode = 0
-offset_top = 1.0
-offset_right = 220.0
-offset_bottom = 13.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="rak" type="Label" parent="Main/GameWindow/Leaderboard/V/mockup5/H"]
 custom_minimum_size = Vector2(24, 0)
@@ -2301,10 +2289,12 @@ layout_mode = 2
 color = Color(0, 0, 0, 1)
 
 [node name="H" type="HBoxContainer" parent="Main/GameWindow/Leaderboard/V/mockup6"]
-layout_mode = 0
-offset_top = 1.0
-offset_right = 220.0
-offset_bottom = 13.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="rak" type="Label" parent="Main/GameWindow/Leaderboard/V/mockup6/H"]
 custom_minimum_size = Vector2(24, 0)
@@ -2350,13 +2340,14 @@ vertical_alignment = 1
 [node name="Prev" parent="Main/GameWindow/Leaderboard" node_paths=PackedStringArray("parent_screen") instance=ExtResource("18_aykpa")]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 0
-offset_left = 32.0
+offset_left = -12.0
 offset_top = 112.0
-offset_right = 102.0
+offset_right = 74.0
 offset_bottom = 124.0
 text = ""
 glow_color = Color(0.701961, 0.530821, 0.12549, 1)
 press_sound_name = "select"
+move_down_override = Vector2i(1, 7)
 parent_screen = NodePath("../../../..")
 metadata/_edit_group_ = true
 
@@ -2378,11 +2369,12 @@ custom_minimum_size = Vector2(32, 0)
 layout_mode = 0
 offset_left = 114.0
 offset_top = 112.0
-offset_right = 184.0
+offset_right = 200.0
 offset_bottom = 124.0
 text = ""
 glow_color = Color(0.12549, 0.701961, 0.310141, 1)
 press_sound_name = "select"
+move_down_override = Vector2i(1, 7)
 parent_screen = NodePath("../../../..")
 metadata/_edit_group_ = true
 
@@ -2408,9 +2400,9 @@ color = Color(1, 1, 1, 0.5)
 
 [node name="Bar2" type="ColorRect" parent="Main/GameWindow"]
 layout_mode = 0
-offset_left = 146.0
+offset_left = 112.0
 offset_top = 12.0
-offset_right = 148.0
+offset_right = 114.0
 offset_bottom = 168.0
 color = Color(1, 1, 1, 0.5)
 
@@ -2435,9 +2427,9 @@ autowrap_mode = 2
 
 [node name="Expl" type="Label" parent="Main/GameWindow"]
 layout_mode = 0
-offset_left = 158.0
+offset_left = 142.0
 offset_top = 12.0
-offset_right = 376.0
+offset_right = 360.0
 offset_bottom = 26.5
 text = "SURVIVE AS LONG AS YOU CAN!"
 label_settings = SubResource("LabelSettings_pxwvd")
@@ -2447,9 +2439,9 @@ uppercase = true
 
 [node name="Expl2" type="Label" parent="Main/GameWindow"]
 layout_mode = 0
-offset_left = 158.0
+offset_left = 142.0
 offset_top = 12.0
-offset_right = 376.0
+offset_right = 360.0
 offset_bottom = 26.5
 text = "CLEAR 40 LINES AS FAST AS YOU CAN!"
 label_settings = SubResource("LabelSettings_pxwvd")
@@ -2459,9 +2451,9 @@ uppercase = true
 
 [node name="Expl3" type="Label" parent="Main/GameWindow"]
 layout_mode = 0
-offset_left = 158.0
+offset_left = 142.0
 offset_top = 12.0
-offset_right = 376.0
+offset_right = 360.0
 offset_bottom = 26.5
 text = "CLEAR LAYERS OF RANDOMIZED CHEESE!"
 label_settings = SubResource("LabelSettings_pxwvd")
@@ -2471,10 +2463,10 @@ uppercase = true
 
 [node name="OptionsWindow" type="Control" parent="Main"]
 anchors_preset = 0
-offset_left = 680.0
-offset_top = 106.0
-offset_right = 1072.0
-offset_bottom = 326.0
+offset_left = 729.0
+offset_top = 100.0
+offset_right = 1121.0
+offset_bottom = 320.0
 
 [node name="Bar" type="ColorRect" parent="Main/OptionsWindow"]
 layout_mode = 0
@@ -2544,8 +2536,11 @@ offset_left = 158.0
 offset_top = 4.0
 offset_right = 268.0
 offset_bottom = 13.0
+min_value = -30.0
+max_value = 0.0
+value = -10.0
 description_node = NodePath("../../../../Desc")
-description = "Set music volume percentage"
+description = "Set music volume percentage."
 call_string = "music_volume"
 parent_screen = NodePath("../../../../../..")
 
@@ -2580,8 +2575,11 @@ offset_left = 158.0
 offset_top = 4.0
 offset_right = 268.0
 offset_bottom = 13.0
+min_value = -30.0
+max_value = 0.0
+value = -10.0
 description_node = NodePath("../../../../Desc")
-description = "Set sound effects volume percentage"
+description = "Set sound effects volume percentage."
 call_string = "sound_volume"
 parent_screen = NodePath("../../../../../..")
 
@@ -2597,12 +2595,13 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Fullscreen" parent="Main/OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(320, 16)
+custom_minimum_size = Vector2(324, 16)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "FULLSCREEN MODE"
 description_node = NodePath("../../../Desc")
-description = "Toggle fullscreen mode
-Pressing F11 also toggles fullscreen"
+description = "Toggle fullscreen mode.
+Pressing F11 also toggles fullscreen."
 is_setting_button = true
 work_mode = 4
 press_sound_name = "accept"
@@ -2611,15 +2610,15 @@ parent_screen = NodePath("../../../../..")
 
 [node name="Rect" type="ColorRect" parent="Main/OptionsWindow/Scroll/V/Fullscreen"]
 layout_mode = 0
-offset_left = 322.0
-offset_right = 354.0
+offset_left = 328.0
+offset_right = 360.0
 offset_bottom = 16.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="IO" type="Label" parent="Main/OptionsWindow/Scroll/V/Fullscreen"]
 layout_mode = 0
-offset_left = 322.0
-offset_right = 354.0
+offset_left = 328.0
+offset_right = 360.0
 offset_bottom = 15.0
 text = "ON"
 label_settings = SubResource("LabelSettings_ct7gg")
@@ -2647,9 +2646,9 @@ offset_top = 4.0
 offset_right = 268.0
 offset_bottom = 13.0
 max_value = 5.0
-value = 0.0
+value = 1.0
 description_node = NodePath("../../../../Desc")
-description = "Set windowed mode resolution"
+description = "Set windowed mode resolution."
 call_string = "resolution"
 parent_screen = NodePath("../../../../../..")
 
@@ -2684,11 +2683,12 @@ offset_left = 158.0
 offset_top = 4.0
 offset_right = 268.0
 offset_bottom = 13.0
+min_value = 30.0
 max_value = 300.0
-value = 1.0
+value = 120.0
 description_node = NodePath("../../../../Desc")
-description = "Set maximum amount of rendered frames per second
-Pressing F1 shows current FPS"
+description = "Set maximum amount of rendered frames per second.
+Pressing F1 shows current FPS."
 call_string = "max_fps"
 parent_screen = NodePath("../../../../../..")
 
@@ -2704,11 +2704,12 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="SaveOnline" parent="Main/OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(320, 16)
+custom_minimum_size = Vector2(324, 16)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "SAVE SCORE TO ONLINE LEADERBOARDS"
 description_node = NodePath("../../../Desc")
-description = "Toggle automatic saving of your best results into online leaderboard"
+description = "Toggle automatic saving of your best results into online leaderboard."
 work_mode = 4
 press_sound_name = "accept"
 call_string = "save_score_online"
@@ -2716,15 +2717,15 @@ parent_screen = NodePath("../../../../..")
 
 [node name="Rect" type="ColorRect" parent="Main/OptionsWindow/Scroll/V/SaveOnline"]
 layout_mode = 0
-offset_left = 322.0
-offset_right = 354.0
+offset_left = 328.0
+offset_right = 360.0
 offset_bottom = 16.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="IO" type="Label" parent="Main/OptionsWindow/Scroll/V/SaveOnline"]
 layout_mode = 0
-offset_left = 322.0
-offset_right = 354.0
+offset_left = 328.0
+offset_right = 360.0
 offset_bottom = 15.0
 text = "ON"
 label_settings = SubResource("LabelSettings_ct7gg")
@@ -2732,11 +2733,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StaticBack" parent="Main/OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(320, 16)
+custom_minimum_size = Vector2(324, 16)
 layout_mode = 2
-text = "STATIC THEME BACKGROUND"
+size_flags_horizontal = 0
+text = "DISABLE THEME ANIMATIONS"
 description_node = NodePath("../../../Desc")
-description = "Disables animations on theme background"
+description = "Disables animations on theme background."
 work_mode = 4
 press_sound_name = "accept"
 call_string = "static_background"
@@ -2744,15 +2746,15 @@ parent_screen = NodePath("../../../../..")
 
 [node name="Rect" type="ColorRect" parent="Main/OptionsWindow/Scroll/V/StaticBack"]
 layout_mode = 0
-offset_left = 322.0
-offset_right = 354.0
+offset_left = 328.0
+offset_right = 360.0
 offset_bottom = 16.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="IO" type="Label" parent="Main/OptionsWindow/Scroll/V/StaticBack"]
 layout_mode = 0
-offset_left = 322.0
-offset_right = 354.0
+offset_left = 328.0
+offset_right = 360.0
 offset_bottom = 15.0
 text = "ON"
 label_settings = SubResource("LabelSettings_ct7gg")
@@ -2773,216 +2775,232 @@ vertical_alignment = 1
 uppercase = true
 
 [node name="MoveLeft" parent="Main/OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(320, 24)
+custom_minimum_size = Vector2(332, 24)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "MOVE LEFT"
 description_node = NodePath("../../../Desc")
-description = "Assign button to move piece left"
+description = "Assign button to move piece left."
 press_sound_name = "accept"
+call_string = "move_left"
 call_function_name = "_assign_control"
 parent_screen = NodePath("../../../../..")
 
 [node name="Rect" type="ColorRect" parent="Main/OptionsWindow/Scroll/V/MoveLeft"]
 layout_mode = 0
-offset_left = 326.0
-offset_right = 350.0
+offset_left = 336.0
+offset_right = 360.0
 offset_bottom = 24.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="Icon" type="TextureRect" parent="Main/OptionsWindow/Scroll/V/MoveLeft"]
 layout_mode = 0
-offset_left = 326.0
-offset_right = 350.0
+offset_left = 336.0
+offset_right = 360.0
 offset_bottom = 24.0
 texture = ExtResource("26_k8i45")
 expand_mode = 1
 
 [node name="MoveRight" parent="Main/OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(320, 24)
+custom_minimum_size = Vector2(332, 24)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "MOVE RIGHT"
 description_node = NodePath("../../../Desc")
-description = "Assign button to move piece right"
+description = "Assign button to move piece right."
 press_sound_name = "accept"
+call_string = "move_right"
 call_function_name = "_assign_control"
 parent_screen = NodePath("../../../../..")
 
 [node name="Rect" type="ColorRect" parent="Main/OptionsWindow/Scroll/V/MoveRight"]
 layout_mode = 0
-offset_left = 326.0
-offset_right = 350.0
+offset_left = 336.0
+offset_right = 360.0
 offset_bottom = 24.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="Icon" type="TextureRect" parent="Main/OptionsWindow/Scroll/V/MoveRight"]
 layout_mode = 0
-offset_left = 326.0
-offset_right = 350.0
+offset_left = 336.0
+offset_right = 360.0
 offset_bottom = 24.0
 texture = ExtResource("26_k8i45")
 expand_mode = 1
 
 [node name="MoveUp" parent="Main/OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(320, 24)
+custom_minimum_size = Vector2(332, 24)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "MOVE UP"
 description_node = NodePath("../../../Desc")
-description = "Assign button to move piece up"
+description = "Assign button to move piece up."
 press_sound_name = "accept"
+call_string = "move_up"
 call_function_name = "_assign_control"
 parent_screen = NodePath("../../../../..")
 
 [node name="Rect" type="ColorRect" parent="Main/OptionsWindow/Scroll/V/MoveUp"]
 layout_mode = 0
-offset_left = 326.0
-offset_right = 350.0
+offset_left = 336.0
+offset_right = 360.0
 offset_bottom = 24.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="Icon" type="TextureRect" parent="Main/OptionsWindow/Scroll/V/MoveUp"]
 layout_mode = 0
-offset_left = 326.0
-offset_right = 350.0
+offset_left = 336.0
+offset_right = 360.0
 offset_bottom = 24.0
 texture = ExtResource("26_k8i45")
 expand_mode = 1
 
 [node name="MoveDown" parent="Main/OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(320, 24)
+custom_minimum_size = Vector2(332, 24)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "MOVE DOWN"
 description_node = NodePath("../../../Desc")
-description = "Assign button to move piece down"
+description = "Assign button to move piece down."
 press_sound_name = "accept"
+call_string = "move_down"
 call_function_name = "_assign_control"
 parent_screen = NodePath("../../../../..")
 
 [node name="Rect" type="ColorRect" parent="Main/OptionsWindow/Scroll/V/MoveDown"]
 layout_mode = 0
-offset_left = 326.0
-offset_right = 350.0
+offset_left = 336.0
+offset_right = 360.0
 offset_bottom = 24.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="Icon" type="TextureRect" parent="Main/OptionsWindow/Scroll/V/MoveDown"]
 layout_mode = 0
-offset_left = 326.0
-offset_right = 350.0
+offset_left = 336.0
+offset_right = 360.0
 offset_bottom = 24.0
 texture = ExtResource("26_k8i45")
 expand_mode = 1
 
 [node name="RotateRight" parent="Main/OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(320, 24)
+custom_minimum_size = Vector2(332, 24)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "ROTATE CLOCKWISE"
 description_node = NodePath("../../../Desc")
-description = "Assign button to rotate piece clockswise"
+description = "Assign button to rotate piece clockswise."
 press_sound_name = "accept"
+call_string = "rotate_right"
 call_function_name = "_assign_control"
 parent_screen = NodePath("../../../../..")
 
 [node name="Rect" type="ColorRect" parent="Main/OptionsWindow/Scroll/V/RotateRight"]
 layout_mode = 0
-offset_left = 326.0
-offset_right = 350.0
+offset_left = 336.0
+offset_right = 360.0
 offset_bottom = 24.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="Icon" type="TextureRect" parent="Main/OptionsWindow/Scroll/V/RotateRight"]
 layout_mode = 0
-offset_left = 326.0
-offset_right = 350.0
+offset_left = 336.0
+offset_right = 360.0
 offset_bottom = 24.0
 texture = ExtResource("26_k8i45")
 expand_mode = 1
 
 [node name="RotateLeft" parent="Main/OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(320, 24)
+custom_minimum_size = Vector2(332, 24)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "ROTATE COUNTERCLOCKWISE"
 description_node = NodePath("../../../Desc")
-description = "Assign button to rotate piece counterclockswise"
+description = "Assign button to rotate piece counterclockswise."
 press_sound_name = "accept"
+call_string = "rotate_left"
 call_function_name = "_assign_control"
 parent_screen = NodePath("../../../../..")
 
 [node name="Rect" type="ColorRect" parent="Main/OptionsWindow/Scroll/V/RotateLeft"]
 layout_mode = 0
-offset_left = 326.0
-offset_right = 350.0
+offset_left = 336.0
+offset_right = 360.0
 offset_bottom = 24.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="Icon" type="TextureRect" parent="Main/OptionsWindow/Scroll/V/RotateLeft"]
 layout_mode = 0
-offset_left = 326.0
-offset_right = 350.0
+offset_left = 336.0
+offset_right = 360.0
 offset_bottom = 24.0
 texture = ExtResource("26_k8i45")
 expand_mode = 1
 
 [node name="HardDrop" parent="Main/OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(320, 24)
+custom_minimum_size = Vector2(332, 24)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "HARD DROP"
 description_node = NodePath("../../../Desc")
-description = "Assign button to hard drop piece"
+description = "Assign button to hard drop piece."
 press_sound_name = "accept"
+call_string = "hard_drop"
 call_function_name = "_assign_control"
 parent_screen = NodePath("../../../../..")
 
 [node name="Rect" type="ColorRect" parent="Main/OptionsWindow/Scroll/V/HardDrop"]
 layout_mode = 0
-offset_left = 326.0
-offset_right = 350.0
+offset_left = 336.0
+offset_right = 360.0
 offset_bottom = 24.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="Icon" type="TextureRect" parent="Main/OptionsWindow/Scroll/V/HardDrop"]
 layout_mode = 0
-offset_left = 326.0
-offset_right = 350.0
+offset_left = 336.0
+offset_right = 360.0
 offset_bottom = 24.0
 texture = ExtResource("26_k8i45")
 expand_mode = 1
 
 [node name="Hold" parent="Main/OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(320, 24)
+custom_minimum_size = Vector2(332, 24)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "SWITCH PIECE IN HOLD"
 description_node = NodePath("../../../Desc")
-description = "Assign button to switch piece in hold"
+description = "Assign button to switch piece in hold."
 press_sound_name = "accept"
+call_string = "swap_hold"
 call_function_name = "_assign_control"
 parent_screen = NodePath("../../../../..")
 
 [node name="Rect" type="ColorRect" parent="Main/OptionsWindow/Scroll/V/Hold"]
 layout_mode = 0
-offset_left = 326.0
-offset_right = 350.0
+offset_left = 336.0
+offset_right = 360.0
 offset_bottom = 24.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="Icon" type="TextureRect" parent="Main/OptionsWindow/Scroll/V/Hold"]
 layout_mode = 0
-offset_left = 326.0
-offset_right = 350.0
+offset_left = 336.0
+offset_right = 360.0
 offset_bottom = 24.0
 texture = ExtResource("26_k8i45")
 expand_mode = 1
 
 [node name="StatsWindow" type="Control" parent="Main"]
 anchors_preset = 0
-offset_left = 60.0
+offset_left = 52.0
 offset_top = 396.0
-offset_right = 452.0
+offset_right = 444.0
 offset_bottom = 616.0
 
 [node name="Scroll" type="ScrollContainer" parent="Main/StatsWindow"]
 layout_mode = 0
 offset_left = 12.0
-offset_top = 18.0
+offset_top = 12.0
 offset_right = 382.0
 offset_bottom = 200.0
 theme = SubResource("Theme_pxwvd")
@@ -3015,26 +3033,242 @@ label_settings = SubResource("LabelSettings_jn0aw")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="TotalScore" type="ColorRect" parent="Main/StatsWindow/Scroll/V"]
+[node name="TotalMAAttempts" type="ColorRect" parent="Main/StatsWindow/Scroll/V"]
 custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
 
-[node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalScore"]
+[node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalMAAttempts"]
 layout_mode = 0
 offset_left = 8.0
 offset_right = 140.0
 offset_bottom = 16.0
-text = "TOTAL SCORE"
+text = "TOTAL MARATHON MODE PLAYS"
 label_settings = SubResource("LabelSettings_5paec")
 vertical_alignment = 1
 
-[node name="Value" type="Label" parent="Main/StatsWindow/Scroll/V/TotalScore"]
+[node name="Value" type="Label" parent="Main/StatsWindow/Scroll/V/TotalMAAttempts"]
+layout_mode = 0
+offset_left = 262.0
+offset_right = 354.0
+offset_bottom = 16.0
+text = "00"
+label_settings = SubResource("LabelSettings_jn0aw")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TotalTAAttempts" type="ColorRect" parent="Main/StatsWindow/Scroll/V"]
+custom_minimum_size = Vector2(360, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalTAAttempts"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 140.0
+offset_bottom = 16.0
+text = "TOTAL TIME ATTACK MODE PLAYS"
+label_settings = SubResource("LabelSettings_5paec")
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Main/StatsWindow/Scroll/V/TotalTAAttempts"]
+layout_mode = 0
+offset_left = 262.0
+offset_right = 354.0
+offset_bottom = 16.0
+text = "00"
+label_settings = SubResource("LabelSettings_jn0aw")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TotalCHAttempts" type="ColorRect" parent="Main/StatsWindow/Scroll/V"]
+custom_minimum_size = Vector2(360, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalCHAttempts"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 140.0
+offset_bottom = 16.0
+text = "TOTAL CHEESE MODE PLAYS"
+label_settings = SubResource("LabelSettings_5paec")
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Main/StatsWindow/Scroll/V/TotalCHAttempts"]
+layout_mode = 0
+offset_left = 262.0
+offset_right = 354.0
+offset_bottom = 16.0
+text = "00"
+label_settings = SubResource("LabelSettings_jn0aw")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TotalMAScore" type="ColorRect" parent="Main/StatsWindow/Scroll/V"]
+custom_minimum_size = Vector2(360, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalMAScore"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 140.0
+offset_bottom = 16.0
+text = "TOTAL MARATHON MODE SCORE"
+label_settings = SubResource("LabelSettings_5paec")
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Main/StatsWindow/Scroll/V/TotalMAScore"]
 layout_mode = 0
 offset_left = 262.0
 offset_right = 354.0
 offset_bottom = 16.0
 text = "000000"
+label_settings = SubResource("LabelSettings_jn0aw")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TopMAScoreGain" type="ColorRect" parent="Main/StatsWindow/Scroll/V"]
+custom_minimum_size = Vector2(360, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TopMAScoreGain"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 140.0
+offset_bottom = 16.0
+text = "TOP MARATHON SCORE GAIN"
+label_settings = SubResource("LabelSettings_5paec")
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Main/StatsWindow/Scroll/V/TopMAScoreGain"]
+layout_mode = 0
+offset_left = 262.0
+offset_right = 354.0
+offset_bottom = 16.0
+text = "000000"
+label_settings = SubResource("LabelSettings_jn0aw")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TotalCHScore" type="ColorRect" parent="Main/StatsWindow/Scroll/V"]
+custom_minimum_size = Vector2(360, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalCHScore"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 140.0
+offset_bottom = 16.0
+text = "TOTAL CHEESE MODE SCORE"
+label_settings = SubResource("LabelSettings_5paec")
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Main/StatsWindow/Scroll/V/TotalCHScore"]
+layout_mode = 0
+offset_left = 262.0
+offset_right = 354.0
+offset_bottom = 16.0
+text = "000000"
+label_settings = SubResource("LabelSettings_jn0aw")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TopCHScoreGain" type="ColorRect" parent="Main/StatsWindow/Scroll/V"]
+custom_minimum_size = Vector2(360, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TopCHScoreGain"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 140.0
+offset_bottom = 16.0
+text = "TOP CHEESE SCORE GAIN"
+label_settings = SubResource("LabelSettings_5paec")
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Main/StatsWindow/Scroll/V/TopCHScoreGain"]
+layout_mode = 0
+offset_left = 262.0
+offset_right = 354.0
+offset_bottom = 16.0
+text = "000000"
+label_settings = SubResource("LabelSettings_jn0aw")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TotalCheese" type="ColorRect" parent="Main/StatsWindow/Scroll/V"]
+custom_minimum_size = Vector2(360, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalCheese"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 140.0
+offset_bottom = 16.0
+text = "TOTAL CHEESE ERASED"
+label_settings = SubResource("LabelSettings_5paec")
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Main/StatsWindow/Scroll/V/TotalCheese"]
+layout_mode = 0
+offset_left = 262.0
+offset_right = 354.0
+offset_bottom = 16.0
+text = "000"
+label_settings = SubResource("LabelSettings_jn0aw")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TotalPieces" type="ColorRect" parent="Main/StatsWindow/Scroll/V"]
+custom_minimum_size = Vector2(360, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalPieces"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 140.0
+offset_bottom = 16.0
+text = "TOTAL PIECES PLACED"
+label_settings = SubResource("LabelSettings_5paec")
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Main/StatsWindow/Scroll/V/TotalPieces"]
+layout_mode = 0
+offset_left = 262.0
+offset_right = 354.0
+offset_bottom = 16.0
+text = "0000"
+label_settings = SubResource("LabelSettings_jn0aw")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TotalHolds" type="ColorRect" parent="Main/StatsWindow/Scroll/V"]
+custom_minimum_size = Vector2(360, 16)
+layout_mode = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalHolds"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 140.0
+offset_bottom = 16.0
+text = "TOTAL PIECES HOLDED"
+label_settings = SubResource("LabelSettings_5paec")
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Main/StatsWindow/Scroll/V/TotalHolds"]
+layout_mode = 0
+offset_left = 262.0
+offset_right = 354.0
+offset_bottom = 16.0
+text = "0000"
 label_settings = SubResource("LabelSettings_jn0aw")
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -3073,7 +3307,7 @@ layout_mode = 0
 offset_left = 8.0
 offset_right = 140.0
 offset_bottom = 16.0
-text = "TOTAL 4x LINES CLEARS"
+text = "TOTAL 4+ LINES CLEARS"
 label_settings = SubResource("LabelSettings_5paec")
 vertical_alignment = 1
 
@@ -3111,93 +3345,21 @@ label_settings = SubResource("LabelSettings_jn0aw")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="TotalHolds" type="ColorRect" parent="Main/StatsWindow/Scroll/V"]
+[node name="TotalDamage" type="ColorRect" parent="Main/StatsWindow/Scroll/V"]
 custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
 
-[node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalHolds"]
+[node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalDamage"]
 layout_mode = 0
 offset_left = 8.0
 offset_right = 140.0
 offset_bottom = 16.0
-text = "TOTAL PIECES HOLDED"
+text = "TOTAL DAMAGE TAKEN"
 label_settings = SubResource("LabelSettings_5paec")
 vertical_alignment = 1
 
-[node name="Value" type="Label" parent="Main/StatsWindow/Scroll/V/TotalHolds"]
-layout_mode = 0
-offset_left = 262.0
-offset_right = 354.0
-offset_bottom = 16.0
-text = "0000"
-label_settings = SubResource("LabelSettings_jn0aw")
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="TopScoreGain" type="ColorRect" parent="Main/StatsWindow/Scroll/V"]
-custom_minimum_size = Vector2(360, 16)
-layout_mode = 2
-color = Color(0, 0, 0, 0.5)
-
-[node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TopScoreGain"]
-layout_mode = 0
-offset_left = 8.0
-offset_right = 140.0
-offset_bottom = 16.0
-text = "TOP SCORE GAIN"
-label_settings = SubResource("LabelSettings_5paec")
-vertical_alignment = 1
-
-[node name="Value" type="Label" parent="Main/StatsWindow/Scroll/V/TopScoreGain"]
-layout_mode = 0
-offset_left = 262.0
-offset_right = 354.0
-offset_bottom = 16.0
-text = "000000"
-label_settings = SubResource("LabelSettings_jn0aw")
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="TotalPieces" type="ColorRect" parent="Main/StatsWindow/Scroll/V"]
-custom_minimum_size = Vector2(360, 16)
-layout_mode = 2
-color = Color(0, 0, 0, 0.5)
-
-[node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalPieces"]
-layout_mode = 0
-offset_left = 8.0
-offset_right = 140.0
-offset_bottom = 16.0
-text = "TOTAL PIECES DROPED"
-label_settings = SubResource("LabelSettings_5paec")
-vertical_alignment = 1
-
-[node name="Value" type="Label" parent="Main/StatsWindow/Scroll/V/TotalPieces"]
-layout_mode = 0
-offset_left = 262.0
-offset_right = 354.0
-offset_bottom = 16.0
-text = "0000"
-label_settings = SubResource("LabelSettings_jn0aw")
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="PiecesPerSecond" type="ColorRect" parent="Main/StatsWindow/Scroll/V"]
-custom_minimum_size = Vector2(360, 16)
-layout_mode = 2
-color = Color(0, 0, 0, 0.5)
-
-[node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/PiecesPerSecond"]
-layout_mode = 0
-offset_left = 8.0
-offset_right = 140.0
-offset_bottom = 16.0
-text = "DROPED PIECES PER SECOND"
-label_settings = SubResource("LabelSettings_5paec")
-vertical_alignment = 1
-
-[node name="Value" type="Label" parent="Main/StatsWindow/Scroll/V/PiecesPerSecond"]
+[node name="Value" type="Label" parent="Main/StatsWindow/Scroll/V/TotalDamage"]
 layout_mode = 0
 offset_left = 262.0
 offset_right = 354.0
@@ -3298,5 +3460,40 @@ offset_right = 96.0
 offset_bottom = 31.0
 text = "EXIT"
 label_settings = SubResource("LabelSettings_6o65b")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContolAssign" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 1128.0
+offset_right = 1768.0
+offset_bottom = 360.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="Frame" type="ColorRect" parent="ContolAssign"]
+layout_mode = 0
+offset_left = 176.0
+offset_top = 160.0
+offset_right = 464.0
+offset_bottom = 232.0
+color = Color(0, 0, 0, 0.917)
+
+[node name="Text" type="Label" parent="ContolAssign"]
+layout_mode = 0
+offset_top = 160.0
+offset_right = 640.0
+offset_bottom = 208.0
+text = "Press any button to assign:"
+label_settings = SubResource("LabelSettings_o2geb")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Action" type="Label" parent="ContolAssign"]
+layout_mode = 0
+offset_top = 184.0
+offset_right = 640.0
+offset_bottom = 232.0
+text = "MOVE_LEFT"
+label_settings = SubResource("LabelSettings_o2geb")
 horizontal_alignment = 1
 vertical_alignment = 1

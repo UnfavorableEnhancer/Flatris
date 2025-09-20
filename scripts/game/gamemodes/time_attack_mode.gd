@@ -49,6 +49,7 @@ func _init() -> void:
 func _ready() -> void:
 	super()
 	game.game_over_screen_name = "ta_game_over"
+	Player.stats["total_time_attack_attempts"] += 1
 
 
 func _set_ruleset(type : int) -> void:
@@ -97,6 +98,10 @@ func _pause(on : bool) -> void:
 ## Called when gamefield deletes lines
 func _on_lines_deleted(amount : int) -> void:
 	super(amount)
+	
+	if gamefield.matrix.is_empty():
+		game._add_sound("all_clear")
+		Player.stats["total_all_clears"] += 1
 	
 	lines += amount
 	if lines >= LINES_GOAL: game._game_over()

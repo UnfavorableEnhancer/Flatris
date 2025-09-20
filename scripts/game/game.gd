@@ -121,6 +121,7 @@ func _reset() -> void:
 	
 	gamefield.piece_queue._clear()
 	gamefield.piece_queue._shuffle()
+	if is_instance_valid(gamefield.piece) : gamefield.piece.queue_free()
 	
 	is_physics_active = false
 	
@@ -171,6 +172,7 @@ func _end() -> void:
 
 ## Ends the game and adds game over menu screen as predefined in **'game_over_screen_name'**
 func _game_over() -> void:
+	if is_game_over : return
 	is_game_over = true
 	_pause(true,false)
 	

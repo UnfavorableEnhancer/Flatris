@@ -33,27 +33,27 @@ const LEVEL_SPEED : Dictionary = {
 	2 : [90, 20, 5, 10, 30, 120, 10, 50, 4],
 	3 : [60, 20, 5, 10, 30, 120, 10, 50, 4],
 	4 : [55, 20, 5, 10, 30, 120, 10, 50, 4],
-	5 : [50, 20, 5, 10, 30, 120, 10, 50, 5],
-	6 : [45, 20, 5, 10, 30, 120, 10, 50, 5],
-	7 : [40, 20, 5, 10, 30, 120, 10, 50, 5],
-	8 : [35, 20, 5, 10, 30, 120, 10, 50, 5],
-	9 : [30, 20, 5, 10, 30, 120, 10, 50, 6],
+	5 : [50, 20, 5, 10, 30, 120, 10, 50, 4],
+	6 : [45, 20, 5, 10, 30, 120, 10, 50, 4],
+	7 : [40, 20, 5, 10, 30, 120, 10, 50, 4],
+	8 : [35, 20, 5, 10, 30, 120, 10, 50, 4],
+	9 : [30, 20, 5, 10, 30, 120, 10, 50, 4],
 	10 : [28, 20, 5, 10, 30, 120, 10, 50, 6],
 	11 : [26, 20, 5, 10, 30, 120, 10, 50, 6],
 	12 : [24, 20, 5, 10, 30, 120, 10, 50, 6],
 	13 : [22, 20, 5, 10, 30, 120, 10, 50, 6],
-	14 : [20, 10, 5, 10, 30, 120, 10, 50, 8],
+	14 : [20, 10, 5, 10, 30, 120, 10, 50, 6],
 	15 : [18, 10, 5, 10, 30, 120, 10, 50, 8],
 	16 : [16, 10, 5, 10, 30, 120, 10, 50, 8],
 	17 : [14, 10, 5, 10, 30, 120, 10, 50, 8],
 	18 : [12, 10, 5, 10, 30, 120, 10, 50, 8],
-	19 : [10, 10, 5, 10, 30, 120, 10, 50, 10],
+	19 : [10, 10, 5, 10, 30, 120, 10, 50, 8],
 	20 : [5, 10, 3, 10, 30, 120, 10, 50, 12],
 	22 : [4, 10, 3, 10, 30, 120, 10, 50, 12],
 	24 : [3, 10, 3, 10, 30, 120, 10, 50, 12],
 	26 : [2, 10, 3, 10, 30, 120, 10, 50, 12],
 	28 : [1, 10, 3, 10, 30, 120, 10, 50, 12],
-	30 : [0, 10, 3, 10, 30, 120, 10, 50, 16],
+	30 : [0, 10, 3, 10, 30, 120, 10, 50, 12],
 	33 : [0, 5, 3, 10, 25, 110, 10, 45, 16],
 	36 : [0, 5, 3, 10, 25, 100, 10, 40, 16],
 	39 : [0, 5, 3, 10, 25, 90, 10, 35, 16],
@@ -89,6 +89,7 @@ func _init() -> void:
 func _ready() -> void:
 	super()
 	game.game_over_screen_name = "ma_game_over"
+	Player.stats["total_marathon_attempts"] += 1
 
 
 ## Called on game reset
@@ -122,20 +123,27 @@ func _on_lines_deleted(amount : int) -> void:
 	lines += amount
 	
 	# All clear bonus
+	var score_gain : int = 0
 	if gamefield.matrix.is_empty():
-		score += 10000 * level
+		score_gain = 10000 * level
 		game._add_sound("all_clear")
+		Player.stats["total_all_clears"] += 1
 	else:
 		match amount:
-			1 : score += 100 * level
-			2 : score += 300 * level
-			3 : score += 500 * level
-			4 : score += 800 * level
-			5 : score += 1200 * level
-			6 : score += 1600 * level
-			7 : score += 2500 * level
-			8 : score += 5000 * level
-			9 : score += 7500 * level
+			1 : score_gain = 100 * level
+			2 : score_gain = 300 * level
+			3 : score_gain = 500 * level
+			4 : score_gain = 800 * level
+			5 : score_gain = 1200 * level
+			6 : score_gain = 1600 * level
+			7 : score_gain = 2500 * level
+			8 : score_gain = 5000 * level
+			9 : score_gain = 7500 * level
+			_ : score_gain = 7500 * level
+	
+	score += score_gain
+	Player.stats["total_marathon_score"] += score_gain
+	Player._set_stats_top("top_marathon_score_gain", score_gain)
 	
 	next_level_req -= amount
 	if next_level_req <= 0 : _level_up()

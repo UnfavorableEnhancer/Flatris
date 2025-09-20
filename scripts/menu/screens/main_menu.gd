@@ -19,8 +19,15 @@ var selected_color : int = Block.COLOR.RED
 var selected_theme : int = Game.THEME.A
 var selected_ruleset : int = Gamemode.RULESET.STANDARD
 
+var is_in_assign_mode : bool = false ## True if currently assigning button to an action
+var input_to_assign : InputEvent = null ## Stores input which is going to be assigned to an action
+signal input_received ## Emitted when input is received, used in control assign sequence
+
 
 func _ready() -> void:
+	_reload_all_action_icons()
+	_load_stats()
+	
 	$Main.position.y = -20.0
 	$SkinWindow.modulate.a = 0.0
 	$Main/WindowBack.modulate.a = 0.0
@@ -43,30 +50,30 @@ func _ready() -> void:
 	$Main/GameWindow/Expl2.modulate.a = 0.0
 	$Main/GameWindow/Expl3.modulate.a = 0.0
 	
-	_select_block_skin(Player.config["block_skin"])
-	_select_color_skin(Player.config["color_skin"])
-	_select_theme(Player.config["background_theme"])
-	_select_ruleset(Player.config["ruleset"])
+	_select_block_skin(int(Player.config["block_skin"]))
+	_select_color_skin(int(Player.config["color_skin"]))
+	
+	match int(Player.config["background_theme"]):
+		Game.THEME.A : _select_theme("A")
+		Game.THEME.B : _select_theme("B")
+		Game.THEME.C : _select_theme("C")
+	
+	match int(Player.config["ruleset"]):
+		Gamemode.RULESET.STANDARD : _select_ruleset("std")
+		Gamemode.RULESET.HARD : _select_ruleset("hrd")
+		Gamemode.RULESET.EXTREME : _select_ruleset("xtr")
+		Gamemode.RULESET.REVERSI : _select_ruleset("rev")
+		Gamemode.RULESET.ZONE : _select_ruleset("zon")
+		Gamemode.RULESET.CUSTOM : _select_ruleset("custom")
 	
 	parent_menu._change_music("menu_theme_drums")
 	
 	cursor_selection_success.connect(_on_select)
-	cursor_selection_fail.connect(_on_select_failed)
 	
 	await parent_menu.all_screens_added
 	_select_tab(MENU_TAB.MARATHON_MODE)
 	cursor = Vector2i(0,1)
 	_move_cursor()
-
-
-## Called when cursor fails to select selectable
-func _on_select_failed(pos : Vector2i, direction : int) -> void:
-	match current_tab:
-		MENU_TAB.MARATHON_MODE, MENU_TAB.TIME_ATTACK_MODE, MENU_TAB.CHEESE_MODE:
-			if pos == Vector2i(2,1) and direction == CURSOR_DIRECTION.DOWN:
-				cursor = Vector2i(1,7)
-			if pos == Vector2i(3,1) and direction == CURSOR_DIRECTION.DOWN:
-				cursor = Vector2i(1,7)
 
 
 ## Called when cursor successfully selects selectable
@@ -274,7 +281,7 @@ func _select_color_skin(color : int) -> void:
 	selected_color = color
 	$SkinWindow/ColorSkin/Color.color = Block.COLOR_VALUES[selected_color]
 	$SkinWindow/BlockSkin/Skin.modulate = Block.COLOR_VALUES[selected_color]
-	Player.config["color_skin"] = selected_skin
+	Player.config["color_skin"] = selected_color
 
 
 ## Switches to next color skin
@@ -282,7 +289,7 @@ func _next_color() -> void:
 	selected_color = wrapi(selected_color + 1, 0, 10)
 	$SkinWindow/ColorSkin/Color.color = Block.COLOR_VALUES[selected_color]
 	$SkinWindow/BlockSkin/Skin.modulate = Block.COLOR_VALUES[selected_color]
-	Player.config["color_skin"] = selected_skin
+	Player.config["color_skin"] = selected_color
 
 
 ## Switches to previous color skin
@@ -290,19 +297,13 @@ func _prev_color() -> void:
 	selected_color = wrapi(selected_color - 1, 0, 10)
 	$SkinWindow/ColorSkin/Color.color = Block.COLOR_VALUES[selected_color]
 	$SkinWindow/BlockSkin/Skin.modulate = Block.COLOR_VALUES[selected_color]
-	Player.config["color_skin"] = selected_skin
+	Player.config["color_skin"] = selected_color
 
 
 ## Selects background theme
-func _select_theme(theme : Variant) -> void:
-	if theme is int:
-		match theme:
-			Game.THEME.A : theme = "A"
-			Game.THEME.B : theme = "B"
-			Game.THEME.C : theme = "C"
-	
+func _select_theme(new_theme : String) -> void:
 	var tween : Tween = create_tween().set_parallel(true)
-	match theme:
+	match new_theme:
 		"A" : 
 			selected_theme = Game.THEME.A
 			tween.tween_property($SkinWindow/ThemeSkin/ThemeA, "modulate", Color(1.0,1.0,1.0), ANIMATION_SPEED)
@@ -323,16 +324,7 @@ func _select_theme(theme : Variant) -> void:
 
 
 ## Selects ruleset
-func _select_ruleset(ruleset : Variant) -> void:
-	if ruleset is int:
-		match ruleset:
-			Gamemode.RULESET.STANDARD : ruleset = "std"
-			Gamemode.RULESET.HARD : ruleset = "hrd"
-			Gamemode.RULESET.EXTREME : ruleset = "xtr"
-			Gamemode.RULESET.REVERSI : ruleset = "rev"
-			Gamemode.RULESET.ZONE : ruleset = "zon"
-			Gamemode.RULESET.CUSTOM : ruleset = "custom"
-	
+func _select_ruleset(ruleset : String) -> void:
 	var tween : Tween = create_tween().set_parallel(true)
 	var tween2 : Tween = create_tween()
 	
@@ -425,11 +417,40 @@ func _start_game() -> void:
 
 
 func _visit(what : String) -> void:
-	pass
+	if what == "github" : OS.shell_open("https://github.com/UnfavorableEnhancer/Flatris")
+	if what == "luminext" : OS.shell_open("https://github.com/UnfavorableEnhancer/Project-Luminext")
 
 
 func _quit() -> void:
-	pass
+	main._exit()
+
+
+func _load_stats() -> void:
+	$Main/StatsWindow/Scroll/V/TotalPlayTime/Value.text = Main._to_time(Player.stats["total_play_time"])
+	$Main/StatsWindow/Scroll/V/TotalMAAttempts/Value.text = _make_number_str_with_zeroes(Player.stats["total_marathon_attempts"], "00")
+	$Main/StatsWindow/Scroll/V/TotalTAAttempts/Value.text = _make_number_str_with_zeroes(Player.stats["total_time_attack_attempts"], "00")
+	$Main/StatsWindow/Scroll/V/TotalCHAttempts/Value.text = _make_number_str_with_zeroes(Player.stats["total_cheese_attempts"], "00")
+	$Main/StatsWindow/Scroll/V/TotalMAScore/Value.text = _make_number_str_with_zeroes(Player.stats["total_marathon_score"], "000000")
+	$Main/StatsWindow/Scroll/V/TopMAScoreGain/Value.text = _make_number_str_with_zeroes(Player.stats["top_marathon_score_gain"], "000000")
+	$Main/StatsWindow/Scroll/V/TotalCHScore/Value.text = _make_number_str_with_zeroes(Player.stats["total_cheese_score"], "000000")
+	$Main/StatsWindow/Scroll/V/TopCHScoreGain/Value.text = _make_number_str_with_zeroes(Player.stats["top_cheese_score_gain"], "000000")
+	$Main/StatsWindow/Scroll/V/TotalCheese/Value.text = _make_number_str_with_zeroes(Player.stats["total_cheese_erased"], "000")
+	$Main/StatsWindow/Scroll/V/TotalPieces/Value.text = _make_number_str_with_zeroes(Player.stats["total_pieces_landed"], "0000")
+	$Main/StatsWindow/Scroll/V/TotalHolds/Value.text = _make_number_str_with_zeroes(Player.stats["total_holds"], "0000")
+	$Main/StatsWindow/Scroll/V/TotalLines/Value.text = _make_number_str_with_zeroes(Player.stats["total_lines"], "0000")
+	$Main/StatsWindow/Scroll/V/Total4XLines/Value.text = _make_number_str_with_zeroes(Player.stats["total_tetrises"], "000")
+	$Main/StatsWindow/Scroll/V/TotalAllClears/Value.text = _make_number_str_with_zeroes(Player.stats["total_all_clears"], "00")
+	$Main/StatsWindow/Scroll/V/TotalDamage/Value.text = _make_number_str_with_zeroes(Player.stats["total_damage"], "000")
+
+
+func _make_number_str_with_zeroes(number : int, zeroes : String = "000000") -> String:
+	var str_number = str(number)
+	
+	if str_number.length() > zeroes.length():
+		return str_number
+	else:
+		str_number = zeroes.left(zeroes.length() - str_number.length()) + str_number
+		return str_number
 
 
 func _unload_custom_ruleset_selectables() -> void:
@@ -458,7 +479,83 @@ func _load_custom_ruleset_selectables() -> void:
 	_set_selectable_position($Main/GameWindow/CustomRuleset/V/MaxDamage/Slider, Vector2i(2, 4))
 	_set_selectable_position($Main/GameWindow/CustomRuleset/V/DamageRec/Slider, Vector2i(2, 5))
 	_set_selectable_position($Main/GameWindow/CustomRuleset/V/Extend, Vector2i(2, 6))
-	_set_selectable_position($Main/GameWindow/CustomRuleset/V/Zone, Vector2i(2, 7))
-	_set_selectable_position($Main/GameWindow/CustomRuleset/V/Dzen, Vector2i(2, 8))
-	_set_selectable_position($Main/GameWindow/CustomRuleset/V/Death, Vector2i(2, 9))
-	_set_selectable_position($Main/GameWindow/CustomRuleset/V/Reversi, Vector2i(2, 10))
+	_set_selectable_position($Main/GameWindow/CustomRuleset/V/Gravity, Vector2i(2, 7))
+	_set_selectable_position($Main/GameWindow/CustomRuleset/V/Zone, Vector2i(2, 8))
+	_set_selectable_position($Main/GameWindow/CustomRuleset/V/Reversi, Vector2i(2, 9))
+	_set_selectable_position($Main/GameWindow/CustomRuleset/V/Dzen, Vector2i(2, 10))
+	_set_selectable_position($Main/GameWindow/CustomRuleset/V/Death, Vector2i(2, 11))
+
+
+func _input(event : InputEvent) -> void:
+	super(event)
+
+	if is_in_assign_mode:
+		input_to_assign = event
+		input_received.emit()
+
+
+## Waits for player button input and assigns it to **'action_name'**
+func _assign_control(action_name : String) -> void:
+	if is_in_assign_mode: return
+	is_in_assign_mode = true
+	
+	$ContolAssign/Action.text = action_name
+	
+	$ContolAssign.position = Vector2(0,0)
+	create_tween().tween_property($ContolAssign, "modulate:a", 1.0, 0.5).from(0.0)
+	
+	parent_menu.is_locked = true
+	
+	await get_tree().create_timer(0.25).timeout
+	await input_received
+
+	Player._update_input_config(action_name, input_to_assign)
+	Player._apply_input_config(action_name)
+	_load_icon_for_action(action_name)
+
+	var tween : Tween = create_tween()
+	tween.tween_property($ContolAssign, "modulate:a", 0.0, 0.5)
+	tween.tween_property($ContolAssign, "position:x", 2000.0, 0.0)
+
+	await get_tree().create_timer(0.5).timeout
+	parent_menu.is_locked = false
+	is_in_assign_mode = false
+
+
+## Loads correct button icons for all actions
+func _reload_all_action_icons() -> void:
+	for action_name : String in [
+		"move_left",
+		"move_right",
+		"move_up",
+		"move_down",
+		"rotate_left",
+		"rotate_right",
+		"hard_drop",
+		"swap_hold"
+	]:
+		_load_icon_for_action(action_name)
+
+
+## Loads correct button icons for **'action'**
+func _load_icon_for_action(action : String) -> void:
+		var action_holder : Control = null
+		
+		match action:
+			"move_left" : action_holder = $Main/OptionsWindow/Scroll/V/MoveLeft
+			"move_right" : action_holder = $Main/OptionsWindow/Scroll/V/MoveRight
+			"move_up" : action_holder = $Main/OptionsWindow/Scroll/V/MoveUp
+			"move_down" : action_holder = $Main/OptionsWindow/Scroll/V/MoveDown
+			"rotate_left" : action_holder = $Main/OptionsWindow/Scroll/V/RotateLeft
+			"rotate_right" : action_holder = $Main/OptionsWindow/Scroll/V/RotateRight
+			"hard_drop" : action_holder = $Main/OptionsWindow/Scroll/V/HardDrop
+			"swap_hold" : action_holder = $Main/OptionsWindow/Scroll/V/Hold
+			_ : return
+		
+		action_holder.get_node("Icon").free()
+		
+		var new_icon : TextureRect = Menu._create_button_icon(action, Vector2(24,24))
+		new_icon.name = "Icon"
+		new_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		new_icon.position = Vector2(326,0)
+		action_holder.add_child(new_icon)

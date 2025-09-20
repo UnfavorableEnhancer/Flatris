@@ -53,7 +53,7 @@ func _ready() -> void:
 	
 	if game_test : 
 		menu._reset()
-		_start_game(CheeseMode.new(), Game.THEME.B)
+		_start_game(MarathonMode.new(), Game.THEME.C)
 	else : _reset()
 
 
@@ -200,7 +200,7 @@ func _exit(quick : bool = false) -> void:
 		
 		menu.is_locked = true
 		if menu.is_music_playing:
-			create_tween().tween_property(menu.music_player,"volume_db",-40.0,1.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
+			create_tween().tween_property(menu.music_player,"volume_db",-60.0,1.0).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
 		
 		await get_tree().create_timer(1.25).timeout
 	

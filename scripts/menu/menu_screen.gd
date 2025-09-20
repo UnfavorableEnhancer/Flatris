@@ -97,18 +97,28 @@ func _move_cursor(direction : int = CURSOR_DIRECTION.HERE, one_shot : bool = fal
 				cursor.x -= 1
 			else:
 				return false
+			
+			if currently_selected != null and currently_selected.move_left_override != Vector2i(-1,-1):
+				cursor = currently_selected.move_left_override
 		
 		CURSOR_DIRECTION.RIGHT:
 			cursor.x += 1
+			if currently_selected != null and currently_selected.move_right_override != Vector2i(-1,-1):
+				cursor = currently_selected.move_right_override
 		
 		CURSOR_DIRECTION.UP:
 			if cursor.y > 0 : 
 				cursor.y -= 1
 			else:
 				return false
+			
+			if currently_selected != null and currently_selected.move_up_override != Vector2i(-1,-1):
+				cursor = currently_selected.move_up_override
 		
 		CURSOR_DIRECTION.DOWN:
 			cursor.y += 1
+			if currently_selected != null and currently_selected.move_down_override != Vector2i(-1,-1):
+				cursor = currently_selected.move_down_override
 	
 	last_cursor_dir = direction
 	

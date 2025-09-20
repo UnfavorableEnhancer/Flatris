@@ -66,6 +66,7 @@ var cheese_rows : Array ## How many cheese is on each row
 var cheese_columns : Array ## How many cheese is on each column 
 
 var erased_cheese : int = 0 ## Total amount of erased cheese
+var has_erased_cheese : bool = false ## If true has erased cheese in current line clear
 
 var score : int = 0 ## Total game score
 var lines : int = 0 ## Total amount of deleted lines
@@ -78,6 +79,7 @@ func _init() -> void:
 func _ready() -> void:
 	super()
 	game.game_over_screen_name = "ch_game_over"
+	Player.stats["total_cheese_attempts"] += 1
 
 
 ## Called on game reset
@@ -122,30 +124,41 @@ func _on_lines_deleted(amount : int) -> void:
 	lines += amount
 	
 	# All clear bonus
-	if gamefield.matrix.is_empty():
-		score += 10000 * level
-		game._add_sound("all_clear")
-	else:
-		match amount:
-			1 : score += 100 * level
-			2 : score += 300 * level
-			3 : score += 500 * level
-			4 : score += 800 * level
-			5 : score += 1200 * level
-			6 : score += 1600 * level
-			7 : score += 2500 * level
-			8 : score += 5000 * level
-			9 : score += 7500 * level
-	
-	foreground._set_score_animated(score)
+	if has_erased_cheese:
+		var score_gain : int = 0
+		if gamefield.matrix.is_empty():
+			score_gain = 10000 * level
+			game._add_sound("all_clear")
+			Player.stats["total_all_clears"] += 1
+		else:
+			match amount:
+				1 : score_gain = 100 * level
+				2 : score_gain = 300 * level
+				3 : score_gain = 500 * level
+				4 : score_gain = 800 * level
+				5 : score_gain = 1200 * level
+				6 : score_gain = 1600 * level
+				7 : score_gain = 2500 * level
+				8 : score_gain = 5000 * level
+				9 : score_gain = 7500 * level
+				_ : score_gain = 7500 * level
+		
+		score += score_gain
+		Player.stats["total_cheese_score"] += score_gain
+		Player._set_stats_top("top_cheese_score_gain", score_gain)
+		
+		foreground._set_score_animated(score)
+		
 	foreground._set_lines_animated(lines)
 
 
 ## Called when some block was deleted
-func _on_block_deleted(at_position : Vector2i, is_cheese : bool) -> void:
+func _on_block_deleted(_at_position : Vector2i, is_cheese : bool) -> void:
 	if is_cheese : 
+		has_erased_cheese = true
 		cheese_amount -= 1
 		erased_cheese += 1
+		Player.stats["total_cheese_erased"] += 1
 		if cheese_amount <= 0 : 
 			_level_up()
 

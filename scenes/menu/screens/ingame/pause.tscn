@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://duli8dumx7awb"]
+[gd_scene load_steps=22 format=3 uid="uid://duli8dumx7awb"]
 
 [ext_resource type="Script" uid="uid://cnx22cxsv0llh" path="res://scripts/menu/screens/pause.gd" id="1_4t8p0"]
 [ext_resource type="Texture2D" uid="uid://86hnafk4u074" path="res://images/menu/button_frame.png" id="4_f1wm7"]
@@ -83,83 +83,6 @@ tracks/5/keys = {
 "values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_c6024"]
-resource_name = "start"
-length = 0.5
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sign:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sign:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Options:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Options:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.4),
-"transitions": PackedFloat32Array(1, 0.5, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 0), Vector2(1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("OptionsWindow:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("OptionsWindow:scale")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.5),
-"transitions": PackedFloat32Array(1, 0.5, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 0), Vector2(1, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_4t8p0"]
 resource_name = "end"
 length = 0.5
@@ -237,6 +160,83 @@ tracks/5/keys = {
 "values": [Vector2(1, 1), Vector2(0, 0), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_c6024"]
+resource_name = "start"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sign:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sign:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Options:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Options:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("OptionsWindow:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("OptionsWindow:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ufvm"]
 _data = {
 &"RESET": SubResource("Animation_rxj13"),
@@ -298,6 +298,10 @@ font_size = 12
 [sub_resource type="LabelSettings" id="LabelSettings_nw8re"]
 font = ExtResource("5_he0sb")
 font_size = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_4t8p0"]
+font = ExtResource("5_he0sb")
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="Pause" type="Control"]
 layout_mode = 3
@@ -476,7 +480,7 @@ autowrap_mode = 2
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 376.0
+offset_right = 371.0
 offset_bottom = 120.0
 theme = SubResource("Theme_wpfuj")
 horizontal_scroll_mode = 0
@@ -493,7 +497,7 @@ vertical_alignment = 1
 uppercase = true
 
 [node name="Music" type="ColorRect" parent="OptionsWindow/Scroll/V"]
-custom_minimum_size = Vector2(360, 16)
+custom_minimum_size = Vector2(350, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
 
@@ -506,23 +510,25 @@ text = "muSIC VOLUME"
 label_settings = SubResource("LabelSettings_r6slt")
 vertical_alignment = 1
 
-[node name="Slider" parent="OptionsWindow/Scroll/V/Music" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("8_he0sb")]
+[node name="Slider" parent="OptionsWindow/Scroll/V/Music" node_paths=PackedStringArray("description_node") instance=ExtResource("8_he0sb")]
 layout_mode = 2
 offset_left = 158.0
 offset_top = 4.0
 offset_right = 268.0
 offset_bottom = 13.0
+min_value = -30.0
+max_value = 0.0
+value = -10.0
 description_node = NodePath("../../../../Desc")
 description = "Set music volume percentage"
 menu_position = Vector2i(1, 0)
 call_string = "music_volume"
-parent_screen = NodePath("")
 
 [node name="Power" type="Label" parent="OptionsWindow/Scroll/V/Music/Slider"]
 layout_mode = 0
-offset_left = 104.0
+offset_left = 97.0
 offset_top = -4.0
-offset_right = 196.0
+offset_right = 189.0
 offset_bottom = 12.0
 text = "80.0"
 label_settings = SubResource("LabelSettings_1chut")
@@ -530,7 +536,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Sound" type="ColorRect" parent="OptionsWindow/Scroll/V"]
-custom_minimum_size = Vector2(360, 16)
+custom_minimum_size = Vector2(350, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
 
@@ -543,23 +549,25 @@ text = "SOUNDS VOLUME"
 label_settings = SubResource("LabelSettings_r6slt")
 vertical_alignment = 1
 
-[node name="Slider" parent="OptionsWindow/Scroll/V/Sound" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("8_he0sb")]
+[node name="Slider" parent="OptionsWindow/Scroll/V/Sound" node_paths=PackedStringArray("description_node") instance=ExtResource("8_he0sb")]
 layout_mode = 2
 offset_left = 158.0
 offset_top = 4.0
 offset_right = 268.0
 offset_bottom = 13.0
+min_value = -30.0
+max_value = 0.0
+value = -10.0
 description_node = NodePath("../../../../Desc")
 description = "Set sound effects volume percentage"
 menu_position = Vector2i(1, 1)
 call_string = "sound_volume"
-parent_screen = NodePath("")
 
 [node name="Power" type="Label" parent="OptionsWindow/Scroll/V/Sound/Slider"]
 layout_mode = 0
-offset_left = 104.0
+offset_left = 97.0
 offset_top = -4.0
-offset_right = 196.0
+offset_right = 189.0
 offset_bottom = 12.0
 text = "80.0"
 label_settings = SubResource("LabelSettings_1chut")
@@ -567,8 +575,9 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Fullscreen" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
-custom_minimum_size = Vector2(320, 16)
+custom_minimum_size = Vector2(314, 16)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "FULLSCREEN MODE"
 description_node = NodePath("../../../Desc")
 description = "Toggle fullscreen mode
@@ -578,19 +587,19 @@ menu_position = Vector2i(1, 2)
 work_mode = 4
 press_sound_name = "accept"
 call_string = "fullscreen"
-parent_screen = NodePath("")
+parent_screen = NodePath("../../../..")
 
 [node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/Fullscreen"]
 layout_mode = 0
-offset_left = 322.0
-offset_right = 354.0
+offset_left = 318.0
+offset_right = 350.0
 offset_bottom = 16.0
 color = Color(0, 0, 0, 0.5)
 
 [node name="IO" type="Label" parent="OptionsWindow/Scroll/V/Fullscreen"]
 layout_mode = 0
-offset_left = 322.0
-offset_right = 354.0
+offset_left = 318.0
+offset_right = 350.0
 offset_bottom = 15.0
 text = "ON"
 label_settings = SubResource("LabelSettings_nw8re")
@@ -598,7 +607,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Resolution" type="ColorRect" parent="OptionsWindow/Scroll/V"]
-custom_minimum_size = Vector2(360, 16)
+custom_minimum_size = Vector2(350, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
 
@@ -623,13 +632,13 @@ description_node = NodePath("../../../../Desc")
 description = "Set windowed mode resolution"
 menu_position = Vector2i(1, 3)
 call_string = "resolution"
-parent_screen = NodePath("")
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="OptionsWindow/Scroll/V/Resolution/Slider"]
 layout_mode = 0
-offset_left = 104.0
+offset_left = 97.0
 offset_top = -4.0
-offset_right = 196.0
+offset_right = 189.0
 offset_bottom = 12.0
 text = "1280x720"
 label_settings = SubResource("LabelSettings_1chut")
@@ -637,7 +646,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="FPSLimit" type="ColorRect" parent="OptionsWindow/Scroll/V"]
-custom_minimum_size = Vector2(360, 16)
+custom_minimum_size = Vector2(350, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
 
@@ -656,20 +665,21 @@ offset_left = 158.0
 offset_top = 4.0
 offset_right = 268.0
 offset_bottom = 13.0
+min_value = 30.0
 max_value = 300.0
-value = 1.0
+value = 120.0
 description_node = NodePath("../../../../Desc")
 description = "Set maximum amount of rendered frames per second
 Pressing F1 shows current FPS"
 menu_position = Vector2i(1, 4)
 call_string = "max_fps"
-parent_screen = NodePath("")
+parent_screen = NodePath("../../../../..")
 
 [node name="Power" type="Label" parent="OptionsWindow/Scroll/V/FPSLimit/Slider"]
 layout_mode = 0
-offset_left = 104.0
+offset_left = 97.0
 offset_top = -4.0
-offset_right = 196.0
+offset_right = 189.0
 offset_bottom = 12.0
 text = "120 fps"
 label_settings = SubResource("LabelSettings_1chut")
@@ -686,7 +696,7 @@ menu_position = Vector2i(1, 5)
 work_mode = 4
 press_sound_name = "accept"
 call_string = "save_score_online"
-parent_screen = NodePath("")
+parent_screen = NodePath("../../../..")
 
 [node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/SaveOnline"]
 layout_mode = 0
@@ -715,7 +725,7 @@ menu_position = Vector2i(1, 6)
 work_mode = 4
 press_sound_name = "accept"
 call_string = "static_background"
-parent_screen = NodePath("")
+parent_screen = NodePath("../../../..")
 
 [node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/StaticBack"]
 layout_mode = 0
@@ -748,15 +758,17 @@ vertical_alignment = 1
 uppercase = true
 
 [node name="MoveLeft" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
-custom_minimum_size = Vector2(320, 24)
+custom_minimum_size = Vector2(322, 24)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "MOVE LEFT"
 description_node = NodePath("../../../Desc")
 description = "Assign button to move piece left"
 menu_position = Vector2i(1, 7)
 press_sound_name = "accept"
+call_string = "move_left"
 call_function_name = "_assign_control"
-parent_screen = NodePath("")
+parent_screen = NodePath("../../../..")
 
 [node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/MoveLeft"]
 layout_mode = 0
@@ -774,15 +786,17 @@ texture = ExtResource("9_6smnl")
 expand_mode = 1
 
 [node name="MoveRight" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
-custom_minimum_size = Vector2(320, 24)
+custom_minimum_size = Vector2(322, 24)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "MOVE RIGHT"
 description_node = NodePath("../../../Desc")
 description = "Assign button to move piece right"
 menu_position = Vector2i(1, 8)
 press_sound_name = "accept"
+call_string = "move_right"
 call_function_name = "_assign_control"
-parent_screen = NodePath("")
+parent_screen = NodePath("../../../..")
 
 [node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/MoveRight"]
 layout_mode = 0
@@ -800,15 +814,17 @@ texture = ExtResource("9_6smnl")
 expand_mode = 1
 
 [node name="MoveUp" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
-custom_minimum_size = Vector2(320, 24)
+custom_minimum_size = Vector2(322, 24)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "MOVE UP"
 description_node = NodePath("../../../Desc")
 description = "Assign button to move piece up"
 menu_position = Vector2i(1, 9)
 press_sound_name = "accept"
+call_string = "move_up"
 call_function_name = "_assign_control"
-parent_screen = NodePath("")
+parent_screen = NodePath("../../../..")
 
 [node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/MoveUp"]
 layout_mode = 0
@@ -826,15 +842,17 @@ texture = ExtResource("9_6smnl")
 expand_mode = 1
 
 [node name="MoveDown" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
-custom_minimum_size = Vector2(320, 24)
+custom_minimum_size = Vector2(322, 24)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "MOVE DOWN"
 description_node = NodePath("../../../Desc")
 description = "Assign button to move piece down"
 menu_position = Vector2i(1, 9)
 press_sound_name = "accept"
+call_string = "move_down"
 call_function_name = "_assign_control"
-parent_screen = NodePath("")
+parent_screen = NodePath("../../../..")
 
 [node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/MoveDown"]
 layout_mode = 0
@@ -852,15 +870,17 @@ texture = ExtResource("9_6smnl")
 expand_mode = 1
 
 [node name="RotateRight" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
-custom_minimum_size = Vector2(320, 24)
+custom_minimum_size = Vector2(322, 24)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "ROTATE CLOCKWISE"
 description_node = NodePath("../../../Desc")
 description = "Assign button to rotate piece clockswise"
 menu_position = Vector2i(1, 10)
 press_sound_name = "accept"
+call_string = "rotate_right"
 call_function_name = "_assign_control"
-parent_screen = NodePath("")
+parent_screen = NodePath("../../../..")
 
 [node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/RotateRight"]
 layout_mode = 0
@@ -878,15 +898,17 @@ texture = ExtResource("9_6smnl")
 expand_mode = 1
 
 [node name="RotateLeft" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
-custom_minimum_size = Vector2(320, 24)
+custom_minimum_size = Vector2(322, 24)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "ROTATE COUNTERCLOCKWISE"
 description_node = NodePath("../../../Desc")
 description = "Assign button to rotate piece counterclockswise"
 menu_position = Vector2i(1, 11)
 press_sound_name = "accept"
+call_string = "rotate_left"
 call_function_name = "_assign_control"
-parent_screen = NodePath("")
+parent_screen = NodePath("../../../..")
 
 [node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/RotateLeft"]
 layout_mode = 0
@@ -904,15 +926,17 @@ texture = ExtResource("9_6smnl")
 expand_mode = 1
 
 [node name="HardDrop" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
-custom_minimum_size = Vector2(320, 24)
+custom_minimum_size = Vector2(322, 24)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "HARD DROP"
 description_node = NodePath("../../../Desc")
 description = "Assign button to hard drop piece"
 menu_position = Vector2i(1, 12)
 press_sound_name = "accept"
+call_string = "hard_drop"
 call_function_name = "_assign_control"
-parent_screen = NodePath("")
+parent_screen = NodePath("../../../..")
 
 [node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/HardDrop"]
 layout_mode = 0
@@ -930,15 +954,17 @@ texture = ExtResource("9_6smnl")
 expand_mode = 1
 
 [node name="Hold" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
-custom_minimum_size = Vector2(320, 24)
+custom_minimum_size = Vector2(322, 24)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "SWITCH PIECE IN HOLD"
 description_node = NodePath("../../../Desc")
 description = "Assign button to switch piece in hold"
 menu_position = Vector2i(1, 13)
 press_sound_name = "accept"
+call_string = "swap_hold"
 call_function_name = "_assign_control"
-parent_screen = NodePath("")
+parent_screen = NodePath("../../../..")
 
 [node name="Rect" type="ColorRect" parent="OptionsWindow/Scroll/V/Hold"]
 layout_mode = 0
@@ -954,3 +980,38 @@ offset_right = 350.0
 offset_bottom = 24.0
 texture = ExtResource("9_6smnl")
 expand_mode = 1
+
+[node name="ContolAssign" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 677.0
+offset_right = 1317.0
+offset_bottom = 360.0
+color = Color(0, 0, 0, 0.5)
+
+[node name="Frame" type="ColorRect" parent="ContolAssign"]
+layout_mode = 0
+offset_left = 176.0
+offset_top = 160.0
+offset_right = 464.0
+offset_bottom = 232.0
+color = Color(0, 0, 0, 0.917)
+
+[node name="Text" type="Label" parent="ContolAssign"]
+layout_mode = 0
+offset_top = 160.0
+offset_right = 640.0
+offset_bottom = 208.0
+text = "Press any button to assign:"
+label_settings = SubResource("LabelSettings_4t8p0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Action" type="Label" parent="ContolAssign"]
+layout_mode = 0
+offset_top = 184.0
+offset_right = 640.0
+offset_bottom = 232.0
+text = "MOVE_LEFT"
+label_settings = SubResource("LabelSettings_4t8p0")
+horizontal_alignment = 1
+vertical_alignment = 1

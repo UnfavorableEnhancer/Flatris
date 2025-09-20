@@ -120,6 +120,9 @@ func _physics() -> void:
 			_fall()
 	
 	elif current_state == STATE.FALLING:
+		if gamemode.fall_delay == 0: 
+			current_fall_delay = 999999999
+			_hard_drop()
 		current_fall_delay -= 1
 		if (current_fall_delay <= 0) :
 			current_fall_delay = gamemode.fall_delay
@@ -342,4 +345,5 @@ func _land() -> void:
 	for pos : Vector2i in blocks.keys():
 		gamefield._place_block(pos)
 	
+	Player.stats["total_pieces_landed"] += 1
 	queue_free()

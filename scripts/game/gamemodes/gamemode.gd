@@ -13,8 +13,9 @@ enum RULESET {
 	DEBUG # Test ruleset
 }
 
-const REVERSE_PIECES = 20 ## Amount of pieces needed for field reverse
-const LAST_CHANCE_DELAY = 20 ## Amount of frames until last chance can be wasted
+const REVERSE_PIECES : int = 20 ## Amount of pieces needed for field reverse
+const LAST_CHANCE_DELAY : int = 20 ## Amount of frames until last chance can be wasted
+const ZONE_LINE_CLEAR_INC : int = 30 ## Amount of frames on which line clear delay incerases in zone mode on each piece placed
 
 var main : Main ## Main instance
 var game : Game ## Game instance
@@ -30,17 +31,20 @@ var time_timer : Timer = null ## Timer which counts current game time
 
 var field_size : Vector3i = Vector3i(10,10,10) ## Size of the game field. X and Y are 2D coordinates and Z is height value
 
-var dzen_mode : bool = false ## If true game over is impossible
 var zone_mode : bool = false ## If true game field waits for some frames before deleting scanned lines
-var reversi_mode : bool = false ## If true game field will reverse after some amount of pieces placed
-var death_mode : bool = false ## If true piece landing on block always leads to instant game over
 
+var block_gravity : bool = true ## After line clear, attracts blocks to the center of the game field
 var extended_piece_queue : bool = false ## If true piece queue will use few more non traditional pieces
 
+var dzen_mode : bool = false ## If true game over is impossible
+var death_mode : bool = false ## If true piece landing on block always leads to instant game over
 var max_damage : int = 20 ## Amount of damage which player can take before game over
 var last_chance_tick : int = 0 ## If damage reached the max, store the tick on which this happened, player has one more chance to avoid putting blocks
 var damage_recovery : int = 10 ## Amount of pieces which must be dropped perfectly to reduce damage by one
 var current_damage_recovery : int = 10 ## Current amount of pieces which must be dropped perfectly to reduce damage by one
+
+var current_reversi : int = 0 ## Current amount of placed pieces before reversi
+var reversi_mode : bool = false ## If true game field will reverse after some amount of pieces placed
 
 var damage : int = 0 ## Total taken damage
 var time : int = 0 ## Total game time
@@ -66,6 +70,7 @@ func _ready() -> void:
 	gamefield.lines_cleared.connect(_on_lines_deleted)
 	gamefield.block_overlap.connect(_on_block_overlap)
 	gamefield.block_deleted.connect(_on_block_deleted)
+	gamefield.new_piece_given.connect(_on_new_piece_given)
 	gamefield.piece_queue.hold_updated.connect(foreground._update_hold)
 	gamefield.piece_queue.queue_updated.connect(foreground._update_queue)
 
@@ -79,8 +84,9 @@ func _set_ruleset(type : int) -> void:
 			reversi_mode = false
 			death_mode = false
 			extended_piece_queue = false
-			max_damage = 20
+			max_damage = 12
 			damage_recovery = 10
+			block_gravity = true
 			
 		RULESET.HARD : 
 			field_size = Vector3i(8, 8, 8)
@@ -88,9 +94,10 @@ func _set_ruleset(type : int) -> void:
 			zone_mode = false
 			reversi_mode = false
 			death_mode = false
-			extended_piece_queue = true
-			max_damage = 20
-			damage_recovery = 5
+			extended_piece_queue = false
+			block_gravity = true
+			max_damage = 8
+			damage_recovery = 20
 			
 		RULESET.EXTREME : 
 			field_size = Vector3i(9, 9, 9)
@@ -98,7 +105,8 @@ func _set_ruleset(type : int) -> void:
 			zone_mode = false
 			reversi_mode = false
 			death_mode = true
-			extended_piece_queue = true
+			extended_piece_queue = false
+			block_gravity = true
 			max_damage = 4
 			damage_recovery = 1
 			
@@ -109,7 +117,8 @@ func _set_ruleset(type : int) -> void:
 			reversi_mode = false
 			death_mode = false
 			extended_piece_queue = false
-			max_damage = 20
+			block_gravity = true
+			max_damage = 12
 			damage_recovery = 10
 			
 		RULESET.REVERSI : 
@@ -118,8 +127,9 @@ func _set_ruleset(type : int) -> void:
 			zone_mode = false
 			reversi_mode = true
 			death_mode = false
-			extended_piece_queue = true
-			max_damage = 20
+			extended_piece_queue = false
+			block_gravity = true
+			max_damage = 12
 			damage_recovery = 10
 			
 		RULESET.CUSTOM : 
@@ -129,24 +139,33 @@ func _set_ruleset(type : int) -> void:
 			reversi_mode = Player.config["reversi_mode"]
 			death_mode = Player.config["death_mode"]
 			extended_piece_queue = Player.config["extended_piece_queue"]
+			block_gravity = Player.config["block_gravity"]
 			max_damage = Player.config["max_damage"]
 			damage_recovery = Player.config["damage_recovery"]
 		
 		RULESET.DEBUG : 
 			field_size = Vector3i(10,10,10)
-			dzen_mode = true
+			dzen_mode = false
 			zone_mode = false
 			reversi_mode = false
 			death_mode = false
 			extended_piece_queue = false
+			block_gravity = true
 			max_damage = 20
 			damage_recovery = 10
 	
+	field_size.z -= 1
 	current_damage_recovery = damage_recovery
+	
+	if dzen_mode : foreground._disable_damage_bar()
+	if death_mode : foreground._set_damage(20)
 
 
 ## Called when gamefield deletes lines
 func _on_lines_deleted(amount : int) -> void:
+	Player.stats["total_lines"] += amount
+	if amount >= 4: Player.stats["total_tetrises"] += 1
+	
 	if damage > 0:
 		current_damage_recovery -= amount
 		if current_damage_recovery <= 0:
@@ -158,9 +177,16 @@ func _on_lines_deleted(amount : int) -> void:
 
 ## Called when block tries to spawn in existing one
 func _on_block_overlap() -> void:
+	if dzen_mode : return
+	
 	game._add_sound("damage")
 	
+	if death_mode : 
+		game._game_over()
+		return
+	
 	damage += 1
+	Player.stats["total_damage"] += 1
 	foreground._set_damage(int(20 * (damage / float(max_damage))))
 	
 	if last_chance_tick > 0 and Time.get_ticks_msec() - last_chance_tick > LAST_CHANCE_DELAY : game._game_over()
@@ -170,6 +196,17 @@ func _on_block_overlap() -> void:
 ## Called when some block was deleted
 func _on_block_deleted(_at_position : Vector2i, _is_cheese : bool) -> void:
 	pass
+
+
+## Called when new piece was given
+func _on_new_piece_given() -> void:
+	if reversi_mode:
+		current_reversi += 1
+		if current_reversi > REVERSE_PIECES:
+			gamefield._reverse_martix()
+			current_reversi = 0
+		
+		foreground._set_reversi(current_reversi)
 
 
 ## Called on game reset end
@@ -188,7 +225,7 @@ func _pause(on : bool) -> void:
 
 
 ## Called on game over
-func _game_over(game_over_screen : MenuScreen) -> void:
+func _game_over(_game_over_screen : MenuScreen) -> void:
 	pass
 
 

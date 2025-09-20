@@ -16,6 +16,11 @@ const HOLD_BEFORE_INPUT_DASH : float = 0.25 ## How much seconds to wait before s
 @export var menu_position : Vector2i = Vector2i(0,0) ## Slider position in current screen, used for selection by menu cursor
 @export var input_dash_speed : int = 1 ## How much to increase value when slider is "dashing"
 
+@export var move_down_override : Vector2i = Vector2i(-1,-1)
+@export var move_up_override : Vector2i = Vector2i(-1,-1)
+@export var move_left_override : Vector2i = Vector2i(-1,-1)
+@export var move_right_override : Vector2i = Vector2i(-1,-1)
+
 @export var call_string : String ## String this slider will send to the parent screen function if string is not empty
 @export var call_function_name : String = "" ## Name of the function inside parent screen script this slider will call when change value
 

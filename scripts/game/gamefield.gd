@@ -18,20 +18,24 @@ const BLOCK_Z_MARGIN : float = 0.8 ## Distance between blocks in Z axis in meter
 signal block_overlap ## Emitted when some block landed onto existing one
 signal block_deleted(coords : Vector2i, is_cheese : bool) ## Emitted when some block was deleted
 signal lines_cleared(amount : int) ## Emitted when lines were cleared
+signal new_piece_given ## Emitted when gives new piece to player
 
 var game : Game = null ## Parent game reference
 var gamemode : Gamemode = null ## Gamemode reference
 
 var current_appearance_delay : float = 1 ## Current amount of frames left before giving next piece from queue
+var current_line_clear_delay : float = 0 ## Current amount of frames left before clearing lines
 
 var height_ghost_offset : Vector3 ## Offset which points to (0,0) in matrix.x + height coordinates
 var field_offset : Vector3 ## Offset which points to (0,0) in matrix coordinates
-var field_center : Vector2 ## Gamefield center in matrix coordinates
+var field_center : Vector2i ## Gamefield center in matrix coordinates
 
 var matrix : Dictionary[Vector2i, Block] = {} ## Game field matrix containing already placed blocks
 var ghosts : Array = [] ## Array of currently shown ghosts
 var height_ghosts : Dictionary[Vector2i, HeightGhost] = {} ## Dictionary of currently shown height ghosts
 
+var has_misplaced_blocks : bool = false
+var erased_lines_amount : int = 0
 var scanned_blocks_positions : Array[Vector2i] = [] ## Positions of blocks which passed line check and which must be deleted after appearance_delay passes
 var scanned_rows : Array[int] = [] ## Rows which got lines
 var scanned_columns : Array[int] = [] ## Columns which got lines
@@ -86,11 +90,13 @@ func _clear_matrix() -> void:
 	matrix.clear()
 	scanned_rows.clear()
 	scanned_columns.clear()
+	erased_lines_amount = 0
 
 
 ## Places block onto matrix 
 func _place_block(to_position : Vector2i, cheese : bool = false) -> void:
 	if matrix.has(to_position):
+		has_misplaced_blocks = true
 		matrix[to_position]._flash_red()
 		block_overlap.emit()
 		return
@@ -113,6 +119,8 @@ func _remove_block(from_position : Vector2i) -> void:
 
 ## Removes all scanned by line check blocks
 func _remove_scanned_blocks() -> void:
+	if erased_lines_amount == 0 : return
+	
 	for pos : Vector2i in scanned_blocks_positions:
 		if not matrix.has(pos) : continue
 		var block : Block = matrix[pos]
@@ -122,18 +130,30 @@ func _remove_scanned_blocks() -> void:
 		
 		block.queue_free()
 		matrix.erase(pos)
+	
+	lines_cleared.emit(erased_lines_amount)
+	erased_lines_amount = 0
 
 
 ## Processes single physics tick
 func _physics() -> void:
 	var piece_exists : bool = is_instance_valid(piece)
 	
+	if current_line_clear_delay > 0:
+		current_line_clear_delay -= 1
+		if current_line_clear_delay <= 0:
+			_remove_scanned_blocks()
+			_gravity_pull()
+		
+		if not gamemode.zone_mode: return
+	
 	if not piece_exists and current_appearance_delay > 0:
 		current_appearance_delay -= 1
 		if current_appearance_delay <= 0:
-			_remove_scanned_blocks()
-			_gravity_pull()
-			_give_next_piece() 
+			if gamemode.zone_mode and gamemode.current_reversi == Gamemode.REVERSE_PIECES and current_line_clear_delay > 0: return
+			_give_next_piece()
+			has_misplaced_blocks = false
+			if gamemode.zone_mode: current_line_clear_delay += Gamemode.ZONE_LINE_CLEAR_INC
 		return
 	
 	if (Input.is_action_just_pressed(&"swap_hold")) and not has_swapped_hold: 
@@ -145,12 +165,26 @@ func _physics() -> void:
 		piece._physics()
 		return
 	
-	if _line_check() : current_appearance_delay += gamemode.line_clear_delay
-	current_appearance_delay += gamemode.appearance_delay
+	var latest_erased_lines_amount : int = erased_lines_amount
+	if _line_check() : 
+		if gamemode.zone_mode: 
+			if has_misplaced_blocks and latest_erased_lines_amount > 0:
+				current_line_clear_delay = 1
+			elif erased_lines_amount > latest_erased_lines_amount : 
+				current_line_clear_delay = gamemode.line_clear_delay * 2
+		else : 
+			current_line_clear_delay = gamemode.line_clear_delay
+	
+	current_appearance_delay = gamemode.appearance_delay
 
 
 ## Pulls all blocks from 4 sides into center, filling empty space left by cleared lines
 func _gravity_pull() -> void:
+	if not gamemode.block_gravity : 
+		scanned_rows.clear()
+		scanned_columns.clear()
+		return
+	
 	var new_matrix : Dictionary[Vector2i, Block]
 	var move_amount : Array = []
 	move_amount.resize(gamemode.field_size.y)
@@ -208,8 +242,12 @@ func _gravity_pull() -> void:
 
 ## Checks full blocks lines and erases them if found
 func _line_check() -> bool:
-	var erased_lines_amount : int = 0
+	var latest_erased_lines_amount : int = erased_lines_amount
+	
+	erased_lines_amount = 0
 	scanned_blocks_positions.clear()
+	scanned_rows.clear()
+	scanned_columns.clear()
 	
 	for y in gamemode.field_size.y:
 		var current_line_blocks_positions : Array[Vector2i] = []
@@ -237,21 +275,50 @@ func _line_check() -> bool:
 			erased_lines_amount += 1
 			scanned_columns.append(x)
 	
-	if erased_lines_amount > 0 : 
-		lines_cleared.emit(erased_lines_amount)
+	if erased_lines_amount > 0 and erased_lines_amount > latest_erased_lines_amount: 
 		game._add_sound("line_clear" + str(clampi(erased_lines_amount, 1, 10)))
 	
 	return erased_lines_amount > 0
 
 
+## Reverses all blocks on matrix
+func _reverse_martix() -> void:
+	var old_matrix : Dictionary[Vector2i, Block] = matrix.duplicate()
+	
+	for x in gamemode.field_size.x:
+		for y in gamemode.field_size.y:
+			var pos : Vector2i = Vector2i(x,y)
+			if matrix.has(pos) :
+				var block : Block = matrix[pos]
+				if block.color == Block.COLOR.CHEESE: continue
+				else: _remove_block(pos)
+	
+	for x in gamemode.field_size.x:
+		for y in gamemode.field_size.y:
+			if not old_matrix.has(Vector2i(x,y)):
+				_place_block(Vector2i(x,y))
+	
+	var latest_erased_lines_amount : int = erased_lines_amount
+	if _line_check() : 
+		if gamemode.zone_mode: 
+			if has_misplaced_blocks :
+				current_line_clear_delay = 1
+			elif erased_lines_amount > latest_erased_lines_amount : 
+				current_line_clear_delay = gamemode.line_clear_delay * 2
+		else : 
+			current_line_clear_delay = gamemode.line_clear_delay
+
+
 ## Adds next piece from queue
 func _give_next_piece() -> void:
+	new_piece_given.emit()
+	
 	has_swapped_hold = false
 	piece = Piece.new()
 	piece.piece_type = piece_queue._return_next_piece()
 	piece.gamefield = self
 	piece.gamemode = gamemode
-	piece.anchor = field_center
+	piece.anchor = field_center - Vector2i(1,1)
 	add_child(piece)
 
 
@@ -265,8 +332,10 @@ func _give_hold_piece(piece_type : int) -> void:
 	piece.piece_type = next_piece_type
 	piece.gamefield = self
 	piece.gamemode = gamemode
-	piece.anchor = field_center
+	piece.anchor = field_center - Vector2i(1,1)
 	add_child(piece)
+	
+	Player.stats["total_holds"] += 1
 
 
 ## Removes all ghosts from playfield

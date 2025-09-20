@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://btid6tcaw73b5"]
+[gd_scene load_steps=23 format=3 uid="uid://btid6tcaw73b5"]
 
 [ext_resource type="FontFile" uid="uid://cklk4kjp10w3h" path="res://fonts/visitor1.ttf" id="1_l0fvl"]
 [ext_resource type="Script" uid="uid://demctcae67pi" path="res://scripts/game/foreground/foreground.gd" id="1_u1a0d"]
@@ -13,6 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://cpdabe5ph8ymc" path="res://images/game/pieces/S.png" id="9_20eph"]
 [ext_resource type="Texture2D" uid="uid://dgccf23wi14dw" path="res://images/game/pieces/T.png" id="10_p3ghl"]
 [ext_resource type="Texture2D" uid="uid://btb32gi3sghof" path="res://images/game/pieces/Z.png" id="11_u76qn"]
+[ext_resource type="Texture2D" uid="uid://cbo5v8sngr780" path="res://images/game/pieces/BL.png" id="12_20eph"]
+[ext_resource type="Texture2D" uid="uid://3hg0m4btinn3" path="res://images/game/pieces/BO.png" id="13_p3ghl"]
+[ext_resource type="Texture2D" uid="uid://drrytnlymkh1d" path="res://images/game/pieces/BU.png" id="14_u76qn"]
+[ext_resource type="Texture2D" uid="uid://b8eb7aw2x0kl5" path="res://images/game/pieces/CH.png" id="15_oafee"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fvg74"]
 font = ExtResource("1_l0fvl")
@@ -52,6 +56,18 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("6_smnxo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_20eph")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_p3ghl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_u76qn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_oafee")
 }],
 "loop": true,
 "name": &"default",
@@ -61,6 +77,8 @@ animations = [{
 [sub_resource type="LabelSettings" id="LabelSettings_doqxf"]
 font = ExtResource("1_l0fvl")
 font_size = 8
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Foreground" type="Control"]
 z_index = -1
@@ -359,29 +377,21 @@ offset_bottom = 336.0
 [node name="Bar" type="TextureProgressBar" parent="Reversi"]
 layout_mode = 0
 offset_left = -4.0
+offset_top = 3.0
 offset_right = 100.0
-offset_bottom = 16.0
+offset_bottom = 14.0
 max_value = 20.0
 step = 0.01
 nine_patch_stretch = true
 texture_under = ExtResource("2_nxhxe")
 texture_progress = ExtResource("3_4j72y")
 
-[node name="Texture" type="TextureRect" parent="Reversi"]
-visible = false
-layout_mode = 0
-offset_right = 104.0
-offset_bottom = 16.0
-texture = ExtResource("2_nxhxe")
-expand_mode = 1
-stretch_mode = 4
-
 [node name="Text" type="Label" parent="Reversi"]
 layout_mode = 0
 offset_left = 22.0
-offset_top = 16.0
+offset_top = 14.0
 offset_right = 73.0
-offset_bottom = 27.0
+offset_bottom = 25.0
 text = "REVERSI"
 label_settings = SubResource("LabelSettings_doqxf")
 horizontal_alignment = 1

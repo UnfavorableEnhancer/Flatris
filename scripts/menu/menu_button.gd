@@ -30,6 +30,11 @@ enum WORK_MODE {
 @export var press_sound_name : String = '' ## Button press sound name
 @export var is_cancel_button : bool = false ## If true this button would be triggered by cancel input on current screen
 
+@export var move_down_override : Vector2i = Vector2i(-1,-1)
+@export var move_up_override : Vector2i = Vector2i(-1,-1)
+@export var move_left_override : Vector2i = Vector2i(-1,-1)
+@export var move_right_override : Vector2i = Vector2i(-1,-1)
+
 @export var call_string : String # String this button will send to the parent screen function if string is not empty
 @export var call_function_name : String = "" # Name of the function inside parent screen script this button will call on press
 

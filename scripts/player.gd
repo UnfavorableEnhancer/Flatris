@@ -46,7 +46,7 @@ var config : Dictionary = {
 	"static_background" : false, # Disables background animation
 	"block_skin" : 0, # Selected block skin
 	"color_skin" : 0, # Selected color skin
-	"background_theme" : 0, # Selected background theme
+	"background_theme" : Game.THEME.A, # Selected background theme
 	
 	"save_score_online" : true, # If false, disables saving records to online ranking
 	
@@ -57,6 +57,7 @@ var config : Dictionary = {
 	"max_damage" : 20, # Amount of damage player can take before game over
 	"damage_recovery" : 10, # Amount of pieces which must be dropped perfectly to reduce damage by one
 	"extended_piece_queue" : false, # Adds some more pieces to the queue
+	"block_gravity" : true, # After line clear, attracts blocks to the center of the game field
 	"zone_mode" : false, # Adds some delay before line clear allowing to add more lines
 	"dzen_mode" : false, # No gameover possible
 	"reversi_mode" : false, # After some pieces placed field inverts completely
@@ -70,23 +71,21 @@ var config : Dictionary = {
 	"rotate_left" : "Z", ## Rotates piece in hand clockwise
 	"rotate_right" : "X", ## Rotates piece in hand counter-clockwise
 	"hard_drop" : "Space", ## Quickly drops down piece in hand
-	"hold" : "Shift", ## Replaces current piece in hand with piece from hold
+	"swap_hold" : "Shift", ## Replaces current piece in hand with piece from hold
 	
 	"ui_accept" : "Enter", ## UI accept action
 	"ui_cancel" : "Escape", ## UI cancel action
 	"ui_extra" : "Space", ## Extra UI action
 	
 	# Gamepad controls
-	"move_left_pad" : "joy_14", # DPAD LEFT
-	"move_right_pad" : "joy_15", # DPAD RIGHT
-	"move_up_pad" : "joy_15", # DPAD RIGHT
-	"move_down_pad" : "joy_15", # DPAD RIGHT
-	"rotate_left_pad" : "joy_1", # B
-	"rotate_right_pad" : "joy_2", # X
-	"quick_drop_pad" : "joy_13", # DPAD DOWN
-	"passive_ability_pad" : "joy_9", # L1
-	"special_ability_pad" : "joy_10", # R1
-	"quick_retry_pad" : "joy_4", # SELECT
+	"move_left_pad" : "joy_13", # DPAD LEFT
+	"move_right_pad" : "joy_14", # DPAD RIGHT
+	"move_up_pad" : "joy_11", # DPAD UP
+	"move_down_pad" : "joy_12", # DPAD DOWN
+	"rotate_left_pad" : "joy_1", # X
+	"rotate_right_pad" : "joy_2", # B
+	"hard_drop_pad" : "joy_0", # A
+	"swap_hold_pad" : "joy_9", # L1
 	
 	"ui_accept_pad" : "joy_0", # A
 	"ui_cancel_pad" : "joy_1", # B
@@ -106,14 +105,20 @@ var vault_key : String = "0451"
 var stats : Dictionary[String, int] = {
 	# Game general
 	"total_play_time" : 0,
-	"total_score" : 0,
+	"total_marathon_attempts" : 0,
+	"total_time_attack_attempts" : 0,
+	"total_cheese_attempts" : 0,
+	"total_marathon_score" : 0,
+	"total_cheese_score" : 0,
 	"total_lines" : 0,
 	"total_tetrises" : 0,
 	"total_all_clears" : 0,
 	"total_pieces_landed" : 0,
+	"total_damage" : 0,
 	"total_holds" : 0,
-	"top_score_gain" : 0,
-	"pieces_per_second" : 0,
+	"total_cheese_erased" : 0,
+	"top_marathon_score_gain" : 0,
+	"top_cheese_score_gain" : 0,
 }
 
 ## Loads profile
@@ -346,7 +351,7 @@ func _apply_config_setting(setting_name : String = "all") -> void:
 		"rotate_left" : _update_input_config(setting_name)
 		"rotate_right" : _update_input_config(setting_name)
 		"hard_drop" : _update_input_config(setting_name)
-		"hold" : _update_input_config(setting_name)
+		"swap_hold" : _update_input_config(setting_name)
 		"ui_accept" :  _update_input_config(setting_name)
 		"ui_cancel" : _update_input_config(setting_name)
 		"ui_extra" : _update_input_config(setting_name)

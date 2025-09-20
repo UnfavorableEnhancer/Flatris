@@ -74,8 +74,6 @@ const BLOCK_TEXTURES : Dictionary[int, Texture] = {
 
 var color : int
 
-signal removed
-
 
 func _init(type : int, new_color : int = 0) -> void:
 	mesh = BoxMesh.new()
@@ -88,11 +86,11 @@ func _init(type : int, new_color : int = 0) -> void:
 			mesh.material = load(GHOST_BLOCK_MAT).duplicate(true)
 			mesh.material.albedo_color = COLOR_VALUES[color]
 		TYPE.PLACED : 
-			color = Player.config["color_skin"]
+			color = int(Player.config["color_skin"])
 			name = "Block"
 			mesh.material = load(PLACED_BLOCK_MAT).duplicate(true)
 			mesh.material.albedo_color = COLOR_VALUES[color]
-			mesh.material.albedo_texture = BLOCK_TEXTURES[Player.config["block_skin"]]
+			mesh.material.albedo_texture = BLOCK_TEXTURES[int(Player.config["block_skin"])]
 		TYPE.PIECE : 
 			color = new_color
 			name = "PieceBlock"

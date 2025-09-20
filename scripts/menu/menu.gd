@@ -17,8 +17,8 @@ signal screen_add_started ## Called when new menu screen creation started
 signal screen_added(name : String) ## Called when menu screen is added, and returns added screen name
 signal all_screens_added ## Called when all menu screens in queue were added
 
-#const BUTTONS_ICONS_TEX : Texture = preload("res://images/menu/key_graphics.png") ## Build-in buttons icons atlas texture
-#const BUTTON_KEY_SCENE : PackedScene = preload("res://scenery/menu/button_key.tscn") ## Used when key is not in [constant BUTTONS_ICONS_TEX]
+const BUTTONS_ICONS_TEX : Texture = preload("res://images/menu/key_graphics.png") ## Build-in buttons icons atlas texture
+const BUTTON_KEY_SCENE : PackedScene = preload("res://scenes/menu/button_key.tscn") ## Used when key is not in [constant BUTTONS_ICONS_TEX]
 
 const BACKGROUND_SCREEN_Z_INDEX : int = -1500
 const FOREGROUND_SCREEN_Z_INDEX : int = 500
@@ -53,7 +53,7 @@ var loaded_sounds_data : Dictionary = {
 	"intro_drop" : load("res://sfx/menu/intro_drop.wav"),
 	"accept" : load("res://sfx/menu/accept.wav"),
 	"select" : load("res://sfx/menu/select.wav"),
-	"select_skin" : load("res://sfx/menu/skin_select.wav"),
+	"skin_select" : load("res://sfx/menu/skin_select.wav"),
 	"cancel" : load("res://sfx/menu/cancel.wav"),
 	"enter" : load("res://sfx/menu/start.wav"),
 	"start" : load("res://sfx/menu/start3.wav"),
@@ -335,102 +335,102 @@ func _change_music(music_sample_name : String = "", change_speed : float = 1.0) 
 
 
 ### Creates and returns a button icon node, which is useful for buttons layout display
-#static func _create_button_icon(action : String, button_size : Vector2 = Vector2(42,42)) -> TextureRect:
-	#var action_index : int
-	#
-	#match action:
-		## D-pad or keyboard movement actions id's
-		#"all_arrows" : 
-			#action_index = 1001 if Main.current_input_mode == Main.INPUT_MODE.GAMEPAD else 3001
-		#"up_down" : 
-			#action_index = 1002 if Main.current_input_mode == Main.INPUT_MODE.GAMEPAD else 3002
-		#"left_right" : 
-			#action_index = 1003 if Main.current_input_mode == Main.INPUT_MODE.GAMEPAD else 3003
-		#"all_arrows2" : 
-			#action_index = 3004
-		#"up_down2" : 
-			#action_index = 3005
-		#"left_right2" : 
-			#action_index = 3006
-		#
-		## Mouse buttons actions id's
-		#"mouse_left": action_index = 2001
-		#"mouse_right": action_index = 2002
-		#"mouse_middle": action_index = 2003
-		#
-		#"backspace": action_index = KEY_BACKSPACE
-		#
-		## Any else action
-		#_:
-			#if Main.current_input_mode == Main.INPUT_MODE.GAMEPAD : 
-				#var gamepad_action_name : String = Player.control_config[action + "_pad"]
-				#action_index = int(gamepad_action_name.substr(4))
-			#else:
-				#action_index = OS.find_keycode_from_string(Player.control_config[action])
-	#
-	#var atlas_region : Rect2 = Rect2(128,128,128,128)
-	#var atlas_position : Vector2 = Vector2(0,0)
-	#var icon : TextureRect
-	#
-	#match action_index:
-		## Gamepad
-		#JOY_BUTTON_A : atlas_position = Vector2(0,0) # XBOX A
-		#JOY_BUTTON_B: atlas_position = Vector2(1,0) # XBOX B
-		#JOY_BUTTON_X: atlas_position = Vector2(2,0) # XBOX X
-		#JOY_BUTTON_Y: atlas_position = Vector2(3,0) # XBOX Y
-		#1001:atlas_position = Vector2(5,0) # ALL ARROWS
-		#1002: atlas_position = Vector2(1,1) # UPDOWN
-		#1003: atlas_position = Vector2(0,1) # LEFTRIGHT
-		#JOY_BUTTON_DPAD_UP,JOY_BUTTON_DPAD_LEFT,JOY_BUTTON_DPAD_RIGHT,JOY_BUTTON_DPAD_DOWN : atlas_position = Vector2(4,0) # SINGLE ARROW
-		#JOY_BUTTON_RIGHT_SHOULDER: atlas_position = Vector2(2,1) # R1
-		#JOY_BUTTON_LEFT_SHOULDER: atlas_position = Vector2(3,1) # L1
-		#JOY_AXIS_TRIGGER_RIGHT: atlas_position = Vector2(4,1) # R2
-		#JOY_AXIS_TRIGGER_LEFT: atlas_position = Vector2(5,1) # L2
-		#JOY_BUTTON_START: atlas_position = Vector2(0,2) # START
-		#JOY_BUTTON_GUIDE: atlas_position = Vector2(1,2) # SELECT
-		#
-		## Keyboard
-		#KEY_ENTER: atlas_position = Vector2(2,2) # ENTER
-		#KEY_SHIFT: atlas_position = Vector2(3,2) # SHIFT
-		#KEY_ESCAPE: atlas_position = Vector2(5,2) # ESC
-		#KEY_SPACE: atlas_position = Vector2(4,2) # SPACE
-		#KEY_BACKSPACE: atlas_position = Vector2(0,3) # BACKSPACE
-		#KEY_UP,KEY_DOWN,KEY_RIGHT,KEY_LEFT : atlas_position = Vector2(5,3)
-		#3001: atlas_position = Vector2(2,3) # WASD
-		#3002: atlas_position = Vector2(4,3) # WS
-		#3003: atlas_position = Vector2(3,3) # AD
-		#3004: atlas_position = Vector2(3,4) # ALL ARROWS
-		#3005: atlas_position = Vector2(5,4) # LEFT-RIGHT ARROWS
-		#3006: atlas_position = Vector2(4,4) # UP-DOWN ARROWS
-		#
-		## Mouse
-		#2001: atlas_position = Vector2(0,4) # LEFT CLICK
-		#2002: atlas_position = Vector2(1,4) # RIGHT CLICK
-		#2003: atlas_position = Vector2(2,4) # MIDDLE CLICK
-#
-		## If no button in atlas found, this button is threated as keyboard button and special object is created and used
-		#_: 
-			#atlas_region = Rect2(128,384,128,128)
-			#icon = load("res://scenery/menu/button_key.tscn").instantiate()
-			#icon.get_node("Label").text = OS.get_keycode_string(action_index)
-			#return icon
-	#
-	#atlas_region.position = atlas_position * 128
-#
-	#icon = TextureRect.new()
-	#var tex : AtlasTexture = AtlasTexture.new()
-	#tex.atlas = BUTTONS_ICONS_TEX
-	#tex.region = atlas_region
-	#icon.texture = tex
-	## Center TextureRect
-	#icon.pivot_offset = Vector2(button_size.x / 2,button_size.y / 2)
-	#icon.custom_minimum_size = button_size
-	#icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	#
-	## If its single arrow button, rotate it depending on direction
-	#match action_index:
-		#JOY_BUTTON_DPAD_DOWN, KEY_DOWN, 1003 : icon.rotation_degrees = 90
-		#JOY_BUTTON_DPAD_LEFT, KEY_LEFT : icon.flip_h = true
-		#JOY_BUTTON_DPAD_UP, KEY_UP : icon.rotation_degrees = 270
-	#
-	#return icon
+static func _create_button_icon(action : String, button_size : Vector2 = Vector2(42,42)) -> TextureRect:
+	var action_index : int
+	
+	match action:
+		# D-pad or keyboard movement actions id's
+		"all_arrows" : 
+			action_index = 1001 if Main.current_input_mode == Main.INPUT_MODE.GAMEPAD else 3001
+		"up_down" : 
+			action_index = 1002 if Main.current_input_mode == Main.INPUT_MODE.GAMEPAD else 3002
+		"left_right" : 
+			action_index = 1003 if Main.current_input_mode == Main.INPUT_MODE.GAMEPAD else 3003
+		"all_arrows2" : 
+			action_index = 3004
+		"up_down2" : 
+			action_index = 3005
+		"left_right2" : 
+			action_index = 3006
+		
+		# Mouse buttons actions id's
+		"mouse_left": action_index = 2001
+		"mouse_right": action_index = 2002
+		"mouse_middle": action_index = 2003
+		
+		"backspace": action_index = KEY_BACKSPACE
+		
+		# Any else action
+		_:
+			if Main.current_input_mode == Main.INPUT_MODE.GAMEPAD : 
+				var gamepad_action_name : String = Player.config[action + "_pad"]
+				action_index = int(gamepad_action_name.substr(4))
+			else:
+				action_index = OS.find_keycode_from_string(Player.config[action])
+	
+	var atlas_region : Rect2 = Rect2(128,128,128,128)
+	var atlas_position : Vector2 = Vector2(0,0)
+	var icon : TextureRect
+	
+	match action_index:
+		# Gamepad
+		JOY_BUTTON_A : atlas_position = Vector2(0,0) # XBOX A
+		JOY_BUTTON_B: atlas_position = Vector2(1,0) # XBOX B
+		JOY_BUTTON_X: atlas_position = Vector2(2,0) # XBOX X
+		JOY_BUTTON_Y: atlas_position = Vector2(3,0) # XBOX Y
+		1001:atlas_position = Vector2(5,0) # ALL ARROWS
+		1002: atlas_position = Vector2(1,1) # UPDOWN
+		1003: atlas_position = Vector2(0,1) # LEFTRIGHT
+		JOY_BUTTON_DPAD_UP,JOY_BUTTON_DPAD_LEFT,JOY_BUTTON_DPAD_RIGHT,JOY_BUTTON_DPAD_DOWN : atlas_position = Vector2(4,0) # SINGLE ARROW
+		JOY_BUTTON_RIGHT_SHOULDER: atlas_position = Vector2(2,1) # R1
+		JOY_BUTTON_LEFT_SHOULDER: atlas_position = Vector2(3,1) # L1
+		JOY_AXIS_TRIGGER_RIGHT: atlas_position = Vector2(4,1) # R2
+		JOY_AXIS_TRIGGER_LEFT: atlas_position = Vector2(5,1) # L2
+		JOY_BUTTON_START: atlas_position = Vector2(0,2) # START
+		JOY_BUTTON_GUIDE: atlas_position = Vector2(1,2) # SELECT
+		
+		# Keyboard
+		KEY_ENTER: atlas_position = Vector2(2,2) # ENTER
+		KEY_SHIFT: atlas_position = Vector2(3,2) # SHIFT
+		KEY_ESCAPE: atlas_position = Vector2(5,2) # ESC
+		KEY_SPACE: atlas_position = Vector2(4,2) # SPACE
+		KEY_BACKSPACE: atlas_position = Vector2(0,3) # BACKSPACE
+		KEY_UP,KEY_DOWN,KEY_RIGHT,KEY_LEFT : atlas_position = Vector2(5,3)
+		3001: atlas_position = Vector2(2,3) # WASD
+		3002: atlas_position = Vector2(4,3) # WS
+		3003: atlas_position = Vector2(3,3) # AD
+		3004: atlas_position = Vector2(3,4) # ALL ARROWS
+		3005: atlas_position = Vector2(5,4) # LEFT-RIGHT ARROWS
+		3006: atlas_position = Vector2(4,4) # UP-DOWN ARROWS
+		
+		# Mouse
+		2001: atlas_position = Vector2(0,4) # LEFT CLICK
+		2002: atlas_position = Vector2(1,4) # RIGHT CLICK
+		2003: atlas_position = Vector2(2,4) # MIDDLE CLICK
+
+		# If no button in atlas found, this button is threated as keyboard button and special object is created and used
+		_: 
+			atlas_region = Rect2(128,384,128,128)
+			icon = BUTTON_KEY_SCENE.instantiate()
+			icon.get_node("Label").text = OS.get_keycode_string(action_index)
+			return icon
+	
+	atlas_region.position = atlas_position * 128
+
+	icon = TextureRect.new()
+	var tex : AtlasTexture = AtlasTexture.new()
+	tex.atlas = BUTTONS_ICONS_TEX
+	tex.region = atlas_region
+	icon.texture = tex
+	# Center TextureRect
+	icon.pivot_offset = Vector2(button_size.x / 2,button_size.y / 2)
+	icon.custom_minimum_size = button_size
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	
+	# If its single arrow button, rotate it depending on direction
+	match action_index:
+		JOY_BUTTON_DPAD_DOWN, KEY_DOWN, 1003 : icon.rotation_degrees = 90
+		JOY_BUTTON_DPAD_LEFT, KEY_LEFT : icon.flip_h = true
+		JOY_BUTTON_DPAD_UP, KEY_UP : icon.rotation_degrees = 270
+	
+	return icon

@@ -102,7 +102,9 @@ func _toggled(on : bool) -> void:
 
 	$IO.text = tr("ON") if is_toggled else tr("OFF")
 
-	if is_setting_button : Player._set_config_value(call_string, on)
+	if is_setting_button : 
+		Player._set_config_value(call_string, on)
+		Player._apply_config_setting(call_string)
 
 
 ## Sets button toggle state by config data its setting

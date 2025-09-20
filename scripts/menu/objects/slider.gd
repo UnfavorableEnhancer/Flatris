@@ -58,7 +58,10 @@ func _deselected() -> void:
 ## Called when this slider value changes
 func _on_value_changed(to_value : float) -> void:
 	parent_menu._play_sound("select")
-	if is_setting_slider: $Power.text = Player._get_config_value_string(call_string, to_value)
+	if is_setting_slider: 
+		$Power.text = Player._get_config_value_string(call_string, to_value)
+		Player._set_config_value(call_string, value)
+		Player._apply_config_setting(call_string)
 
 
 ## Sets slider value to its corresponing profile/gamerule setting value
