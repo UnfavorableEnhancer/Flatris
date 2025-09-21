@@ -11,7 +11,9 @@ enum MENU_TAB {
 	EXIT
 }
 
+const LEADERBOARD_ENTRY : PackedScene = preload("res://scenes/menu/leaderboard_entry.tscn")
 const ANIMATION_SPEED : float = 0.25
+const MAX_ENTRIES : int = 50 ## Max amount of entries leaderboard is going to display
 
 var current_tab : int = -1
 var selected_skin : int = 0
@@ -22,6 +24,11 @@ var selected_ruleset : int = Gamemode.RULESET.STANDARD
 var is_in_assign_mode : bool = false ## True if currently assigning button to an action
 var input_to_assign : InputEvent = null ## Stores input which is going to be assigned to an action
 signal input_received ## Emitted when input is received, used in control assign sequence
+
+var current_leaderboard_page : int = 0
+var current_leaderboard_entries : Array[TaloLeaderboardEntry] = []
+var leaderboard_entries_count : int = 0
+var at_last_leaderboard_page : bool = false
 
 
 func _ready() -> void:
@@ -627,3 +634,122 @@ func _load_icon_for_action(action : String) -> void:
 		new_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		new_icon.position = Vector2(336,0)
 		action_holder.add_child(new_icon)
+
+
+func _next_page() -> void:
+	if at_last_leaderboard_page : return
+	current_leaderboard_page += 1
+	$Main/GameWindow/Leaderboard/Prev._set_disable(false)
+	
+	if current_leaderboard_page * 5 + 5 >= MAX_ENTRIES: 
+		at_last_leaderboard_page = true
+		$Main/GameWindow/Leaderboard/Next._set_disable(true)
+	_build_leaderboard()
+
+
+func _previous_page() -> void:
+	if current_leaderboard_page == 0 : return
+	at_last_leaderboard_page = false
+	$Main/GameWindow/Leaderboard/Next._set_disable(false)
+	
+	current_leaderboard_page -= 1
+	if current_leaderboard_page == 0 : $Main/GameWindow/Leaderboard/Prev._set_disable(true)
+	_build_leaderboard()
+
+
+func _update_leaderboard() -> void:
+	var leaderboard_name : String
+	
+	match current_tab:
+		MENU_TAB.MARATHON_MODE : leaderboard_name = "ma_"
+		MENU_TAB.TIME_ATTACK_MODE : leaderboard_name = "ta_"
+		MENU_TAB.CHEESE_MODE : leaderboard_name = "ch_"
+	
+	match selected_ruleset:
+		Gamemode.RULESET.STANDARD : leaderboard_name += "std"
+		Gamemode.RULESET.HARD : leaderboard_name += "hrd"
+		Gamemode.RULESET.EXTREME : leaderboard_name += "xtr"
+		Gamemode.RULESET.REVERSI : leaderboard_name += "rev"
+		Gamemode.RULESET.ZONE : leaderboard_name += "zon"
+		Gamemode.RULESET.CUSTOM : return
+	
+	var options := Talo.leaderboards.GetEntriesOptions.new()
+	options.page = 0
+
+	var res := await Talo.leaderboards.get_entries(leaderboard_name, options)
+	current_leaderboard_entries = res.entries
+	leaderboard_entries_count = res.count
+	
+	print("WTF 1 = ", res.entries[0].props)
+	print("WTF 2 = ", res.entries[0].props[0].to_dictionary())
+	print("WTF 3 = ", res.entries[0].props[1].to_dictionary())
+	
+	_build_leaderboard()
+
+
+func _build_leaderboard() -> void:
+	for i : Node in $Main/GameWindow/Leaderboard/V.get_children():
+		if i.name == "TableLegend" : continue
+		i.queue_free()
+	
+	var leaderboard_name : String
+	
+	match current_tab:
+		MENU_TAB.MARATHON_MODE : leaderboard_name = "ma_"
+		MENU_TAB.TIME_ATTACK_MODE : leaderboard_name = "ta_"
+		MENU_TAB.CHEESE_MODE : leaderboard_name = "ch_"
+	
+	match selected_ruleset:
+		Gamemode.RULESET.STANDARD : leaderboard_name += "std"
+		Gamemode.RULESET.HARD : leaderboard_name += "hrd"
+		Gamemode.RULESET.EXTREME : leaderboard_name += "xtr"
+		Gamemode.RULESET.REVERSI : leaderboard_name += "rev"
+		Gamemode.RULESET.ZONE : leaderboard_name += "zon"
+		Gamemode.RULESET.CUSTOM : return
+	
+	leaderboard_name += "record"
+	
+	var player_entry : ColorRect = LEADERBOARD_ENTRY.instantiate()
+	match current_tab:
+		MENU_TAB.MARATHON_MODE, MENU_TAB.CHEESE_MODE :
+			player_entry.entry_name = Player.profile_name + "_" + Player.vault_key.left(6)
+			player_entry.score = Player.progress[leaderboard_name][Player.RECORD_ARRAY.SCORE]
+			player_entry.level = Player.progress[leaderboard_name][Player.RECORD_ARRAY.LEVEL]
+			player_entry.lines = Player.progress[leaderboard_name][Player.RECORD_ARRAY.LINES]
+		MENU_TAB.TIME_ATTACK_MODE :
+			player_entry.entry_name = Player.profile_name + "_" + Player.vault_key.left(6)
+			player_entry.time = Player.progress[leaderboard_name][Player.RECORD_ARRAY.SCORE]
+			player_entry.score_visible = false
+			player_entry.level_visible = false
+			player_entry.lines_visible = false
+			player_entry.time_visible = true
+	
+	player_entry.id = "-"
+	player_entry.color = Color("3b0d03")
+	$Main/GameWindow/Leaderboard/V.add_child(player_entry)
+	
+	for i in 5:
+		if current_leaderboard_entries.size() == i + current_leaderboard_page * 5: 
+			at_last_leaderboard_page = true
+			$Main/GameWindow/Leaderboard/Next._set_disable(true)
+			return
+		
+		var online_entry : ColorRect = LEADERBOARD_ENTRY.instantiate()
+		var online_data : TaloLeaderboardEntry = current_leaderboard_entries[i + current_leaderboard_page * 5]
+		
+		match current_tab:
+			MENU_TAB.MARATHON_MODE, MENU_TAB.CHEESE_MODE :
+				online_entry.entry_name = online_data.player_alias.identifier
+				online_entry.score = online_data.score
+				#online_entry.level = Player.progress[leaderboard_name][Player.RECORD_ARRAY.LEVEL]
+				#online_entry.lines = Player.progress[leaderboard_name][Player.RECORD_ARRAY.LINES]
+			MENU_TAB.TIME_ATTACK_MODE :
+				online_entry.entry_name = online_data.player_alias.identifier
+				online_entry.time = online_data.score
+				online_entry.score_visible = false
+				online_entry.level_visible = false
+				online_entry.lines_visible = false
+				online_entry.time_visible = true
+		
+		online_entry.id = (i + current_leaderboard_page * 5) + 1
+		$Main/GameWindow/Leaderboard/V.add_child(online_entry)

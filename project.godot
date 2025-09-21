@@ -25,6 +25,7 @@ config/icon="uid://dfug6ks8u3dgx"
 [autoload]
 
 Player="*res://scripts/player.gd"
+Talo="*res://addons/talo/talo_manager.gd"
 
 [display]
 
@@ -37,6 +38,10 @@ window/vsync/vsync_mode=0
 [editor]
 
 naming/script_name_casing=2
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/talo/plugin.cfg")
 
 [file_customization]
 

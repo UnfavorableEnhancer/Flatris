@@ -32,7 +32,10 @@ static var current_input_mode : int = INPUT_MODE.KEYBOARD ## Current input devic
 ## Called on boot
 func _ready() -> void:
 	get_window().move_to_center()
+	
 	await get_tree().create_timer(0.1).timeout
+	Talo.players.identify("username", "test")
+	await Talo.leaderboards.add_entry("ma_std", 9000, {"lines" : 300, "level" : 900})
 	
 	_make_dirs()
 	

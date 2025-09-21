@@ -42,6 +42,12 @@ enum RANK {
 	M = 8# Master
 }
 
+enum RECORD_ARRAY {
+	SCORE = 0,
+	LEVEL = 1,
+	LINES = 2
+}
+
 const AUDIO_BUS_MINIMUM_DB : float = -29 ## Minimum db value when bus is still on
 const CONFIG_PATH : String = "config.json" ## Path to the profile config
 const SAVEDATA_PATH : String = "savedata.dat" ## Path to the profile savedata
@@ -131,6 +137,22 @@ var progress : Dictionary = {
 	"ch_xtr_rank" : RANK.NONE,
 	"ch_rev_rank" : RANK.NONE,
 	"ch_zon_rank" : RANK.NONE,
+	
+	"ma_std_record" : [0,0,0],
+	"ma_hrd_record" : [0,0,0],
+	"ma_xtr_record" : [0,0,0],
+	"ma_rev_record" : [0,0,0],
+	"ma_zon_record" : [0,0,0],
+	"ta_std_record" : [0],
+	"ta_hrd_record" : [0],
+	"ta_xtr_record" : [0],
+	"ta_rev_record" : [0],
+	"ta_zon_record" : [0],
+	"ch_std_record" : [0,0,0],
+	"ch_hrd_record" : [0,0,0],
+	"ch_xtr_record" : [0,0,0],
+	"ch_rev_record" : [0,0,0],
+	"ch_zon_record" : [0,0,0],
 }
 
 ## Unique profile indentifier
@@ -172,6 +194,7 @@ func _load_profile() -> int:
 	if err == ERR_CANT_OPEN : 
 		return PROFILE_STATUS.PROGRESS_FAIL
 	
+	#Talo.players.identify("username", profile_name + "_" + vault_key.left(6))
 	profile_loaded.emit()
 	return profile_status
 
@@ -202,6 +225,7 @@ func _create_profile(create_name : String) -> int:
 	if err != OK : return err
 
 	profile_loaded.emit()
+	#Talo.players.identify("username", profile_name + "_" + vault_key.left(6))
 	return OK
 
 
@@ -421,3 +445,9 @@ func _set_stats_top(stat_name : String, new_value : int) -> void:
 	if not stats.has(stat_name): return
 	if stats[stat_name] < new_value : 
 		stats[stat_name] = new_value
+
+
+func _set_local_record(record_entry : String, score : int, level : int = 0, lines : int = 0) -> void:
+	if !progress.has(record_entry) : return
+	if progress[record_entry][RECORD_ARRAY.SCORE] < score : 
+		progress[record_entry] = [score, level, lines]
