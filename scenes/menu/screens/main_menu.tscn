@@ -887,6 +887,7 @@ description_node = NodePath("../../../Main/GameWindow/Desc")
 button_color = Color(0.219, 0.219, 0.219, 0.5)
 glow_color = Color(0.580228, 0.404663, 0.863281, 1)
 description = "Select previous placed blocks skin."
+button_layout = 7
 press_sound_name = "cancel"
 call_function_name = "_prev_block_skin"
 parent_screen = NodePath("../../..")
@@ -903,6 +904,7 @@ description_node = NodePath("../../../Main/GameWindow/Desc")
 button_color = Color(0.219, 0.219, 0.219, 0.5)
 glow_color = Color(0.580228, 0.404663, 0.863281, 1)
 description = "Select next placed blocks skin."
+button_layout = 6
 press_sound_name = "cancel"
 call_function_name = "_next_block_skin"
 parent_screen = NodePath("../../..")
@@ -965,6 +967,7 @@ description_node = NodePath("../../../Main/GameWindow/Desc")
 button_color = Color(0.219, 0.219, 0.219, 0.5)
 glow_color = Color(0.580228, 0.404663, 0.863281, 1)
 description = "Select previous placed blocks color."
+button_layout = 7
 press_sound_name = "cancel"
 call_function_name = "_prev_color"
 parent_screen = NodePath("../../..")
@@ -981,6 +984,7 @@ description_node = NodePath("../../../Main/GameWindow/Desc")
 button_color = Color(0.219, 0.219, 0.219, 0.5)
 glow_color = Color(0.580228, 0.404663, 0.863281, 1)
 description = "Select next placed blocks color."
+button_layout = 6
 press_sound_name = "cancel"
 call_function_name = "_next_color"
 parent_screen = NodePath("../../..")
@@ -1031,10 +1035,12 @@ offset_right = 372.004
 offset_bottom = 30.0
 text = ""
 description_node = NodePath("../../../Main/GameWindow/Desc")
-button_color = Color(0.219, 0.219, 0.219, 0)
-glow_color = Color(0, 0.372059, 0.898438, 0.442)
+button_color = Color(0.910156, 0.910156, 0.910156, 0)
+glow_color = Color(0.585841, 0.139526, 0.992188, 0.442)
 description = "Select background THEME A. Featuring russian city with some well-known attributes."
+button_layout = 8
 press_sound_name = "accept"
+move_down_override = Vector2i(1, 1)
 call_string = "A"
 call_function_name = "_select_theme"
 parent_screen = NodePath("../../..")
@@ -1079,9 +1085,11 @@ offset_bottom = 30.0
 text = ""
 description_node = NodePath("../../../Main/GameWindow/Desc")
 button_color = Color(0.219, 0.219, 0.219, 0)
-glow_color = Color(0.621, 0.727, 0.023, 0.47)
+glow_color = Color(0.023, 0.2485, 0.727, 0.47)
 description = "Select background THEME B. Featuring deep depths or some russian river."
+button_layout = 8
 press_sound_name = "accept"
+move_down_override = Vector2i(1, 1)
 call_string = "B"
 call_function_name = "_select_theme"
 parent_screen = NodePath("../../..")
@@ -1128,7 +1136,9 @@ description_node = NodePath("../../../Main/GameWindow/Desc")
 button_color = Color(0.219, 0.219, 0.219, 0)
 glow_color = Color(0.381, 0.965, 0.65, 0.448)
 description = "Select background THEME C. Featuring far away frozen taiga where snow never ends."
+button_layout = 8
 press_sound_name = "accept"
+move_down_override = Vector2i(1, 1)
 call_string = "C"
 call_function_name = "_select_theme"
 parent_screen = NodePath("../../..")
@@ -1288,6 +1298,7 @@ description_node = NodePath("../Desc")
 button_color = Color(0.0624847, 0.246094, 0.0653536, 1)
 glow_color = Color(0.179443, 0.65625, 0.186893, 1)
 description = "Start the game of FLATRIS!"
+button_layout = 2
 press_sound_name = "start2"
 call_function_name = "_start_game"
 parent_screen = NodePath("../../..")
@@ -1303,7 +1314,7 @@ label_settings = SubResource("LabelSettings_6o65b")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Std" parent="Main/GameWindow" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+[node name="std" parent="Main/GameWindow" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
 layout_mode = 0
 offset_left = 14.0
 offset_top = 30.0
@@ -1314,19 +1325,21 @@ description_node = NodePath("../Desc")
 button_color = Color(0.824219, 0.595778, 0.0547333, 1)
 glow_color = Color(0.953125, 0.745327, 0.253174, 1)
 description = "Features 10x10x10 field and no other modifiers. "
+button_layout = 2
 press_sound_name = "accept"
+move_right_override = Vector2i(2, 1)
 call_string = "std"
 call_function_name = "_select_ruleset"
 parent_screen = NodePath("../../..")
 
-[node name="Rank" type="ColorRect" parent="Main/GameWindow/Std"]
+[node name="Rank" type="ColorRect" parent="Main/GameWindow/std"]
 layout_mode = 0
 offset_left = 74.0
 offset_right = 92.0
 offset_bottom = 18.0
 color = Color(0, 0, 0, 0.8)
 
-[node name="Label" type="Label" parent="Main/GameWindow/Std/Rank"]
+[node name="Label" type="Label" parent="Main/GameWindow/std/Rank"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
@@ -1335,7 +1348,7 @@ offset_bottom = 14.0
 text = "-"
 label_settings = SubResource("LabelSettings_yv3d3")
 
-[node name="Hrd" parent="Main/GameWindow" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+[node name="hrd" parent="Main/GameWindow" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
 layout_mode = 0
 offset_left = 14.0
 offset_top = 52.0
@@ -1346,19 +1359,21 @@ description_node = NodePath("../Desc")
 button_color = Color(0.855469, 0.303048, 0.0868835, 1)
 glow_color = Color(0.960938, 0.496891, 0.315308, 1)
 description = "Features 8x8x8 field, extended piece bag and higher damage."
+button_layout = 2
 press_sound_name = "accept"
+move_right_override = Vector2i(2, 1)
 call_string = "hrd"
 call_function_name = "_select_ruleset"
 parent_screen = NodePath("../../..")
 
-[node name="Rank" type="ColorRect" parent="Main/GameWindow/Hrd"]
+[node name="Rank" type="ColorRect" parent="Main/GameWindow/hrd"]
 layout_mode = 0
 offset_left = 74.0
 offset_right = 92.0
 offset_bottom = 18.0
 color = Color(0, 0, 0, 0.8)
 
-[node name="Label" type="Label" parent="Main/GameWindow/Hrd/Rank"]
+[node name="Label" type="Label" parent="Main/GameWindow/hrd/Rank"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
@@ -1367,7 +1382,7 @@ offset_bottom = 14.0
 text = "-"
 label_settings = SubResource("LabelSettings_yv3d3")
 
-[node name="Xtr" parent="Main/GameWindow" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+[node name="xtr" parent="Main/GameWindow" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
 layout_mode = 0
 offset_left = 14.0
 offset_top = 74.0
@@ -1378,19 +1393,21 @@ description_node = NodePath("../Desc")
 button_color = Color(0.322184, 0.134827, 0.734375, 1)
 glow_color = Color(0.51285, 0.342911, 0.886719, 1)
 description = "Features 9x9x9 field and extended piece bag. Game ends instantly if piece lands onto placed block"
+button_layout = 2
 press_sound_name = "accept"
+move_right_override = Vector2i(2, 1)
 call_string = "xtr"
 call_function_name = "_select_ruleset"
 parent_screen = NodePath("../../..")
 
-[node name="Rank" type="ColorRect" parent="Main/GameWindow/Xtr"]
+[node name="Rank" type="ColorRect" parent="Main/GameWindow/xtr"]
 layout_mode = 0
 offset_left = 74.0
 offset_right = 92.0
 offset_bottom = 18.0
 color = Color(0, 0, 0, 0.8)
 
-[node name="Label" type="Label" parent="Main/GameWindow/Xtr/Rank"]
+[node name="Label" type="Label" parent="Main/GameWindow/xtr/Rank"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
@@ -1399,7 +1416,7 @@ offset_bottom = 14.0
 text = "-"
 label_settings = SubResource("LabelSettings_yv3d3")
 
-[node name="Rev" parent="Main/GameWindow" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+[node name="rev" parent="Main/GameWindow" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
 layout_mode = 0
 offset_left = 14.0
 offset_top = 96.0
@@ -1410,19 +1427,21 @@ description_node = NodePath("../Desc")
 button_color = Color(0.820312, 0.16983, 0.520482, 1)
 glow_color = Color(0.914062, 0.360626, 0.658964, 1)
 description = "Features 8x8x8 field and extended piece bag. On each 20 pieces given, game reverses play field."
+button_layout = 2
 press_sound_name = "accept"
+move_right_override = Vector2i(2, 1)
 call_string = "rev"
 call_function_name = "_select_ruleset"
 parent_screen = NodePath("../../..")
 
-[node name="Rank" type="ColorRect" parent="Main/GameWindow/Rev"]
+[node name="Rank" type="ColorRect" parent="Main/GameWindow/rev"]
 layout_mode = 0
 offset_left = 74.0
 offset_right = 92.0
 offset_bottom = 18.0
 color = Color(0, 0, 0, 0.8)
 
-[node name="Label" type="Label" parent="Main/GameWindow/Rev/Rank"]
+[node name="Label" type="Label" parent="Main/GameWindow/rev/Rank"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
@@ -1431,7 +1450,7 @@ offset_bottom = 14.0
 text = "-"
 label_settings = SubResource("LabelSettings_yv3d3")
 
-[node name="Zon" parent="Main/GameWindow" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+[node name="zon" parent="Main/GameWindow" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
 layout_mode = 0
 offset_left = 14.0
 offset_top = 118.0
@@ -1442,19 +1461,21 @@ description_node = NodePath("../Desc")
 button_color = Color(0.175354, 0.660156, 0.36473, 1)
 glow_color = Color(0.416992, 0.875, 0.595902, 1)
 description = "Features 10x10x10 field. Lines take some additional to time to clear."
+button_layout = 2
 press_sound_name = "accept"
+move_right_override = Vector2i(2, 1)
 call_string = "zon"
 call_function_name = "_select_ruleset"
 parent_screen = NodePath("../../..")
 
-[node name="Rank" type="ColorRect" parent="Main/GameWindow/Zon"]
+[node name="Rank" type="ColorRect" parent="Main/GameWindow/zon"]
 layout_mode = 0
 offset_left = 74.0
 offset_right = 92.0
 offset_bottom = 18.0
 color = Color(0, 0, 0, 0.8)
 
-[node name="Label" type="Label" parent="Main/GameWindow/Zon/Rank"]
+[node name="Label" type="Label" parent="Main/GameWindow/zon/Rank"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
@@ -1474,7 +1495,9 @@ description_node = NodePath("../Desc")
 button_color = Color(0.339844, 0.339844, 0.339844, 1)
 glow_color = Color(0.5625, 0.5625, 0.5625, 1)
 description = "Play with your own rules. Score ranking wouldn't be possible."
+button_layout = 2
 press_sound_name = "accept"
+move_right_override = Vector2i(2, 1)
 call_string = "custom"
 call_function_name = "_select_ruleset"
 parent_screen = NodePath("../../..")
@@ -1500,12 +1523,11 @@ color = Color(0, 0, 0, 0.5)
 
 [node name="CustomRuleset" type="ScrollContainer" parent="Main/GameWindow"]
 layout_mode = 0
-offset_left = -490.0
-offset_top = 2.0
-offset_right = -236.0
-offset_bottom = 126.0
+offset_left = -482.0
+offset_top = 48.0
+offset_right = -228.0
+offset_bottom = 172.0
 theme = SubResource("Theme_pxwvd")
-scroll_vertical = 92
 horizontal_scroll_mode = 0
 
 [node name="V" type="VBoxContainer" parent="Main/GameWindow/CustomRuleset"]
@@ -1714,6 +1736,7 @@ size_flags_horizontal = 0
 text = "EXTENDED PIECE BAG"
 description_node = NodePath("../../../Desc")
 description = "Adds additional pieces to the piece bag."
+button_layout = 9
 is_setting_button = true
 work_mode = 4
 press_sound_name = "accept"
@@ -1743,6 +1766,7 @@ size_flags_horizontal = 0
 text = "BLOCK GRAVITY"
 description_node = NodePath("../../../Desc")
 description = "Attracts blocks to the center of the game field after line clear."
+button_layout = 9
 is_setting_button = true
 work_mode = 4
 press_sound_name = "accept"
@@ -1772,6 +1796,7 @@ size_flags_horizontal = 0
 text = "ZONE MODE"
 description_node = NodePath("../../../Desc")
 description = "Lines would be cleared only after delay passes, allowing to build more lines."
+button_layout = 9
 is_setting_button = true
 work_mode = 4
 press_sound_name = "accept"
@@ -1801,6 +1826,7 @@ size_flags_horizontal = 0
 text = "REVERSI MODE"
 description_node = NodePath("../../../Desc")
 description = "Each 20 pieces given, game will reverse play field."
+button_layout = 9
 is_setting_button = true
 work_mode = 4
 press_sound_name = "accept"
@@ -1830,6 +1856,7 @@ size_flags_horizontal = 0
 text = "DZEN MODE"
 description_node = NodePath("../../../Desc")
 description = "Game over wouldn't be possible. Play as long as you wish!"
+button_layout = 9
 is_setting_button = true
 work_mode = 4
 press_sound_name = "accept"
@@ -1859,6 +1886,7 @@ size_flags_horizontal = 0
 text = "DEATH MODE"
 description_node = NodePath("../../../Desc")
 description = "If piece lands onto placed block the game will end instantly."
+button_layout = 9
 is_setting_button = true
 work_mode = 4
 press_sound_name = "accept"
@@ -2503,6 +2531,7 @@ offset_top = 12.0
 offset_right = 382.0
 offset_bottom = 162.0
 theme = SubResource("Theme_pxwvd")
+scroll_vertical = 80
 horizontal_scroll_mode = 0
 
 [node name="V" type="VBoxContainer" parent="Main/OptionsWindow/Scroll"]
@@ -2602,6 +2631,7 @@ text = "FULLSCREEN MODE"
 description_node = NodePath("../../../Desc")
 description = "Toggle fullscreen mode.
 Pressing F11 also toggles fullscreen."
+button_layout = 9
 is_setting_button = true
 work_mode = 4
 press_sound_name = "accept"
@@ -2685,6 +2715,7 @@ offset_right = 268.0
 offset_bottom = 13.0
 min_value = 30.0
 max_value = 300.0
+step = 15.0
 value = 120.0
 description_node = NodePath("../../../../Desc")
 description = "Set maximum amount of rendered frames per second.
@@ -2710,6 +2741,8 @@ size_flags_horizontal = 0
 text = "SAVE SCORE TO ONLINE LEADERBOARDS"
 description_node = NodePath("../../../Desc")
 description = "Toggle automatic saving of your best results into online leaderboard."
+button_layout = 9
+is_setting_button = true
 work_mode = 4
 press_sound_name = "accept"
 call_string = "save_score_online"
@@ -2739,6 +2772,8 @@ size_flags_horizontal = 0
 text = "DISABLE THEME ANIMATIONS"
 description_node = NodePath("../../../Desc")
 description = "Disables animations on theme background."
+button_layout = 9
+is_setting_button = true
 work_mode = 4
 press_sound_name = "accept"
 call_string = "static_background"
@@ -2781,6 +2816,7 @@ size_flags_horizontal = 0
 text = "MOVE LEFT"
 description_node = NodePath("../../../Desc")
 description = "Assign button to move piece left."
+button_layout = 3
 press_sound_name = "accept"
 call_string = "move_left"
 call_function_name = "_assign_control"
@@ -2808,6 +2844,7 @@ size_flags_horizontal = 0
 text = "MOVE RIGHT"
 description_node = NodePath("../../../Desc")
 description = "Assign button to move piece right."
+button_layout = 3
 press_sound_name = "accept"
 call_string = "move_right"
 call_function_name = "_assign_control"
@@ -2835,6 +2872,7 @@ size_flags_horizontal = 0
 text = "MOVE UP"
 description_node = NodePath("../../../Desc")
 description = "Assign button to move piece up."
+button_layout = 3
 press_sound_name = "accept"
 call_string = "move_up"
 call_function_name = "_assign_control"
@@ -2862,6 +2900,7 @@ size_flags_horizontal = 0
 text = "MOVE DOWN"
 description_node = NodePath("../../../Desc")
 description = "Assign button to move piece down."
+button_layout = 3
 press_sound_name = "accept"
 call_string = "move_down"
 call_function_name = "_assign_control"
@@ -2889,6 +2928,7 @@ size_flags_horizontal = 0
 text = "ROTATE CLOCKWISE"
 description_node = NodePath("../../../Desc")
 description = "Assign button to rotate piece clockswise."
+button_layout = 3
 press_sound_name = "accept"
 call_string = "rotate_right"
 call_function_name = "_assign_control"
@@ -2916,6 +2956,7 @@ size_flags_horizontal = 0
 text = "ROTATE COUNTERCLOCKWISE"
 description_node = NodePath("../../../Desc")
 description = "Assign button to rotate piece counterclockswise."
+button_layout = 3
 press_sound_name = "accept"
 call_string = "rotate_left"
 call_function_name = "_assign_control"
@@ -2943,6 +2984,7 @@ size_flags_horizontal = 0
 text = "HARD DROP"
 description_node = NodePath("../../../Desc")
 description = "Assign button to hard drop piece."
+button_layout = 3
 press_sound_name = "accept"
 call_string = "hard_drop"
 call_function_name = "_assign_control"
@@ -2970,6 +3012,7 @@ size_flags_horizontal = 0
 text = "SWITCH PIECE IN HOLD"
 description_node = NodePath("../../../Desc")
 description = "Assign button to switch piece in hold."
+button_layout = 3
 press_sound_name = "accept"
 call_string = "swap_hold"
 call_function_name = "_assign_control"
@@ -3014,6 +3057,24 @@ custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
 
+[node name="Button" parent="Main/StatsWindow/Scroll/V/TotalPlayTime" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+description_node = NodePath("../../../../../GameWindow/Desc")
+button_color = Color(0.910156, 0.910156, 0.910156, 0)
+glow_color = Color(0.957031, 0.377579, 0.703521, 0.442)
+button_layout = 10
+work_mode = 8
+move_left_override = Vector2i(0, 5)
+parent_screen = NodePath("../../../../../..")
+
 [node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalPlayTime"]
 layout_mode = 0
 offset_left = 8.0
@@ -3037,6 +3098,24 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
+
+[node name="Button" parent="Main/StatsWindow/Scroll/V/TotalMAAttempts" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+description_node = NodePath("../../../../../GameWindow/Desc")
+button_color = Color(0.910156, 0.910156, 0.910156, 0)
+glow_color = Color(0.957031, 0.377579, 0.703521, 0.442)
+button_layout = 10
+work_mode = 8
+move_left_override = Vector2i(0, 5)
+parent_screen = NodePath("../../../../../..")
 
 [node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalMAAttempts"]
 layout_mode = 0
@@ -3062,6 +3141,24 @@ custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
 
+[node name="Button" parent="Main/StatsWindow/Scroll/V/TotalTAAttempts" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+description_node = NodePath("../../../../../GameWindow/Desc")
+button_color = Color(0.910156, 0.910156, 0.910156, 0)
+glow_color = Color(0.957031, 0.377579, 0.703521, 0.442)
+button_layout = 10
+work_mode = 8
+move_left_override = Vector2i(0, 5)
+parent_screen = NodePath("../../../../../..")
+
 [node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalTAAttempts"]
 layout_mode = 0
 offset_left = 8.0
@@ -3085,6 +3182,24 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
+
+[node name="Button" parent="Main/StatsWindow/Scroll/V/TotalCHAttempts" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+description_node = NodePath("../../../../../GameWindow/Desc")
+button_color = Color(0.910156, 0.910156, 0.910156, 0)
+glow_color = Color(0.957031, 0.377579, 0.703521, 0.442)
+button_layout = 10
+work_mode = 8
+move_left_override = Vector2i(0, 5)
+parent_screen = NodePath("../../../../../..")
 
 [node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalCHAttempts"]
 layout_mode = 0
@@ -3110,6 +3225,24 @@ custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
 
+[node name="Button" parent="Main/StatsWindow/Scroll/V/TotalMAScore" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+description_node = NodePath("../../../../../GameWindow/Desc")
+button_color = Color(0.910156, 0.910156, 0.910156, 0)
+glow_color = Color(0.957031, 0.377579, 0.703521, 0.442)
+button_layout = 10
+work_mode = 8
+move_left_override = Vector2i(0, 5)
+parent_screen = NodePath("../../../../../..")
+
 [node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalMAScore"]
 layout_mode = 0
 offset_left = 8.0
@@ -3133,6 +3266,24 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
+
+[node name="Button" parent="Main/StatsWindow/Scroll/V/TopMAScoreGain" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+description_node = NodePath("../../../../../GameWindow/Desc")
+button_color = Color(0.910156, 0.910156, 0.910156, 0)
+glow_color = Color(0.957031, 0.377579, 0.703521, 0.442)
+button_layout = 10
+work_mode = 8
+move_left_override = Vector2i(0, 5)
+parent_screen = NodePath("../../../../../..")
 
 [node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TopMAScoreGain"]
 layout_mode = 0
@@ -3158,6 +3309,24 @@ custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
 
+[node name="Button" parent="Main/StatsWindow/Scroll/V/TotalCHScore" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+description_node = NodePath("../../../../../GameWindow/Desc")
+button_color = Color(0.910156, 0.910156, 0.910156, 0)
+glow_color = Color(0.957031, 0.377579, 0.703521, 0.442)
+button_layout = 10
+work_mode = 8
+move_left_override = Vector2i(0, 5)
+parent_screen = NodePath("../../../../../..")
+
 [node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalCHScore"]
 layout_mode = 0
 offset_left = 8.0
@@ -3181,6 +3350,24 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
+
+[node name="Button" parent="Main/StatsWindow/Scroll/V/TopCHScoreGain" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+description_node = NodePath("../../../../../GameWindow/Desc")
+button_color = Color(0.910156, 0.910156, 0.910156, 0)
+glow_color = Color(0.957031, 0.377579, 0.703521, 0.442)
+button_layout = 10
+work_mode = 8
+move_left_override = Vector2i(0, 5)
+parent_screen = NodePath("../../../../../..")
 
 [node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TopCHScoreGain"]
 layout_mode = 0
@@ -3206,6 +3393,24 @@ custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
 
+[node name="Button" parent="Main/StatsWindow/Scroll/V/TotalCheese" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+description_node = NodePath("../../../../../GameWindow/Desc")
+button_color = Color(0.910156, 0.910156, 0.910156, 0)
+glow_color = Color(0.957031, 0.377579, 0.703521, 0.442)
+button_layout = 10
+work_mode = 8
+move_left_override = Vector2i(0, 5)
+parent_screen = NodePath("../../../../../..")
+
 [node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalCheese"]
 layout_mode = 0
 offset_left = 8.0
@@ -3229,6 +3434,24 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
+
+[node name="Button" parent="Main/StatsWindow/Scroll/V/TotalPieces" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+description_node = NodePath("../../../../../GameWindow/Desc")
+button_color = Color(0.910156, 0.910156, 0.910156, 0)
+glow_color = Color(0.957031, 0.377579, 0.703521, 0.442)
+button_layout = 10
+work_mode = 8
+move_left_override = Vector2i(0, 5)
+parent_screen = NodePath("../../../../../..")
 
 [node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalPieces"]
 layout_mode = 0
@@ -3254,6 +3477,24 @@ custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
 
+[node name="Button" parent="Main/StatsWindow/Scroll/V/TotalHolds" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+description_node = NodePath("../../../../../GameWindow/Desc")
+button_color = Color(0.910156, 0.910156, 0.910156, 0)
+glow_color = Color(0.957031, 0.377579, 0.703521, 0.442)
+button_layout = 10
+work_mode = 8
+move_left_override = Vector2i(0, 5)
+parent_screen = NodePath("../../../../../..")
+
 [node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalHolds"]
 layout_mode = 0
 offset_left = 8.0
@@ -3277,6 +3518,24 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
+
+[node name="Button" parent="Main/StatsWindow/Scroll/V/TotalLines" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+description_node = NodePath("../../../../../GameWindow/Desc")
+button_color = Color(0.910156, 0.910156, 0.910156, 0)
+glow_color = Color(0.957031, 0.377579, 0.703521, 0.442)
+button_layout = 10
+work_mode = 8
+move_left_override = Vector2i(0, 5)
+parent_screen = NodePath("../../../../../..")
 
 [node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalLines"]
 layout_mode = 0
@@ -3302,6 +3561,24 @@ custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
 
+[node name="Button" parent="Main/StatsWindow/Scroll/V/Total4XLines" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+description_node = NodePath("../../../../../GameWindow/Desc")
+button_color = Color(0.910156, 0.910156, 0.910156, 0)
+glow_color = Color(0.957031, 0.377579, 0.703521, 0.442)
+button_layout = 10
+work_mode = 8
+move_left_override = Vector2i(0, 5)
+parent_screen = NodePath("../../../../../..")
+
 [node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/Total4XLines"]
 layout_mode = 0
 offset_left = 8.0
@@ -3326,6 +3603,24 @@ custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
 
+[node name="Button" parent="Main/StatsWindow/Scroll/V/TotalAllClears" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+description_node = NodePath("../../../../../GameWindow/Desc")
+button_color = Color(0.910156, 0.910156, 0.910156, 0)
+glow_color = Color(0.957031, 0.377579, 0.703521, 0.442)
+button_layout = 10
+work_mode = 8
+move_left_override = Vector2i(0, 5)
+parent_screen = NodePath("../../../../../..")
+
 [node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalAllClears"]
 layout_mode = 0
 offset_left = 8.0
@@ -3349,6 +3644,24 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(360, 16)
 layout_mode = 2
 color = Color(0, 0, 0, 0.5)
+
+[node name="Button" parent="Main/StatsWindow/Scroll/V/TotalDamage" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ""
+description_node = NodePath("../../../../../GameWindow/Desc")
+button_color = Color(0.910156, 0.910156, 0.910156, 0)
+glow_color = Color(0.957031, 0.377579, 0.703521, 0.442)
+button_layout = 10
+work_mode = 8
+move_left_override = Vector2i(0, 5)
+parent_screen = NodePath("../../../../../..")
 
 [node name="Text" type="Label" parent="Main/StatsWindow/Scroll/V/TotalDamage"]
 layout_mode = 0
@@ -3410,6 +3723,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(320, 16)
 layout_mode = 2
 text = "view project luminext github page"
+button_layout = 2
 call_string = "luminext"
 call_function_name = "_visit"
 parent_screen = NodePath("../../../../..")
@@ -3448,6 +3762,8 @@ offset_right = 246.0
 offset_bottom = 148.0
 text = ""
 button_color = Color(0.25, 0.25, 0.25, 1)
+glow_color = Color(0.701961, 0.12549, 0.368689, 1)
+button_layout = 2
 press_sound_name = "cancel"
 call_function_name = "_quit"
 parent_screen = NodePath("../../..")

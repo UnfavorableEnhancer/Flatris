@@ -483,6 +483,7 @@ offset_top = 8.0
 offset_right = 371.0
 offset_bottom = 120.0
 theme = SubResource("Theme_wpfuj")
+scroll_vertical = 100
 horizontal_scroll_mode = 0
 
 [node name="V" type="VBoxContainer" parent="OptionsWindow/Scroll"]
@@ -667,6 +668,7 @@ offset_right = 268.0
 offset_bottom = 13.0
 min_value = 30.0
 max_value = 300.0
+step = 15.0
 value = 120.0
 description_node = NodePath("../../../../Desc")
 description = "Set maximum amount of rendered frames per second

@@ -241,6 +241,8 @@ func _change_screen(new_screen_name : String, new_screen_anim : String = "start"
 
 ## Reloads menu after game is over and adds menu screen with passed [b]'screen_name'[/b]
 func _return_from_game(screen_name : String = "main_menu") -> void:
+	Player._save_profile()
+	
 	background.visible = true
 	foreground.visible = true
 	

@@ -382,5 +382,6 @@ text = "BACK TO MENU"
 glow_color = Color(0.863281, 0.5322, 0.145004, 1)
 menu_position = Vector2i(0, 1)
 press_sound_name = "cancel"
+is_cancel_button = true
 call_function_name = "_exit"
 parent_screen = NodePath("../..")

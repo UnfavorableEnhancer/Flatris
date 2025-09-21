@@ -63,7 +63,13 @@ func _ready() -> void:
 	_set_ruleset(ruleset)
 	
 	time_timer = Timer.new()
-	time_timer.timeout.connect(func() -> void: time += 1; foreground._set_time(time))
+	time_timer.timeout.connect(
+		func() -> void: 
+			time += 1; 
+			foreground._set_time(time); 
+			Player.stats["total_play_time"] += 1;
+			)
+		
 	add_child(time_timer)
 	
 	game.reset_ended.connect(_on_reset_ended)

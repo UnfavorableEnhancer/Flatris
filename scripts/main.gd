@@ -5,17 +5,17 @@ class_name Main
 enum INPUT_MODE {KEYBOARD, MOUSE, GAMEPAD}
 
 const VERSION : String = "1.0" ## Current game version
-const BUILD : String = "18.09.2025" ## Latest build date
+const BUILD : String = "21.09.2025" ## Latest build date
 
 const SCREENSHOTS_PATH : String = "screenshots/" ## Path to the game screenshots folder
 const LOGS_PATH : String = "logs/" ## Path to the game logs folder
-
-const LOCAL_RANKING_PATH : String = "user://local_ranking.json" ## Path to the local ranking json (TODO : move to ranking_manager.gd)
 
 const GAME_SCENE : PackedScene = preload("res://scenes/game/game.tscn")
 
 signal total_time_tick  ## Emitted on each total time timer timeout
 signal input_method_changed ## Emitted when input method changes from keyboard to gamepad, to mouse and etc.
+
+static var profile_loaded : bool = false
 
 static var menu : Menu ## Menu instance
 static var game : Game ## Game instance
@@ -81,7 +81,8 @@ func _parse_start_arguments() -> Dictionary:
 func _reset() -> void:
 	if game != null: game.queue_free()
 	
-	Player._load_profile()
+	profile_loaded = Player._load_profile() == OK
+	Player._apply_config_setting("all")
 	
 	if skip_intro : menu._boot("main_menu")
 	else : menu._boot()
@@ -128,12 +129,12 @@ func _input(event : InputEvent) -> void:
 	
 	# Toggle fullscreen
 	if event.is_action_pressed("fullscreen"):
-		if not Player.video_config["fullscreen"]:
+		if not Player.config["fullscreen"]:
 			get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN
-			Player.video_config["fullscreen"] = true
+			Player.config["fullscreen"] = true
 		else:
 			get_window().mode = Window.MODE_WINDOWED
-			Player.video_config["fullscreen"] = false
+			Player.config["fullscreen"] = false
 	
 	# Take screenshot
 	if event.is_action_pressed("screenshot"):

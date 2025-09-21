@@ -20,7 +20,7 @@ boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 boot_splash/fullsize=false
 boot_splash/use_filter=false
-config/icon="res://icon.svg"
+config/icon="uid://dfug6ks8u3dgx"
 
 [autoload]
 
@@ -30,12 +30,8 @@ Player="*res://scripts/player.gd"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/size/mode=4
-window/size/window_width_override=1920
-window/size/window_height_override=1080
 window/stretch/mode="canvas_items"
-window/stretch/aspect="keep_height"
-window/stretch/scale_mode="integer"
+window/stretch/aspect="ignore"
 window/vsync/vsync_mode=0
 
 [editor]

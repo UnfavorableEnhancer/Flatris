@@ -6,7 +6,16 @@ extends Node
 
 class_name Profile
 
-enum RESOLUTION {x1280x720, x1360x768, x1440x900, x1600x900, x1680x1050, x1920x1080, CUSTOM} ## Avaiable windowed resolutions
+## Avaiable windowed resolutions
+enum RESOLUTION {
+	x1280x720 = 0, 
+	x1360x768 = 1, 
+	x1440x900 = 2, 
+	x1600x900 = 3, 
+	x1680x1050 = 4, 
+	x1920x1080 = 5, 
+	CUSTOM = 6
+} 
 
 ## Profile loading statuses
 enum PROFILE_STATUS {
@@ -18,6 +27,19 @@ enum PROFILE_STATUS {
 	PROFILE_IS_MISSING, # Whole profile is missing
 	GLOBAL_DATA_ERROR, ## Last profile name was lost
 	NO_PROFILES_EXIST ## Profile directory is empty
+}
+
+## All avaiable ranks
+enum RANK {
+	NONE = 0,
+	E = 1, # Eeh..
+	D = 2, # Damn
+	C = 3, # Cool
+	B = 4, # Banger
+	A = 5, # Awesome
+	S = 6, # Super
+	X = 7, # Excellent!
+	M = 8# Master
 }
 
 const AUDIO_BUS_MINIMUM_DB : float = -29 ## Minimum db value when bus is still on
@@ -94,8 +116,21 @@ var config : Dictionary = {
 
 ## Current profile progression results
 var progress : Dictionary = {
-	
-	"puzzles_solved" : 0,
+	"ma_std_rank" : RANK.NONE,
+	"ma_hrd_rank" : RANK.NONE,
+	"ma_xtr_rank" : RANK.NONE,
+	"ma_rev_rank" : RANK.NONE,
+	"ma_zon_rank" : RANK.NONE,
+	"ta_std_rank" : RANK.NONE,
+	"ta_hrd_rank" : RANK.NONE,
+	"ta_xtr_rank" : RANK.NONE,
+	"ta_rev_rank" : RANK.NONE,
+	"ta_zon_rank" : RANK.NONE,
+	"ch_std_rank" : RANK.NONE,
+	"ch_hrd_rank" : RANK.NONE,
+	"ch_xtr_rank" : RANK.NONE,
+	"ch_rev_rank" : RANK.NONE,
+	"ch_zon_rank" : RANK.NONE,
 }
 
 ## Unique profile indentifier
@@ -145,7 +180,7 @@ func _load_profile() -> int:
 func _save_profile() -> int:
 	_save_config()
 	_save_savedata()
-
+	
 	profile_saved.emit()
 	return OK
 
@@ -158,7 +193,7 @@ func _create_profile(create_name : String) -> int:
 	config = blank_profile.config
 	progress = blank_profile.progress
 	stats = blank_profile.stats
-	vault_key = str(randi_range(0, 2^24) + hash(OS.get_unique_id())).left(32)
+	vault_key = str(randi_range(0, 2^24) + hash(OS.get_unique_id() + create_name)).left(32)
 
 	var err : int = _save_savedata()
 	if err != OK : return err
@@ -333,8 +368,11 @@ func _apply_config_setting(setting_name : String = "all") -> void:
 			# Disable sound bus if volume is too low
 			if volume <= AUDIO_BUS_MINIMUM_DB : 
 				AudioServer.set_bus_volume_db(2,-100)
+		"resolution_x":
+			_apply_config_setting("resolution")
 		"resolution":
 			get_window().size = Vector2(config["resolution_x"],config["resolution_y"])
+			get_window().move_to_center()
 		"max_fps":
 			Engine.max_fps = config["max_fps"]
 		"fullscreen":

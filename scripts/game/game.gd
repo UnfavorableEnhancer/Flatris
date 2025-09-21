@@ -99,7 +99,6 @@ func _ready() -> void:
 	
 	gamefield.gamemode = gamemode
 	gamefield.game = self
-	gamefield._render_matrix()
 	
 	add_child(gamemode)
 	
@@ -128,6 +127,7 @@ func _reset() -> void:
 	reset_started.emit()
 	gamemode._reset()
 	gamefield._clear_matrix()
+	gamefield._render_matrix()
 	
 	for i : Node in sounds.get_children(): i.queue_free()
 	playing_sounds.clear()

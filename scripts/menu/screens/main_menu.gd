@@ -28,6 +28,9 @@ func _ready() -> void:
 	_reload_all_action_icons()
 	_load_stats()
 	
+	parent_menu.foreground.visible = true
+	parent_menu.foreground._update_profile_info()
+	
 	$Main.position.y = -20.0
 	$SkinWindow.modulate.a = 0.0
 	$Main/WindowBack.modulate.a = 0.0
@@ -84,6 +87,8 @@ func _on_select(pos : Vector2i) -> void:
 	
 	if current_tab == MENU_TAB.OPTIONS and pos.x == 1:
 		$Main/OptionsWindow/Scroll.scroll_vertical = 32 * (pos.y - 5)
+	if current_tab == MENU_TAB.STATS and pos.x == 1:
+		$Main/StatsWindow/Scroll.scroll_vertical = 32 * (pos.y - 5)
 	if pos.x == 2:
 		$Main/GameWindow/CustomRuleset.scroll_vertical = 32 * (pos.y - 5)
 
@@ -135,18 +140,21 @@ func _select_tab(tab : int) -> void:
 			tab_color = tab_button_instance.button_color
 			description_instance = $Main/GameWindow/Expl
 			show_skin_select = true
+			_load_ranks()
 		MENU_TAB.TIME_ATTACK_MODE :
 			tab_instance = $Main/GameWindow
 			tab_button_instance = $Main/TimeAttack
 			tab_color = tab_button_instance.button_color
 			description_instance = $Main/GameWindow/Expl2
 			show_skin_select = true
+			_load_ranks()
 		MENU_TAB.CHEESE_MODE :
 			tab_instance = $Main/GameWindow
 			tab_button_instance = $Main/Cheese
 			tab_color = tab_button_instance.button_color
 			description_instance = $Main/GameWindow/Expl3
 			show_skin_select = true
+			_load_ranks()
 		MENU_TAB.OPTIONS :
 			tab_instance = $Main/OptionsWindow
 			tab_button_instance = $Main/Options
@@ -169,11 +177,12 @@ func _select_tab(tab : int) -> void:
 			show_skin_select = false
 	
 	var tween = create_tween().set_parallel()
-	var tween2 = create_tween()
 	
 	if prev_tab_instance != null and prev_tab_instance != tab_instance : 
+		var tween2 = create_tween()
 		tween2.tween_property(prev_tab_instance, "modulate:a", 0.0, ANIMATION_SPEED).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 		tween2.tween_property(prev_tab_instance, "position", Vector2(1000,1000), 0.0)
+	
 	tween.tween_property(tab_instance, "modulate:a", 1.0, ANIMATION_SPEED).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tab_instance.position = Vector2(208.0, 108.0)
 	
@@ -181,9 +190,9 @@ func _select_tab(tab : int) -> void:
 		tween.tween_property(prev_description_instance, "modulate:a", 0.0, ANIMATION_SPEED).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	if description_instance != null :
 		tween.tween_property(description_instance, "modulate:a", 1.0, ANIMATION_SPEED).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	
 	if prev_tab_button_instance != null :
 		tween.tween_property(prev_tab_button_instance, "size:x", 146.0, ANIMATION_SPEED).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	
 	tween.tween_property(tab_button_instance, "size:x", 170.0, ANIMATION_SPEED).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property($Main/WindowBack, "modulate", tab_color, ANIMATION_SPEED).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property($SkinWindow/Back, "modulate", tab_color, ANIMATION_SPEED).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
@@ -216,11 +225,11 @@ func _select_tab(tab : int) -> void:
 	
 	match current_tab:
 		MENU_TAB.MARATHON_MODE, MENU_TAB.TIME_ATTACK_MODE, MENU_TAB.CHEESE_MODE :
-			_set_selectable_position($Main/GameWindow/Std, Vector2i(1, 1))
-			_set_selectable_position($Main/GameWindow/Hrd, Vector2i(1, 2))
-			_set_selectable_position($Main/GameWindow/Xtr, Vector2i(1, 3))
-			_set_selectable_position($Main/GameWindow/Rev, Vector2i(1, 4))
-			_set_selectable_position($Main/GameWindow/Zon, Vector2i(1, 5))
+			_set_selectable_position($Main/GameWindow/std, Vector2i(1, 1))
+			_set_selectable_position($Main/GameWindow/hrd, Vector2i(1, 2))
+			_set_selectable_position($Main/GameWindow/xtr, Vector2i(1, 3))
+			_set_selectable_position($Main/GameWindow/rev, Vector2i(1, 4))
+			_set_selectable_position($Main/GameWindow/zon, Vector2i(1, 5))
 			_set_selectable_position($Main/GameWindow/Custom, Vector2i(1, 6))
 			_set_selectable_position($Main/GameWindow/Play, Vector2i(1, 7))
 			
@@ -245,6 +254,23 @@ func _select_tab(tab : int) -> void:
 			_set_selectable_position($Main/OptionsWindow/Scroll/V/RotateLeft, Vector2i(1, 13))
 			_set_selectable_position($Main/OptionsWindow/Scroll/V/HardDrop, Vector2i(1, 14))
 			_set_selectable_position($Main/OptionsWindow/Scroll/V/Hold, Vector2i(1, 15))
+		
+		MENU_TAB.STATS :
+			_set_selectable_position($Main/StatsWindow/Scroll/V/TotalPlayTime/Button, Vector2i(1, 1))
+			_set_selectable_position($Main/StatsWindow/Scroll/V/TotalMAAttempts/Button, Vector2i(1, 2))
+			_set_selectable_position($Main/StatsWindow/Scroll/V/TotalTAAttempts/Button, Vector2i(1, 3))
+			_set_selectable_position($Main/StatsWindow/Scroll/V/TotalCHAttempts/Button, Vector2i(1, 4))
+			_set_selectable_position($Main/StatsWindow/Scroll/V/TotalMAScore/Button, Vector2i(1, 5))
+			_set_selectable_position($Main/StatsWindow/Scroll/V/TopMAScoreGain/Button, Vector2i(1, 6))
+			_set_selectable_position($Main/StatsWindow/Scroll/V/TotalCHScore/Button, Vector2i(1, 7))
+			_set_selectable_position($Main/StatsWindow/Scroll/V/TopCHScoreGain/Button, Vector2i(1, 8))
+			_set_selectable_position($Main/StatsWindow/Scroll/V/TotalCheese/Button, Vector2i(1, 9))
+			_set_selectable_position($Main/StatsWindow/Scroll/V/TotalPieces/Button, Vector2i(1, 10))
+			_set_selectable_position($Main/StatsWindow/Scroll/V/TotalHolds/Button, Vector2i(1, 11))
+			_set_selectable_position($Main/StatsWindow/Scroll/V/TotalLines/Button, Vector2i(1, 12))
+			_set_selectable_position($Main/StatsWindow/Scroll/V/Total4XLines/Button, Vector2i(1, 13))
+			_set_selectable_position($Main/StatsWindow/Scroll/V/TotalAllClears/Button, Vector2i(1, 14))
+			_set_selectable_position($Main/StatsWindow/Scroll/V/TotalDamage/Button, Vector2i(1, 15))
 		
 		MENU_TAB.ABOUT :
 			_set_selectable_position($Main/AboutWindow/Scroll/V/Advert, Vector2i(1,6))
@@ -339,56 +365,56 @@ func _select_ruleset(ruleset : String) -> void:
 	match ruleset:
 		"std" : 
 			selected_ruleset = Gamemode.RULESET.STANDARD
-			tween.tween_property($Main/GameWindow/Std, "modulate", Color(1.0,1.0,1.0), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Hrd, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Xtr, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Rev, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Zon, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/std, "modulate", Color(1.0,1.0,1.0), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/hrd, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/xtr, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/rev, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/zon, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
 			tween.tween_property($Main/GameWindow/Custom, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
 		"hrd" : 
 			selected_ruleset = Gamemode.RULESET.HARD
-			tween.tween_property($Main/GameWindow/Std, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Hrd, "modulate", Color(1.0,1.0,1.0), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Xtr, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Rev, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Zon, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/std, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/hrd, "modulate", Color(1.0,1.0,1.0), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/xtr, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/rev, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/zon, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
 			tween.tween_property($Main/GameWindow/Custom, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
 		"xtr" : 
 			selected_ruleset = Gamemode.RULESET.EXTREME
-			tween.tween_property($Main/GameWindow/Std, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Hrd, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Xtr, "modulate", Color(1.0,1.0,1.0), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Rev, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Zon, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/std, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/hrd, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/xtr, "modulate", Color(1.0,1.0,1.0), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/rev, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/zon, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
 			tween.tween_property($Main/GameWindow/Custom, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
 		"rev" : 
 			selected_ruleset = Gamemode.RULESET.REVERSI
-			tween.tween_property($Main/GameWindow/Std, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Hrd, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Xtr, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Rev, "modulate", Color(1.0,1.0,1.0), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Zon, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/std, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/hrd, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/xtr, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/rev, "modulate", Color(1.0,1.0,1.0), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/zon, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
 			tween.tween_property($Main/GameWindow/Custom, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
 		"zon" : 
 			selected_ruleset = Gamemode.RULESET.ZONE
-			tween.tween_property($Main/GameWindow/Std, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Hrd, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Xtr, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Rev, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Zon, "modulate", Color(1.0,1.0,1.0), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/std, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/hrd, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/xtr, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/rev, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/zon, "modulate", Color(1.0,1.0,1.0), ANIMATION_SPEED)
 			tween.tween_property($Main/GameWindow/Custom, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
 		"custom" : 
 			selected_ruleset = Gamemode.RULESET.CUSTOM
-			tween.tween_property($Main/GameWindow/Std, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Hrd, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Xtr, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Rev, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
-			tween.tween_property($Main/GameWindow/Zon, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/std, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/hrd, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/xtr, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/rev, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
+			tween.tween_property($Main/GameWindow/zon, "modulate", Color(0.5,0.5,0.5), ANIMATION_SPEED)
 			tween.tween_property($Main/GameWindow/Custom, "modulate", Color(1.0,1.0,1.0), ANIMATION_SPEED)
 			
 			tween2.tween_property($Main/GameWindow/Leaderboard, "modulate:a", 0.0, ANIMATION_SPEED)
 			tween2.tween_property($Main/GameWindow/Leaderboard, "position:x", -1000.0, 0.0)
-			$Main/GameWindow/CustomRuleset.position.x = 158
+			$Main/GameWindow/CustomRuleset.position = Vector2(124,34)
 			tween.tween_property($Main/GameWindow/CustomRuleset, "modulate:a", 1.0, ANIMATION_SPEED)
 			
 			_load_custom_ruleset_selectables()
@@ -423,6 +449,48 @@ func _visit(what : String) -> void:
 
 func _quit() -> void:
 	main._exit()
+
+
+func _load_ranks() -> void:
+	var mode_str : String
+	
+	match current_tab:
+		MENU_TAB.MARATHON_MODE : mode_str = "ma_"
+		MENU_TAB.TIME_ATTACK_MODE : mode_str = "ta_"
+		MENU_TAB.CHEESE_MODE : mode_str = "ch_"
+	
+	for i : String in ["std", "hrd", "xtr", "rev", "zon"]:
+		var rank_letter : String = "-"
+		var rank_color : Color = Color.WHITE
+		match Player.progress[mode_str + i + "_rank"]:
+			Player.RANK.NONE : rank_letter = "-"
+			Player.RANK.E : 
+				rank_color = Color.WHITE
+				rank_letter = "E"
+			Player.RANK.D : 
+				rank_color = Color.WHITE
+				rank_letter = "D"
+			Player.RANK.C : 
+				rank_color = Color.WHITE
+				rank_letter = "C"
+			Player.RANK.B : 
+				rank_color = Color.WHITE
+				rank_letter = "B"
+			Player.RANK.A : 
+				rank_color = Color.WHITE
+				rank_letter = "A"
+			Player.RANK.S : 
+				rank_color = Color("14ff75")
+				rank_letter = "S"
+			Player.RANK.X : 
+				rank_color = Color("ce61f1")
+				rank_letter = "X"
+			Player.RANK.M : 
+				rank_color = Color("ff801b")
+				rank_letter = "M"
+		
+		get_node("Main/GameWindow/" + i + "/Rank/Label").text = rank_letter
+		get_node("Main/GameWindow/" + i + "/Rank/Label").modulate = rank_color
 
 
 func _load_stats() -> void:
@@ -557,5 +625,5 @@ func _load_icon_for_action(action : String) -> void:
 		var new_icon : TextureRect = Menu._create_button_icon(action, Vector2(24,24))
 		new_icon.name = "Icon"
 		new_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		new_icon.position = Vector2(326,0)
+		new_icon.position = Vector2(336,0)
 		action_holder.add_child(new_icon)

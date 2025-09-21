@@ -64,6 +64,23 @@ func _input(event : InputEvent) -> void:
 		if event.is_action_pressed("ui_enter"):
 			is_exiting = true 
 			
+			if !main.profile_loaded : 
+				var tween : Tween = create_tween()
+				tween.tween_property($Login, "modulate:a", 1.0, 0.5).from(0.0)
+				$Login.position = Vector2(0,0)
+				
+				await $Login/LineEdit.text_submitted
+				print($Login/LineEdit.text)
+				Player._create_profile($Login/LineEdit.text)
+				
+				parent_menu._play_sound("accept")
+				var tween2 : Tween = create_tween()
+				tween2.tween_property($Login, "modulate:a", 1.0, 0.25)
+				tween2.tween_property($Login, "position:x", 1000.0, 0.0)
+				
+				await tween2.finished
+			
+			Player.config["first_boot"] = false
 			parent_menu._play_sound("start")
 			parent_menu._change_screen("main_menu")
 	

@@ -8,11 +8,12 @@ extends MenuSelectableSlider
 
 @export_multiline var description : String = "" ## Description shown when slider is selected
 @export_multiline var disabled_description : String = "" ## Description shown when slider is disabled
-@export var button_layout : int = 5 ## Button layout foreground menu screen will show when this slider is selected
+@export var button_layout : int = 4 ## Button layout foreground menu screen will show when this slider is selected
 
 @export var is_setting_slider : bool = true ## Is this slider used for setting profile config values
 
 var current_description : String = description ## Description this slider currently displays when selected
+var silent : bool = true
 
 
 func _ready() -> void:
@@ -31,7 +32,7 @@ func _ready() -> void:
 	else:
 		current_description = description
 
-	if is_setting_slider: $Power.text = Player._get_config_value_string(call_string, value)
+	if is_setting_slider: _set_value_by_data()
 
 
 ## Called when this slider is selected
@@ -57,11 +58,13 @@ func _deselected() -> void:
 
 ## Called when this slider value changes
 func _on_value_changed(to_value : float) -> void:
-	parent_menu._play_sound("select")
+	if not silent : parent_menu._play_sound("select")
 	if is_setting_slider: 
-		$Power.text = Player._get_config_value_string(call_string, to_value)
 		Player._set_config_value(call_string, value)
+		$Power.text = Player._get_config_value_string(call_string, to_value)
 		Player._apply_config_setting(call_string)
+	
+	silent = false
 
 
 ## Sets slider value to its corresponing profile/gamerule setting value

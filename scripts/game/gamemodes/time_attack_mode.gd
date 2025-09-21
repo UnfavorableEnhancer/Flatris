@@ -119,34 +119,51 @@ func _game_over(game_over_screen : MenuScreen) -> void:
 	var result_time : int = Time.get_ticks_msec() - ta_start_ticks
 	ta_start_ticks = 0
 	var flash_color : Color
+	var mode_str : String = "ta_"
+	
+	match ruleset:
+		RULESET.STANDARD : mode_str += "std"
+		RULESET.HARD : mode_str += "hrd"
+		RULESET.EXTREME : mode_str += "xtr"
+		RULESET.REVERSI : mode_str += "rev"
+		RULESET.ZONE : mode_str += "zon"
 	
 	if result_time <= RANKINGS.M : 
 		game_over_screen.get_node("Results/Letter").text = "M"
 		flash_color = Color("ff1d9c")
+		Player.progress[mode_str + "_rank"] = Player.RANK.M
 	elif result_time <= RANKINGS.X : 
 		game_over_screen.get_node("Results/Letter").text = "X"
 		flash_color = Color("1dffaa")
+		if Player.RANK.X > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.X
 	elif result_time <= RANKINGS.S : 
 		game_over_screen.get_node("Results/Letter").text = "S"
 		flash_color = Color("1df4ff")
+		if Player.RANK.S > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.S
 	elif result_time <= RANKINGS.A : 
 		game_over_screen.get_node("Results/Letter").text = "A"
 		flash_color = Color("ff421d")
+		if Player.RANK.A > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.A
 	elif result_time <= RANKINGS.B : 
 		game_over_screen.get_node("Results/Letter").text = "B"
 		flash_color = Color("ffb33c")
+		if Player.RANK.B > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.B
 	elif result_time <= RANKINGS.C : 
 		game_over_screen.get_node("Results/Letter").text = "C"
 		flash_color = Color("fff66d")
+		if Player.RANK.C > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.C
 	elif result_time <= RANKINGS.D : 
 		game_over_screen.get_node("Results/Letter").text = "D"
 		flash_color = Color.WHITE
+		if Player.RANK.D > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.D
 	else : 
 		game_over_screen.get_node("Results/Letter").text = "E"
 		flash_color = Color.WHITE
+		if Player.RANK.E > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.E
 	
 	var flash_tween : Tween = create_tween().set_loops()
 	flash_tween.tween_property(game_over_screen.get_node("Results/Letter"), "self_modulate", flash_color, 0.2)
 	flash_tween.tween_property(game_over_screen.get_node("Results/Letter"), "self_modulate", Color.WHITE, 0.2)
 	
 	game_over_screen.get_node("Results/Value").text = foreground.get_node("Time/Num").text + foreground.get_node("Time/Num2").text
+	Player._save_profile()

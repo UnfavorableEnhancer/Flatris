@@ -12,8 +12,10 @@ enum MENU_BUTTON_LAYOUT{
 	SELECT,
 	CHANGE_INPUT,
 	SLIDER,
-	MAIN_MENU,
 	TOGGLE_UP_DOWN,
+	NEXT_SKIN,
+	PREV_SKIN,
+	SELECT_THEME,
 	TOGGLE,
 	SCROLL,
 	PAUSE,
@@ -117,7 +119,8 @@ func _set_toggle_by_data() -> void:
 	if data == null : 
 		modulate = Color.RED
 		return
-		
+	
+	is_toggled = data
 	$IO.text = tr("ON") if is_toggled else tr("OFF")
 
 
