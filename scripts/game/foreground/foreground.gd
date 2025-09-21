@@ -51,9 +51,13 @@ var lines_goal : int = 0 ## Goal lines amount value
 var damage : int = 0 ## Latest set damage value
 var reversi : int = 0 ## Latest set reversi value
 
+var is_reversi_disabled : bool = false
+var is_damage_disabled : bool = false
+
 var score_tween : Tween ## Tween used to animate score text grow
 var lines_tween : Tween ## Tween used to animate lines text grow
 var damage_tween : Tween ## Tween used to animate damage indicator grow
+var reversi_tween : Tween ## Tween used to animate damage indicator grow
 
 var score_add_loop_tween : Tween ## Tween used to animate score add
 var score_add_tween : Tween ## Tween used to animate score add
@@ -65,10 +69,12 @@ func _ready() -> void:
 
 func _disable_damage_bar() -> void:
 	$Damage.modulate = Color("5e5e5e")
+	is_damage_disabled = true
 
 
 func _disable_reversi_bar() -> void:
 	$Reversi.modulate.a = 0.0
+	is_reversi_disabled = true
 
 
 ## Sets score with grow animation
@@ -192,13 +198,18 @@ func _update_queue(queue : Array[int]) -> void:
 
 ## Updates hold visuals
 func _update_hold(piece_in_hold : int) -> void:
-	if piece_in_hold == -1 : return
+	if piece_in_hold == -1 : 
+		$Hold/Piece.frame = 0
+		return
+	
 	$Hold/Piece.frame = piece_in_hold + 1
 	$Hold/Piece.modulate = PIECE_COLORS[piece_in_hold]
 
 
 ## Updates damage indicator
 func _set_damage(number : int) -> void:
+	if is_damage_disabled : return
+	
 	if is_instance_valid(damage_tween) : damage_tween.kill()
 	
 	if number > 20 : number = 20
@@ -222,7 +233,9 @@ func _set_damage(number : int) -> void:
 
 ## Updates reversi indicator
 func _set_reversi(number : int) -> void:
-	if is_instance_valid(damage_tween) : damage_tween.kill()
+	if is_reversi_disabled : return
+	
+	if is_instance_valid(reversi_tween) : reversi_tween.kill()
 	
 	if number > 20 : number = 20
 	if number < 0 : number = 0
@@ -232,10 +245,10 @@ func _set_reversi(number : int) -> void:
 	var reversi_percent : float = number / 20.0
 	var flash_color : Color = Color(clamp(1.0 - reversi_percent,  0.207, 1.0), 1.0, clamp(1.0 - reversi_percent,  0.591, 1.0))
 	
-	damage_tween = create_tween()
-	damage_tween.tween_property($Reversi/Bar, "tint_progress", Color(0.207, 1.0, 0.591), 0.1)
-	damage_tween.tween_property($Reversi/Bar, "tint_progress", Color.WHITE, 0.1)
-	damage_tween.tween_property($Reversi, "modulate", flash_color, 0.5)
+	reversi_tween = create_tween()
+	reversi_tween.tween_property($Reversi/Bar, "tint_progress", Color(0.207, 1.0, 0.591), 0.1)
+	reversi_tween.tween_property($Reversi/Bar, "tint_progress", Color.WHITE, 0.1)
+	reversi_tween.tween_property($Reversi, "modulate", flash_color, 0.5)
 	damage = number
 
 
@@ -288,7 +301,7 @@ func _show_score_add(add_score : int, add_lines : int) -> void:
 			text = "Impossible!!!"
 	
 	$ScoreAdd/Text.text = text
-	if add_score == 0 : $ScoreAdd/Score.text = "+" + str(add_score)
+	if add_score == 0 : $ScoreAdd/Score.text = ""
 	else : $ScoreAdd/Score.text = "+" + str(add_score)
 	$ScoreAdd/Lines.text = "x" + str(add_lines)
 	

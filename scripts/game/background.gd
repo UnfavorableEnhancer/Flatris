@@ -6,18 +6,17 @@ class_name Background
 @onready var background_animation : AnimationPlayer = $A
 
 
-func _ready() -> void:
+func _start_music() -> void:
+	music_player.volume_db = 0.0
+	music_player.play()
+	
 	if not Player.config["static_background"]:
 		background_animation.play("anim")
 
 
-func _start_music() -> void:
-	music_player.volume_db = 0.0
-	music_player.play()
-
-
 func _stop_music() -> void:
 	music_player.stop()
+	background_animation.play("end")
 
 
 func _pause_music(on : bool) -> void:

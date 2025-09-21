@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bsishg6ht7av3"]
+[gd_scene load_steps=24 format=3 uid="uid://bsishg6ht7av3"]
 
 [ext_resource type="AudioStream" uid="uid://c4blicno2cqcn" path="res://music/Tetris Theme B Remix.ogg" id="1_opdei"]
 [ext_resource type="Script" uid="uid://76m6ao0ownrv" path="res://scripts/game/background.gd" id="1_xwqhl"]
@@ -55,9 +55,50 @@ tracks/2/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_xjhg1"]
+resource_name = "end"
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bubbles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bubbles2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Fish:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xwqhl"]
 _data = {
-&"anim": SubResource("Animation_mew0o")
+&"anim": SubResource("Animation_mew0o"),
+&"end": SubResource("Animation_xjhg1")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6jywk"]

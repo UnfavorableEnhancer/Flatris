@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d4in6dtauuiu1"]
+[gd_scene load_steps=18 format=3 uid="uid://d4in6dtauuiu1"]
 
 [ext_resource type="Script" uid="uid://76m6ao0ownrv" path="res://scripts/game/background.gd" id="1_isbbf"]
 [ext_resource type="AudioStream" uid="uid://27avhunmgpdt" path="res://music/Tetris Theme C W3Rz Cover.ogg" id="1_s4g2f"]
@@ -65,9 +65,61 @@ tracks/3/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_feqjt"]
+resource_name = "end"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flakes1:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4995),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flakes2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4995),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flakes3:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.4995),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Flakes4:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.4995),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_feqjt"]
 _data = {
-&"anim": SubResource("Animation_btc8a")
+&"anim": SubResource("Animation_btc8a"),
+&"end": SubResource("Animation_feqjt")
 }
 
 [sub_resource type="Gradient" id="Gradient_1cpxn"]

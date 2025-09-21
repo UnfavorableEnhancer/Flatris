@@ -32,10 +32,13 @@ const RULESET_SPEED : Dictionary = {
 	RULESET.EXTREME : [2, 8, 3, 10, 30, 120, 10, 20],
 	RULESET.REVERSI : [30, 20, 5, 10, 30, 120, 10, 50],
 	RULESET.ZONE : [30, 20, 5, 10, 30, 120, 10, 50],
+	RULESET.CUSTOM : [30, 12, 5, 10, 30, 120, 10, 50],
 	RULESET.DEBUG : [30, 20, 5, 10, 30, 120, 10, 50],
 }
 
 const LINES_GOAL : int = 40 ## Amount of lines required to delete to finish TA attempt
+
+var flash_tween : Tween
 
 var lines : int = 0 ## Total amount of deleted lines
 var ta_start_ticks : int = 0 ## Ticks from which time attack started
@@ -141,43 +144,43 @@ func _game_over(game_over_screen : MenuScreen) -> void:
 	elif result_time <= RANKINGS.M : 
 		game_over_screen.get_node("Results/Letter").text = "M"
 		flash_color = Color("ff1d9c")
-		Player.progress[mode_str + "_rank"] = Player.RANK.M
+		if ruleset != RULESET.CUSTOM: Player.progress[mode_str + "_rank"] = Player.RANK.M
 	elif result_time <= RANKINGS.X : 
 		game_over_screen.get_node("Results/Letter").text = "X"
 		flash_color = Color("1dffaa")
-		if Player.RANK.X > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.X
+		if ruleset != RULESET.CUSTOM: if Player.RANK.X > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.X
 	elif result_time <= RANKINGS.S : 
 		game_over_screen.get_node("Results/Letter").text = "S"
 		flash_color = Color("1df4ff")
-		if Player.RANK.S > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.S
+		if ruleset != RULESET.CUSTOM: if Player.RANK.S > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.S
 	elif result_time <= RANKINGS.A : 
 		game_over_screen.get_node("Results/Letter").text = "A"
 		flash_color = Color("ff421d")
-		if Player.RANK.A > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.A
+		if ruleset != RULESET.CUSTOM: if Player.RANK.A > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.A
 	elif result_time <= RANKINGS.B : 
 		game_over_screen.get_node("Results/Letter").text = "B"
 		flash_color = Color("ffb33c")
-		if Player.RANK.B > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.B
+		if ruleset != RULESET.CUSTOM: if Player.RANK.B > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.B
 	elif result_time <= RANKINGS.C : 
 		game_over_screen.get_node("Results/Letter").text = "C"
 		flash_color = Color("fff66d")
-		if Player.RANK.C > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.C
+		if ruleset != RULESET.CUSTOM: if Player.RANK.C > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.C
 	elif result_time <= RANKINGS.D : 
 		game_over_screen.get_node("Results/Letter").text = "D"
 		flash_color = Color.WHITE
-		if Player.RANK.D > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.D
+		if ruleset != RULESET.CUSTOM: if Player.RANK.D > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.D
 	else : 
 		game_over_screen.get_node("Results/Letter").text = "E"
 		flash_color = Color.WHITE
-		if Player.RANK.E > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.E
+		if ruleset != RULESET.CUSTOM: if Player.RANK.E > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.E
 	
-	var flash_tween : Tween = create_tween().set_loops()
+	flash_tween = create_tween().set_loops(100)
 	flash_tween.tween_property(game_over_screen.get_node("Results/Letter"), "self_modulate", flash_color, 0.2)
 	flash_tween.tween_property(game_over_screen.get_node("Results/Letter"), "self_modulate", Color.WHITE, 0.2)
 	
 	game_over_screen.get_node("Results/Value").text = foreground.get_node("Time/Num").text + foreground.get_node("Time/Num2").text
 	
-	if goal_complete:
+	if goal_complete and ruleset != RULESET.CUSTOM:
 		Player._set_local_record(mode_str + "_record", result_time)
 		if Player.config["save_score_online"] : await Talo.leaderboards.add_entry(mode_str, result_time)
 	
@@ -186,4 +189,10 @@ func _game_over(game_over_screen : MenuScreen) -> void:
 	game_over_screen.gamemode_str = "ta"
 	game_over_screen.ruleset = ruleset
 	
-	await game_over_screen._load_leaderboard()
+	if ruleset != RULESET.CUSTOM: await game_over_screen._load_leaderboard()
+
+
+## Called on game exit
+func _end() -> void:
+	if is_instance_valid(flash_tween):
+		flash_tween.kill()

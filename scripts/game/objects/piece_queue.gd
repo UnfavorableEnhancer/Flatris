@@ -97,7 +97,7 @@ func _clear() -> void:
 ## Adds random pieces to the queue with 7-bag system
 func _shuffle() -> void:
 	var raw_bag : Array = [0,1,2,3,4,5,6]
-	if gamefield.gamemode.extended_piece_queue: raw_bag = [0,1,2,3,4,5,6,7,8,9,10]
+	if gamefield.gamemode.extended_piece_queue: raw_bag = [0,1,2,3,4,5,6,7,8,9]
 	
 	while not raw_bag.is_empty():
 		var index = gamefield.gamemode.rng.randi_range(0, raw_bag.size() - 1)

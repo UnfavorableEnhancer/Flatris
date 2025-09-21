@@ -154,3 +154,7 @@ func _build_leaderboard() -> void:
 		if online_data.player_alias.identifier == Player.profile_name + "_" + Player.vault_key.left(6): online_entry.color = Color(0.264, 0.493, 0.582, 1.0)
 		online_entry.id = (i + current_leaderboard_page * 10) + 1
 		$Leaderboard/V.add_child(online_entry)
+		
+		if current_leaderboard_entries.size() == ((i + current_leaderboard_page * 5) + 1) or i + current_leaderboard_page * 5 == MAX_ENTRIES: 
+			at_last_leaderboard_page = true
+			$Leaderboard/Next._set_disable(true)

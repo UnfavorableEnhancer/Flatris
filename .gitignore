@@ -1,3 +1,4 @@
 *.import
 .godot
 addons/talo/settings.cfg
+bin/*

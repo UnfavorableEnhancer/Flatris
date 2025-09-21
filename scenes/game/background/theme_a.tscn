@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dvk5jk2vg1c0x"]
+[gd_scene load_steps=18 format=3 uid="uid://dvk5jk2vg1c0x"]
 
 [ext_resource type="Script" uid="uid://76m6ao0ownrv" path="res://scripts/game/background.gd" id="1_d5ybn"]
 [ext_resource type="AudioStream" uid="uid://crh8jevb1cwwb" path="res://music/Tetris_Theme_A_Remix.ogg" id="1_x7pen"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://cjkdbcwcyv504" path="res://images/game/background/THEME A/brikz.png" id="6_a1vfr"]
 [ext_resource type="Texture2D" uid="uid://dgy83an66b715" path="res://images/game/background/THEME A/saint_basil.png" id="7_fxtai"]
 [ext_resource type="Texture2D" uid="uid://ddwpo4t8ceplq" path="res://images/game/background/THEME A/big_smouk.png" id="7_kufa3"]
-[ext_resource type="Texture2D" uid="uid://cspg4nnsdsx6" path="res://images/game/background/THEME A/berd.png" id="7_s0jd7"]
 [ext_resource type="Texture2D" uid="uid://7ferwt5hdcnn" path="res://images/game/background/THEME A/factory.png" id="8_s0jd7"]
 [ext_resource type="Texture2D" uid="uid://ct8tlg48xcw1e" path="res://images/game/background/THEME A/dub.png" id="9_kufa3"]
 [ext_resource type="Texture2D" uid="uid://b5wu8smg4txi7" path="res://images/game/background/THEME A/chrushevka.png" id="10_iq5y5"]
@@ -63,22 +62,63 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Fish:emitting")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+
+[sub_resource type="Animation" id="Animation_fxtai"]
+resource_name = "end"
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Snoke:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Snoke2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Snoke3:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Snoke5:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fxtai"]
 _data = {
-&"anim": SubResource("Animation_a1vfr")
+&"anim": SubResource("Animation_a1vfr"),
+&"end": SubResource("Animation_fxtai")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iq5y5"]
@@ -100,24 +140,6 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.311628, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_5jsg7"]
-offsets = PackedFloat32Array(0, 0.396825)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s0jd7"]
-transparency = 4
-shading_mode = 0
-albedo_texture = ExtResource("7_s0jd7")
-texture_filter = 0
-billboard_mode = 3
-billboard_keep_scale = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="QuadMesh" id="QuadMesh_kufa3"]
-material = SubResource("StandardMaterial3D_s0jd7")
-size = Vector2(0.5, 0.5)
-
-[sub_resource type="Gradient" id="Gradient_iq5y5"]
 offsets = PackedFloat32Array(0, 0.396825)
 
 [node name="THEME A" type="Node3D"]
@@ -237,20 +259,6 @@ scale_amount_min = 0.5
 scale_amount_max = 2.0
 scale_amount_curve = SubResource("Curve_xwqhl")
 color_ramp = SubResource("Gradient_5jsg7")
-
-[node name="Fish" type="CPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.900002, 3.9, -0.8)
-emitting = false
-amount = 6
-lifetime = 6.0
-randomness = 1.0
-mesh = SubResource("QuadMesh_kufa3")
-emission_shape = 3
-emission_box_extents = Vector3(1, 2, 10)
-gravity = Vector3(4, 0, 0)
-scale_amount_min = 2.0
-scale_amount_max = 4.0
-color_ramp = SubResource("Gradient_iq5y5")
 
 [node name="RUSSIA" type="Node3D" parent="."]
 

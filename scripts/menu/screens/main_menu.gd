@@ -35,6 +35,8 @@ func _ready() -> void:
 	_reload_all_action_icons()
 	_load_stats()
 	
+	Player.config["first_boot"] = false
+	
 	parent_menu.foreground.visible = true
 	parent_menu.foreground._update_profile_info()
 	
@@ -151,8 +153,10 @@ func _select_tab(tab : int) -> void:
 			show_skin_select = true
 			_load_ranks()
 			_update_leaderboard()
-			$Main/GameWindow/hrd.description = "Features 9x9x9 field. Game ends instantly if piece lands onto placed block."
-			$Main/GameWindow/xtr.description = "Features 8x8x8 field and extended piece bag. Game ends instantly if piece lands onto placed block."
+			$Main/GameWindow/hrd.description = "Features 8x8x8 field. Game ends instantly if piece lands onto placed block."
+			$Main/GameWindow/hrd.current_description = "Features 8x8x8 field. Game ends instantly if piece lands onto placed block."
+			$Main/GameWindow/xtr.description = "Features 9x9x9 field and extended piece bag. Game ends instantly if piece lands onto placed block."
+			$Main/GameWindow/xtr.current_description = "Features 9x9x9 field and extended piece bag. Game ends instantly if piece lands onto placed block."
 		MENU_TAB.TIME_ATTACK_MODE :
 			tab_instance = $Main/GameWindow
 			tab_button_instance = $Main/TimeAttack
@@ -161,8 +165,10 @@ func _select_tab(tab : int) -> void:
 			show_skin_select = true
 			_load_ranks()
 			_update_leaderboard()
-			$Main/GameWindow/hrd.description = "Features 9x9x9 field. Game ends instantly if piece lands onto placed block."
-			$Main/GameWindow/xtr.description = "Features 8x8x8 field and extended piece bag. Game ends instantly if piece lands onto placed block."
+			$Main/GameWindow/hrd.description = "Features 8x8x8 field. Game ends instantly if piece lands onto placed block."
+			$Main/GameWindow/hrd.current_description = "Features 8x8x8 field. Game ends instantly if piece lands onto placed block."
+			$Main/GameWindow/xtr.description = "Features 9x9x9 field and extended piece bag. Game ends instantly if piece lands onto placed block."
+			$Main/GameWindow/xtr.current_description = "Features 9x9x9 field and extended piece bag. Game ends instantly if piece lands onto placed block."
 		MENU_TAB.CHEESE_MODE :
 			tab_instance = $Main/GameWindow
 			tab_button_instance = $Main/Cheese
@@ -171,10 +177,10 @@ func _select_tab(tab : int) -> void:
 			show_skin_select = true
 			_load_ranks()
 			_update_leaderboard()
-			$Main/GameWindow/hrd.description = "Features 9x9x9 field and higher damage"
-			$Main/GameWindow/hrd.current_description = "Features 9x9x9 field and higher damage"
-			$Main/GameWindow/xtr.description = "Features 8x8x8 field, even more higher damage and extended piece bag."
-			$Main/GameWindow/xtr.current_description = "Features 8x8x8 field, even more higher damage and extended piece bag."
+			$Main/GameWindow/hrd.description = "Features 8x8x8 field and higher damage"
+			$Main/GameWindow/hrd.current_description = "Features 8x8x8 field and higher damage"
+			$Main/GameWindow/xtr.description = "Features 9x9x9 field, higher damage and extended piece bag."
+			$Main/GameWindow/xtr.current_description = "Features 9x9x9 field, higher damage and extended piece bag."
 		MENU_TAB.OPTIONS :
 			tab_instance = $Main/OptionsWindow
 			tab_button_instance = $Main/Options
@@ -461,6 +467,8 @@ func _start_game() -> void:
 
 
 func _quit() -> void:
+	Player._save_profile()
+	
 	main._exit()
 
 
@@ -700,6 +708,7 @@ func _build_leaderboard() -> void:
 		if i.name == "TableLegend" : continue
 		i.queue_free()
 	
+	at_last_leaderboard_page = false
 	var record_name : String
 	
 	match current_tab:
@@ -753,6 +762,8 @@ func _build_leaderboard() -> void:
 		return
 	
 	if current_leaderboard_page > 0 : $Main/GameWindow/Leaderboard/Prev._set_disable(false)
+	else : $Main/GameWindow/Leaderboard/Prev._set_disable(true)
+	
 	$Main/GameWindow/Leaderboard/Next._set_disable(false)
 	
 	for i in 5:
@@ -762,7 +773,12 @@ func _build_leaderboard() -> void:
 			return
 		
 		var online_entry : ColorRect = LEADERBOARD_ENTRY.instantiate()
-		var online_data : TaloLeaderboardEntry = current_leaderboard_entries[i + current_leaderboard_page * 5]
+		var online_data : TaloLeaderboardEntry = current_leaderboard_entries.get(i + current_leaderboard_page * 5)
+		
+		if online_data == null :
+			at_last_leaderboard_page = true
+			$Main/GameWindow/Leaderboard/Next._set_disable(true)
+			return
 		
 		match current_tab:
 			MENU_TAB.MARATHON_MODE, MENU_TAB.CHEESE_MODE :
@@ -782,6 +798,10 @@ func _build_leaderboard() -> void:
 		if online_data.player_alias.identifier == Player.profile_name + "_" + Player.vault_key.left(6): online_entry.color = Color(0.061, 0.305, 0.191, 1.0)
 		online_entry.id = (i + current_leaderboard_page * 5) + 1
 		$Main/GameWindow/Leaderboard/V.add_child(online_entry)
+		
+		if current_leaderboard_entries.size() == ((i + current_leaderboard_page * 5) + 1) or i + current_leaderboard_page * 5 == MAX_ENTRIES: 
+			at_last_leaderboard_page = true
+			$Main/GameWindow/Leaderboard/Next._set_disable(true)
 
 
 func _visit_source_code() -> void:

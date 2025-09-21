@@ -96,7 +96,7 @@ func _set_ruleset(type : int) -> void:
 			block_gravity = true
 			
 		RULESET.HARD : 
-			field_size = Vector3i(9, 9, 9)
+			field_size = Vector3i(8, 8, 8)
 			dzen_mode = false
 			zone_mode = false
 			reversi_mode = false
@@ -107,7 +107,7 @@ func _set_ruleset(type : int) -> void:
 			damage_recovery = 2
 			
 		RULESET.EXTREME : 
-			field_size = Vector3i(8, 8, 8)
+			field_size = Vector3i(9, 9, 9)
 			dzen_mode = false
 			zone_mode = false
 			reversi_mode = false
@@ -225,7 +225,13 @@ func _on_reset_ended() -> void:
 
 ## Called on game reset
 func _reset() -> void:
+	current_reversi = 0
+	foreground._set_reversi(0)
+	damage = 0
+	foreground._set_damage(0)
+	current_damage_recovery = damage_recovery
 	foreground._set_time(0)
+	
 
 
 func _on_lines_scanned(_amount : int, _has_cheese : bool = false) -> void:

@@ -10,7 +10,6 @@ signal finish
 
 func _ready() -> void:
 	await get_tree().create_timer(8.0).timeout
-	Player.config["first_boot"] = false
 	finish.emit()
 
 

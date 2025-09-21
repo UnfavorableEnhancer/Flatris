@@ -64,6 +64,8 @@ const LEVEL_SPEED : Dictionary = {
 	100 : [0, 4, 1, 10, 10, 30, 6, 14, 90.0],
 }
 
+var flash_tween : Tween
+
 var level : int = 1 ## Defines game speed and cheese amount
 var cheese_amount : int ## Current amount of cheese blocks
 
@@ -136,25 +138,25 @@ func _set_ruleset(type : int) -> void:
 			block_gravity = true
 			
 		RULESET.HARD : 
-			field_size = Vector3i(9, 9, 9)
+			field_size = Vector3i(8, 8, 8)
 			dzen_mode = false
 			zone_mode = false
 			reversi_mode = false
 			death_mode = false
 			extended_piece_queue = false
 			block_gravity = true
-			max_damage = 16
+			max_damage = 12
 			damage_recovery = 4
 			
 		RULESET.EXTREME : 
-			field_size = Vector3i(8, 8, 8)
+			field_size = Vector3i(9, 9, 9)
 			dzen_mode = false
 			zone_mode = false
 			reversi_mode = false
 			death_mode = false
 			extended_piece_queue = true
 			block_gravity = true
-			max_damage = 12
+			max_damage = 16
 			damage_recovery = 4
 			
 		RULESET.ZONE : 
@@ -165,7 +167,7 @@ func _set_ruleset(type : int) -> void:
 			death_mode = false
 			extended_piece_queue = false
 			block_gravity = true
-			max_damage = 12
+			max_damage = 20
 			damage_recovery = 4
 			
 		RULESET.REVERSI : 
@@ -176,7 +178,7 @@ func _set_ruleset(type : int) -> void:
 			death_mode = false
 			extended_piece_queue = false
 			block_gravity = true
-			max_damage = 12
+			max_damage = 20
 			damage_recovery = 4
 			
 		RULESET.CUSTOM : 
@@ -366,59 +368,68 @@ func _game_over(game_over_screen : MenuScreen) -> void:
 	if level >= RANKINGS.M : 
 		game_over_screen.get_node("Results/Letter").text = "M"
 		flash_color = Color("ff1d9c")
-		Player.progress[mode_str + "_rank"] = Player.RANK.M
+		if ruleset != RULESET.CUSTOM: Player.progress[mode_str + "_rank"] = Player.RANK.M
 	elif level >= RANKINGS.X : 
 		game_over_screen.get_node("Results/Letter").text = "X"
 		flash_color = Color("1dffaa")
-		if Player.RANK.X > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.X
+		if ruleset != RULESET.CUSTOM: if Player.RANK.X > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.X
 	elif level >= RANKINGS.S : 
 		game_over_screen.get_node("Results/Letter").text = "S"
 		flash_color = Color("1df4ff")
-		if Player.RANK.S > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.S
+		if ruleset != RULESET.CUSTOM: if Player.RANK.S > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.S
 	elif level >= RANKINGS.A : 
 		game_over_screen.get_node("Results/Letter").text = "A"
 		flash_color = Color("ff421d")
-		if Player.RANK.A > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.A
+		if ruleset != RULESET.CUSTOM: if Player.RANK.A > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.A
 	elif level >= RANKINGS.B : 
 		game_over_screen.get_node("Results/Letter").text = "B"
 		flash_color = Color("fb9014ff")
-		if Player.RANK.B > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.B
+		if ruleset != RULESET.CUSTOM: if Player.RANK.B > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.B
 	elif level >= RANKINGS.C : 
 		game_over_screen.get_node("Results/Letter").text = "C"
 		flash_color = Color("fef680ff")
-		if Player.RANK.C > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.C
+		if ruleset != RULESET.CUSTOM: if Player.RANK.C > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.C
 	elif level >= RANKINGS.D : 
 		game_over_screen.get_node("Results/Letter").text = "D"
 		flash_color = Color.WHITE
-		if Player.RANK.D > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.D
+		if ruleset != RULESET.CUSTOM: if Player.RANK.D > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.D
 	elif level >= RANKINGS.E : 
 		game_over_screen.get_node("Results/Letter").text = "E"
 		flash_color = Color.WHITE
-		if Player.RANK.E > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.E
+		if ruleset != RULESET.CUSTOM: if Player.RANK.E > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.E
 	
-	var flash_tween : Tween = create_tween().set_loops(100)
+	flash_tween = create_tween().set_loops(100)
 	flash_tween.tween_property(game_over_screen.get_node("Results/Letter"), "self_modulate", flash_color, 0.1)
 	flash_tween.tween_property(game_over_screen.get_node("Results/Letter"), "self_modulate", Color.WHITE, 0.1)
 	
-	game_over_screen.get_node("Results/Score").text = "Score : " + foreground.get_node("Score/Num").text
-	game_over_screen.get_node("Results/Lines").text = "Lines : " + foreground.get_node("Lines/Num").text
-	game_over_screen.get_node("Results/Time").text = "Time : " + foreground.get_node("Time/Num").text
-	game_over_screen.get_node("Results/Level").text = "Level : " + foreground.get_node("Level/Num").text
+	game_over_screen.get_node("Results/Score").text = "Score : " + _make_number_str_with_zeroes(score, "000000")
+	game_over_screen.get_node("Results/Lines").text = "Lines : " + _make_number_str_with_zeroes(lines, "0000")
+	game_over_screen.get_node("Results/Time").text = "Time : " + Main._to_time(time)
+	game_over_screen.get_node("Results/Level").text = "Level : " + _make_number_str_with_zeroes(level, "00")
+	game_over_screen.get_node("Results/Cheese").text = "Erased cheese : " +  _make_number_str_with_zeroes(erased_cheese, "000")
 	
-	var text = "000"
-	var str_cheese = str(erased_cheese)
-	
-	if str_cheese.length() < 3:
-		str_cheese = text.left(3 - str_cheese.length()) + str_cheese
-	
-	game_over_screen.get_node("Results/Cheese").text = "Erased cheese : " + str_cheese
-	
-	Player._set_local_record(mode_str + "_record", score, level, lines)
+	if ruleset != RULESET.CUSTOM: Player._set_local_record(mode_str + "_record", score, level, lines)
 	Player._save_profile()
 	
 	game_over_screen.gamemode_str = "ch"
 	game_over_screen.ruleset = ruleset
 	
-	if Player.config["save_score_online"] : await Talo.leaderboards.add_entry(mode_str, score, {"level" : level, "lines" : lines})
-	await game_over_screen._load_leaderboard()
+	if ruleset != RULESET.CUSTOM:
+		if Player.config["save_score_online"] : await Talo.leaderboards.add_entry(mode_str, score, {"level" : level, "lines" : lines})
+		await game_over_screen._load_leaderboard()
+
+
+func _make_number_str_with_zeroes(number : int, zeroes : String = "000000") -> String:
+	var str_number = str(number)
 	
+	if str_number.length() > zeroes.length():
+		return str_number
+	else:
+		str_number = zeroes.left(zeroes.length() - str_number.length()) + str_number
+		return str_number
+
+
+## Called on game exit
+func _end() -> void:
+	if is_instance_valid(flash_tween):
+		flash_tween.kill()

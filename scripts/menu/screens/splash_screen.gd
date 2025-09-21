@@ -68,10 +68,14 @@ func _input(event : InputEvent) -> void:
 				var tween : Tween = create_tween()
 				tween.tween_property($Login, "modulate:a", 1.0, 0.5).from(0.0)
 				$Login.position = Vector2(0,0)
+				$Login/LineEdit.grab_focus()
 				
-				await $Login/LineEdit.text_submitted
-				print($Login/LineEdit.text)
-				Player._create_profile($Login/LineEdit.text)
+				var player_name : String = ""
+				while player_name == "":
+					await $Login/LineEdit.text_submitted
+					player_name = $Login/LineEdit.text
+					
+				Player._create_profile(player_name)
 				
 				parent_menu._play_sound("accept")
 				var tween2 : Tween = create_tween()
@@ -80,7 +84,6 @@ func _input(event : InputEvent) -> void:
 				
 				await tween2.finished
 			
-			Player.config["first_boot"] = false
 			parent_menu._play_sound("start")
 			parent_menu._change_screen("main_menu")
 	

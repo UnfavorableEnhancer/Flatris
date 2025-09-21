@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://duli8dumx7awb"]
+[gd_scene load_steps=21 format=3 uid="uid://duli8dumx7awb"]
 
 [ext_resource type="Script" uid="uid://cnx22cxsv0llh" path="res://scripts/menu/screens/pause.gd" id="1_4t8p0"]
 [ext_resource type="Texture2D" uid="uid://86hnafk4u074" path="res://images/menu/button_frame.png" id="4_f1wm7"]
@@ -7,81 +7,6 @@
 [ext_resource type="FontFile" uid="uid://byl3d4xpe5wyb" path="res://fonts/Welbut.ttf" id="7_f1wm7"]
 [ext_resource type="PackedScene" uid="uid://160thw0yemok" path="res://scenes/menu/slider.tscn" id="8_he0sb"]
 [ext_resource type="Texture2D" uid="uid://bneuaaghw0bmc" path="res://images/menu/unk.png" id="9_6smnl"]
-
-[sub_resource type="Animation" id="Animation_rxj13"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sign:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sign:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Options:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("OptionsWindow:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("OptionsWindow:scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Options:scale")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_4t8p0"]
 resource_name = "end"
@@ -239,7 +164,6 @@ tracks/5/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ufvm"]
 _data = {
-&"RESET": SubResource("Animation_rxj13"),
 &"end": SubResource("Animation_4t8p0"),
 &"start": SubResource("Animation_c6024")
 }
@@ -319,11 +243,13 @@ libraries = {
 }
 
 [node name="Sign" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 0
 offset_left = 56.0
 offset_top = 64.0
 offset_right = 584.0
 offset_bottom = 100.0
+scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(264, 20)
 
 [node name="Back" type="NinePatchRect" parent="Sign"]
@@ -361,11 +287,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Options" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 0
 offset_left = 56.0
 offset_top = 108.0
 offset_right = 192.0
 offset_bottom = 280.0
+scale = Vector2(1e-05, 1e-05)
 
 [node name="Back" type="NinePatchRect" parent="Options"]
 modulate = Color(1, 0.128906, 0.618896, 1)
@@ -422,11 +350,13 @@ call_function_name = "_exit"
 parent_screen = NodePath("../..")
 
 [node name="OptionsWindow" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 0
 offset_left = 200.0
 offset_top = 108.0
 offset_right = 584.0
 offset_bottom = 280.0
+scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(0, 172)
 
 [node name="Back" type="NinePatchRect" parent="OptionsWindow"]
@@ -685,11 +615,13 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="SaveOnline" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
-custom_minimum_size = Vector2(320, 16)
+custom_minimum_size = Vector2(318, 16)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "SAVE SCORE TO ONLINE LEADERBOARDS"
 description_node = NodePath("../../../Desc")
 description = "Toggle automatic saving of your best results into online leaderboard"
+is_setting_button = true
 menu_position = Vector2i(1, 5)
 work_mode = 4
 press_sound_name = "accept"
@@ -714,11 +646,14 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StaticBack" parent="OptionsWindow/Scroll/V" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("6_6smnl")]
-custom_minimum_size = Vector2(320, 16)
+custom_minimum_size = Vector2(318, 16)
 layout_mode = 2
+size_flags_horizontal = 0
 text = "STATIC THEME BACKGROUND"
 description_node = NodePath("../../../Desc")
-description = "Disables animations on theme background"
+description = "Disables particles on theme backgrounds.
+Works only after restart."
+is_setting_button = true
 menu_position = Vector2i(1, 6)
 work_mode = 4
 press_sound_name = "accept"

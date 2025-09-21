@@ -125,9 +125,10 @@ func _reset() -> void:
 	is_physics_active = false
 	
 	reset_started.emit()
-	gamemode._reset()
 	gamefield._clear_matrix()
+	gamefield._clear_ghosts()
 	gamefield._render_matrix()
+	gamemode._reset()
 	
 	for i : Node in sounds.get_children(): i.queue_free()
 	playing_sounds.clear()
