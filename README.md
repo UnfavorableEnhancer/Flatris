@@ -4,6 +4,8 @@
   <img width="1600" alt="wha" src="images/logo_long.png">
 </p>
 
+**​Created for Block Falling Game Jam 2025.**
+
 So this is yet another tetris clone. But this time pieces fall not from the top of the game field, but they fall **onto** game field. To put it simply this is 3D tetris but better implemented.
 
 ***Download it here:*** https://unfavorable-enhancer.itch.io/flatris
@@ -30,14 +32,20 @@ So this is yet another tetris clone. But this time pieces fall not from the top 
 - W3Rn1ckz - Music.
 - debslow - Background themes graphics.
 
-_**​Created for Block Falling Game Jam 2025.**_
-
-*Source code is available here:* https://github.com/UnfavorableEnhancer/Flatris
-
 ## Build
 
 This project was built with Godot Engine 4.5.stable.
 No other dependencies required, just import and use it as you wish.
 
 However this project uses Talo as online leaderboards backend and API key is not provided within the repository, So source code version wont have online leaderboards working.
+
+## License
+Flatris is MIT licensed project. You can read license in "LICENSE".
+
+Fonts and addons are covered by different licenses. You can check them in respective folders.
+
+All original images, sound effects and their avaiable assets are under [CC BY 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.txt) license.
+Rights to assets made by team members belongs to them.
+
+Flatris © 2025 by unvaforable_enhancer
 
