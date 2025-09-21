@@ -19,6 +19,7 @@ signal block_overlap ## Emitted when some block landed onto existing one
 signal block_deleted(coords : Vector2i, is_cheese : bool) ## Emitted when some block was deleted
 signal lines_cleared(amount : int) ## Emitted when lines were cleared
 signal new_piece_given ## Emitted when gives new piece to player
+signal lines_scanned(amount : int, has_cheese : bool)
 
 var game : Game = null ## Parent game reference
 var gamemode : Gamemode = null ## Gamemode reference
@@ -249,14 +250,19 @@ func _line_check() -> bool:
 	scanned_rows.clear()
 	scanned_columns.clear()
 	
+	var has_cheese : bool = false
+	
 	for y in gamemode.field_size.y:
 		var current_line_blocks_positions : Array[Vector2i] = []
 		for x in gamemode.field_size.x:
-			if matrix.has(Vector2i(x,y)) : current_line_blocks_positions.append(Vector2i(x,y))
+			if matrix.has(Vector2i(x,y)) : 
+				current_line_blocks_positions.append(Vector2i(x,y))
 		
 		if current_line_blocks_positions.size() == gamemode.field_size.x:
 			for pos : Vector2i in current_line_blocks_positions:
-				matrix[pos]._flash_rapidly()
+				var block : Block = matrix[pos]
+				if block.color == Block.COLOR.CHEESE : has_cheese = true
+				block._flash_rapidly()
 				scanned_blocks_positions.append(pos)
 			
 			erased_lines_amount += 1
@@ -265,11 +271,14 @@ func _line_check() -> bool:
 	for x in gamemode.field_size.x:
 		var current_line_blocks_positions : Array[Vector2i] = []
 		for y in gamemode.field_size.y:
-			if matrix.has(Vector2i(x,y)) : current_line_blocks_positions.append(Vector2i(x,y))
+			if matrix.has(Vector2i(x,y)) : 
+				current_line_blocks_positions.append(Vector2i(x,y))
 		
 		if current_line_blocks_positions.size() == gamemode.field_size.y:
 			for pos : Vector2i in current_line_blocks_positions:
-				matrix[pos]._flash_rapidly()
+				var block : Block = matrix[pos]
+				if block.color == Block.COLOR.CHEESE : has_cheese = true
+				block._flash_rapidly()
 				scanned_blocks_positions.append(pos)
 			
 			erased_lines_amount += 1
@@ -277,6 +286,7 @@ func _line_check() -> bool:
 	
 	if erased_lines_amount > 0 and erased_lines_amount > latest_erased_lines_amount: 
 		game._add_sound("line_clear" + str(clampi(erased_lines_amount, 1, 10)))
+		lines_scanned.emit(erased_lines_amount, has_cheese)
 	
 	return erased_lines_amount > 0
 

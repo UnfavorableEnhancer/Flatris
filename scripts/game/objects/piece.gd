@@ -78,6 +78,7 @@ func _ready() -> void:
 	current_fall_delay = gamemode.fall_delay
 	current_das = gamemode.das
 	current_drop_delay = gamemode.min_drop_delay
+	height = gamemode.field_size.z
 	
 	_update_blocks()
 

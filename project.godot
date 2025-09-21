@@ -14,7 +14,7 @@ config/name="FLATRIS"
 config/description="Yet another tetris clone with perspective twist"
 config/version="0.1"
 run/main_scene="uid://uxl2bil5i5fs"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.5", "GL Compatibility")
 run/max_fps=999
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
@@ -46,6 +46,7 @@ enabled=PackedStringArray("res://addons/talo/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://addons/": "red",
 "res://fonts/": "purple",
 "res://images/": "green",
 "res://materials/": "red",

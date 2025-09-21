@@ -29,33 +29,39 @@ enum LEVEL_ARRAY {
 
 ## Dictionary of all delay frames for each specific level
 const LEVEL_SPEED : Dictionary = {
-	1 : [120, 20, 5, 10, 30, 120, 10, 50, 5.0],
-	2 : [90, 20, 5, 10, 30, 120, 10, 50, 10.0],
-	3 : [60, 20, 5, 10, 30, 120, 10, 50, 15.0],
-	4 : [55, 20, 5, 10, 30, 120, 10, 50, 20.0],
-	5 : [50, 20, 5, 10, 30, 120, 10, 50, 25.0],
-	6 : [45, 20, 5, 10, 30, 120, 10, 50, 30.0],
-	7 : [40, 20, 5, 10, 30, 120, 10, 50, 35.0],
-	8 : [35, 20, 5, 10, 30, 120, 10, 50, 40.0],
-	9 : [30, 20, 5, 10, 30, 120, 10, 50, 45.0],
-	10 : [28, 20, 5, 10, 30, 120, 10, 50, 50.0],
-	11 : [26, 20, 5, 10, 30, 120, 10, 50, 52.0],
-	12 : [24, 20, 5, 10, 30, 120, 10, 50, 54.0],
-	13 : [22, 20, 5, 10, 30, 120, 10, 50, 56.5],
-	14 : [20, 10, 5, 10, 30, 120, 10, 50, 58.0],
-	15 : [18, 10, 5, 10, 30, 120, 10, 50, 60.0],
-	16 : [16, 10, 5, 10, 30, 120, 10, 50, 62.0],
-	17 : [14, 10, 5, 10, 30, 120, 10, 50, 64.0],
-	18 : [12, 10, 5, 10, 30, 120, 10, 50, 66.0],
-	19 : [10, 10, 5, 10, 30, 120, 10, 50, 68.0],
-	20 : [5, 10, 3, 10, 30, 120, 10, 50, 70.0],
-	22 : [4, 10, 3, 10, 30, 120, 10, 50, 72.0],
-	24 : [3, 10, 3, 10, 30, 120, 10, 50, 74.0],
-	26 : [2, 10, 3, 10, 30, 120, 10, 50, 76.0],
-	28 : [1, 10, 3, 10, 30, 120, 10, 50, 78.0],
-	30 : [0, 10, 3, 10, 30, 120, 10, 50, 80.0],
-	35 : [0, 10, 3, 10, 30, 120, 10, 50, 85.0],
-	40 : [0, 10, 3, 10, 30, 120, 10, 50, 90.0],
+	1 : [120, 12, 5, 10, 30, 120, 10, 50, 5.0],
+	2 : [60, 12, 5, 10, 30, 120, 10, 50, 10.0],
+	3 : [55, 12, 5, 10, 30, 120, 10, 50, 15.0],
+	4 : [50, 12, 5, 10, 30, 120, 10, 50, 20.0],
+	5 : [45, 12, 5, 10, 30, 120, 10, 50, 25.0],
+	6 : [40, 12, 5, 10, 30, 120, 10, 50, 30.0],
+	7 : [35, 12, 5, 10, 30, 120, 10, 50, 35.0],
+	8 : [30, 12, 5, 10, 30, 120, 10, 50, 40.0],
+	9 : [25, 12, 5, 10, 30, 120, 10, 50, 45.0],
+	10 : [20, 12, 5, 10, 30, 120, 10, 50, 50.0],
+	11 : [18, 12, 5, 10, 30, 120, 10, 50, 52.0],
+	12 : [16, 12, 5, 10, 30, 120, 10, 50, 54.0],
+	13 : [14, 12, 5, 10, 30, 120, 10, 50, 56.5],
+	14 : [12, 12, 5, 10, 30, 120, 10, 50, 58.0],
+	15 : [10, 12, 5, 10, 30, 120, 10, 50, 60.0],
+	16 : [8, 12, 5, 10, 30, 120, 10, 50, 62.0],
+	17 : [6, 12, 5, 10, 30, 120, 10, 50, 64.0],
+	18 : [4, 12, 5, 10, 30, 120, 10, 50, 66.0],
+	19 : [2, 12, 5, 10, 30, 120, 10, 50, 68.0],
+	20 : [1, 8, 3, 10, 30, 120, 10, 50, 70.0],
+	22 : [1, 8, 3, 10, 30, 120, 10, 50, 72.0],
+	24 : [1, 8, 3, 10, 30, 120, 10, 50, 74.0],
+	26 : [1, 8, 3, 10, 30, 120, 10, 50, 76.0],
+	28 : [1, 8, 3, 10, 30, 120, 10, 50, 78.0],
+	30 : [0, 4, 3, 10, 30, 120, 10, 50, 80.0],
+	35 : [0, 4, 3, 10, 25, 100, 10, 50, 85.0],
+	40 : [0, 4, 3, 10, 20, 80, 8, 45, 90.0],
+	50 : [0, 4, 3, 10, 20, 75, 8, 40, 90.0],
+	60 : [0, 4, 2, 10, 20, 70, 8, 35, 90.0],
+	70 : [0, 4, 2, 10, 15, 65, 8, 30, 90.0],
+	80 : [0, 4, 1, 10, 15, 60, 6, 25, 90.0],
+	90 : [0, 4, 1, 10, 10, 45, 6, 20, 90.0],
+	100 : [0, 4, 1, 10, 10, 30, 6, 14, 90.0],
 }
 
 var level : int = 1 ## Defines game speed and cheese amount
@@ -106,12 +112,100 @@ func _reset() -> void:
 	
 	foreground._set_score(0)
 	foreground._set_lines(0)
-	foreground._set_level(0)
+	foreground._set_level(1)
+
+
+## Called on game reset end
+func _on_reset_ended() -> void:
+	super()
+	
+	_generate_cheese(int(LEVEL_SPEED[1][LEVEL_ARRAY.CHEESE_PERCENTAGE]))
 
 
 func _set_ruleset(type : int) -> void:
-	super(type)
-	game.reset_ended.connect(_generate_cheese.bind(LEVEL_SPEED[1][LEVEL_ARRAY.CHEESE_PERCENTAGE]))
+	match type:
+		RULESET.STANDARD : 
+			field_size = Vector3i(10, 10, 10)
+			dzen_mode = false
+			zone_mode = false
+			reversi_mode = false
+			death_mode = false
+			extended_piece_queue = false
+			max_damage = 20
+			damage_recovery = 4
+			block_gravity = true
+			
+		RULESET.HARD : 
+			field_size = Vector3i(9, 9, 9)
+			dzen_mode = false
+			zone_mode = false
+			reversi_mode = false
+			death_mode = false
+			extended_piece_queue = false
+			block_gravity = true
+			max_damage = 16
+			damage_recovery = 4
+			
+		RULESET.EXTREME : 
+			field_size = Vector3i(8, 8, 8)
+			dzen_mode = false
+			zone_mode = false
+			reversi_mode = false
+			death_mode = false
+			extended_piece_queue = true
+			block_gravity = true
+			max_damage = 12
+			damage_recovery = 4
+			
+		RULESET.ZONE : 
+			field_size = Vector3i(10, 10, 10)
+			dzen_mode = false
+			zone_mode = true
+			reversi_mode = false
+			death_mode = false
+			extended_piece_queue = false
+			block_gravity = true
+			max_damage = 12
+			damage_recovery = 4
+			
+		RULESET.REVERSI : 
+			field_size = Vector3i(8, 8, 8)
+			dzen_mode = false
+			zone_mode = false
+			reversi_mode = true
+			death_mode = false
+			extended_piece_queue = false
+			block_gravity = true
+			max_damage = 12
+			damage_recovery = 4
+			
+		RULESET.CUSTOM : 
+			field_size = Vector3i(Player.config["gamefield_size_x"], Player.config["gamefield_size_y"], Player.config["gamefield_size_z"])
+			dzen_mode = Player.config["dzen_mode"]
+			zone_mode = Player.config["zone_mode"]
+			reversi_mode = Player.config["reversi_mode"]
+			death_mode = Player.config["death_mode"]
+			extended_piece_queue = Player.config["extended_piece_queue"]
+			block_gravity = Player.config["block_gravity"]
+			max_damage = Player.config["max_damage"]
+			damage_recovery = Player.config["damage_recovery"]
+		
+		RULESET.DEBUG : 
+			field_size = Vector3i(10,10,10)
+			dzen_mode = false
+			zone_mode = false
+			reversi_mode = false
+			death_mode = false
+			extended_piece_queue = false
+			block_gravity = true
+			max_damage = 20
+			damage_recovery = 10
+	
+	field_size.z -= 1
+	
+	if dzen_mode : foreground._disable_damage_bar()
+	if death_mode : foreground._set_damage(20)
+	if not reversi_mode : foreground._disable_reversi_bar()
 	
 	for i in field_size.x : cheese_columns.append(0)
 	for i in field_size.y : cheese_rows.append(0)
@@ -150,17 +244,46 @@ func _on_lines_deleted(amount : int) -> void:
 		foreground._set_score_animated(score)
 		
 	foreground._set_lines_animated(lines)
+	
+	has_erased_cheese = false
+	for x in field_size.x:
+		for y in field_size.y:
+			if gamefield.matrix.has(Vector2i(x,y)):
+				var block : Block = gamefield.matrix[Vector2i(x,y)]
+				if block.color == Block.COLOR.CHEESE: return
+	
+	_level_up()
+
+
+func _on_lines_scanned(amount : int, has_cheese : bool = false) -> void:
+	if not has_cheese: return
+	
+	var score_gain : int = 0
+	if gamefield.matrix.is_empty():
+		score_gain = 10000 * level
+		amount = 451
+	else:
+		match amount:
+			1 : score_gain = 100 * level
+			2 : score_gain = 300 * level
+			3 : score_gain = 500 * level
+			4 : score_gain = 800 * level
+			5 : score_gain = 1200 * level
+			6 : score_gain = 1600 * level
+			7 : score_gain = 2500 * level
+			8 : score_gain = 5000 * level
+			9 : score_gain = 7500 * level
+			_ : score_gain = 7500 * level
+	
+	foreground._show_score_add(score_gain, amount)
 
 
 ## Called when some block was deleted
 func _on_block_deleted(_at_position : Vector2i, is_cheese : bool) -> void:
 	if is_cheese : 
 		has_erased_cheese = true
-		cheese_amount -= 1
 		erased_cheese += 1
 		Player.stats["total_cheese_erased"] += 1
-		if cheese_amount <= 0 : 
-			_level_up()
 
 
 ## Raises game level by one
@@ -258,11 +381,11 @@ func _game_over(game_over_screen : MenuScreen) -> void:
 		if Player.RANK.A > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.A
 	elif level >= RANKINGS.B : 
 		game_over_screen.get_node("Results/Letter").text = "B"
-		flash_color = Color("ffb33c")
+		flash_color = Color("fb9014ff")
 		if Player.RANK.B > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.B
 	elif level >= RANKINGS.C : 
 		game_over_screen.get_node("Results/Letter").text = "C"
-		flash_color = Color("fff66d")
+		flash_color = Color("fef680ff")
 		if Player.RANK.C > Player.progress[mode_str + "_rank"]: Player.progress[mode_str + "_rank"] = Player.RANK.C
 	elif level >= RANKINGS.D : 
 		game_over_screen.get_node("Results/Letter").text = "D"
@@ -290,4 +413,12 @@ func _game_over(game_over_screen : MenuScreen) -> void:
 	
 	game_over_screen.get_node("Results/Cheese").text = "Erased cheese : " + str_cheese
 	
+	Player._set_local_record(mode_str + "_record", score, level, lines)
 	Player._save_profile()
+	
+	game_over_screen.gamemode_str = "ch"
+	game_over_screen.ruleset = ruleset
+	
+	if Player.config["save_score_online"] : await Talo.leaderboards.add_entry(mode_str, score, {"level" : level, "lines" : lines})
+	await game_over_screen._load_leaderboard()
+	

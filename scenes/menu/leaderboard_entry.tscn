@@ -20,7 +20,7 @@ font_color = Color(0.449219, 0.449219, 0.449219, 1)
 
 [node name="Entry" type="ColorRect"]
 custom_minimum_size = Vector2(254, 12)
-color = Color(0.230469, 0.0490998, 0.013504, 1)
+color = Color(0, 0, 0, 1)
 script = ExtResource("1_q61mi")
 
 [node name="H" type="HBoxContainer" parent="."]

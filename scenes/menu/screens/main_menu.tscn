@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://c601b2aqja21e"]
+[gd_scene load_steps=80 format=3 uid="uid://c601b2aqja21e"]
 
 [ext_resource type="Script" uid="uid://b6bvmexa3ssn1" path="res://scripts/menu/screens/main_menu.gd" id="1_pxwvd"]
 [ext_resource type="Texture2D" uid="uid://wejqw4xmfmmp" path="res://images/menu/splash/F.png" id="1_ruewf"]
@@ -18,7 +18,6 @@
 [ext_resource type="Texture2D" uid="uid://cp31olj5xbvgl" path="res://images/menu/splash/S_shadow.png" id="14_jn0aw"]
 [ext_resource type="Texture2D" uid="uid://86hnafk4u074" path="res://images/menu/button_frame.png" id="16_f57dq"]
 [ext_resource type="FontFile" uid="uid://cklk4kjp10w3h" path="res://fonts/visitor1.ttf" id="17_elnxd"]
-[ext_resource type="Texture2D" uid="uid://cuky8lhd51fro" path="res://images/menu/theme_a_icon_old.png" id="17_yv3d3"]
 [ext_resource type="PackedScene" uid="uid://de6suo666kuir" path="res://scenes/menu/regular_button.tscn" id="18_aykpa"]
 [ext_resource type="Texture2D" uid="uid://c7m8ynqw13qxd" path="res://images/game/blocks/block1.png" id="19_optuh"]
 [ext_resource type="Texture2D" uid="uid://dosixtje5xqij" path="res://images/game/blocks/block2.png" id="20_wifit"]
@@ -50,6 +49,7 @@
 [ext_resource type="Texture2D" uid="uid://3dxpvnayyx3u" path="res://images/game/blocks/block22.png" id="40_g6iub"]
 [ext_resource type="Texture2D" uid="uid://qr30crixl3lq" path="res://images/game/blocks/block23.png" id="41_361k0"]
 [ext_resource type="Texture2D" uid="uid://dpvdqmc87liwl" path="res://images/game/blocks/block24.png" id="42_60x5n"]
+[ext_resource type="Texture2D" uid="uid://bqqcqe8s5fppn" path="res://images/menu/theme_a_icon.png" id="43_optuh"]
 
 [sub_resource type="Animation" id="Animation_jn0aw"]
 length = 0.001
@@ -676,6 +676,42 @@ font = ExtResource("17_elnxd")
 font_size = 11
 shadow_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_optuh"]
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.171875, 0.171875, 0.171875, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wifit"]
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.85546875, 0.5370134, 0.09022522, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8glcf"]
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1876831, 0.640625, 0.42950803, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cnu1j"]
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.08795166, 0.34287405, 0.51171875, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
 [sub_resource type="LabelSettings" id="LabelSettings_o2geb"]
 font = ExtResource("17_elnxd")
 shadow_color = Color(0, 0, 0, 1)
@@ -695,7 +731,6 @@ libraries = {
 }
 
 [node name="Logo" type="Control" parent="."]
-layout_mode = 3
 anchors_preset = 0
 offset_left = 320.0
 offset_top = 20.0
@@ -840,10 +875,10 @@ stretch_mode = 1
 
 [node name="SkinWindow" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 38.0
-offset_top = 68.0
-offset_right = 600.0
-offset_bottom = 104.0
+offset_left = -600.0
+offset_top = 12.0
+offset_right = -38.0
+offset_bottom = 48.0
 
 [node name="Back" type="NinePatchRect" parent="SkinWindow"]
 modulate = Color(0.131622, 0.621255, 0.886719, 1)
@@ -1038,7 +1073,7 @@ offset_bottom = 30.0
 text = ""
 description_node = NodePath("../../../Main/GameWindow/Desc")
 button_color = Color(0.910156, 0.910156, 0.910156, 0)
-glow_color = Color(0.585841, 0.139526, 0.992188, 0.442)
+glow_color = Color(1, 0.1490196, 0.50802696, 0.44313726)
 description = "Select background THEME A. Featuring russian city with some well-known attributes."
 button_layout = 8
 press_sound_name = "accept"
@@ -1056,7 +1091,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("17_yv3d3")
+texture = ExtResource("43_optuh")
 expand_mode = 1
 metadata/_edit_group_ = true
 
@@ -1263,16 +1298,16 @@ button_color = Color(0.625, 0.625, 0.625, 1)
 parent_screen = NodePath("../..")
 
 [node name="WindowBack" type="NinePatchRect" parent="Main"]
-modulate = Color(0.128906, 0.612091, 1, 1)
+modulate = Color(0.131622, 0.621255, 0.886719, 1)
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 208.0
-offset_top = 108.0
+offset_top = -236.0
 offset_right = 560.0
-offset_bottom = 288.0
+offset_bottom = -56.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("16_f57dq")
@@ -1285,9 +1320,9 @@ patch_margin_bottom = 8
 [node name="GameWindow" type="Control" parent="Main"]
 anchors_preset = 0
 offset_left = 208.0
-offset_top = 108.0
+offset_top = -236.0
 offset_right = 600.0
-offset_bottom = 328.0
+offset_bottom = -16.0
 
 [node name="Play" parent="Main/GameWindow" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
 layout_mode = 0
@@ -1301,7 +1336,7 @@ button_color = Color(0.0624847, 0.246094, 0.0653536, 1)
 glow_color = Color(0.179443, 0.65625, 0.186893, 1)
 description = "Start the game of FLATRIS!"
 button_layout = 2
-press_sound_name = "start2"
+press_sound_name = "start"
 call_function_name = "_start_game"
 parent_screen = NodePath("../../..")
 
@@ -1360,7 +1395,7 @@ text = "HARD"
 description_node = NodePath("../Desc")
 button_color = Color(0.855469, 0.303048, 0.0868835, 1)
 glow_color = Color(0.960938, 0.496891, 0.315308, 1)
-description = "Features 8x8x8 field, extended piece bag and higher damage."
+description = "Features 9x9x9 field. Game ends instantly if piece lands onto placed block."
 button_layout = 2
 press_sound_name = "accept"
 move_right_override = Vector2i(2, 1)
@@ -1394,7 +1429,7 @@ text = "EXTREME"
 description_node = NodePath("../Desc")
 button_color = Color(0.322184, 0.134827, 0.734375, 1)
 glow_color = Color(0.51285, 0.342911, 0.886719, 1)
-description = "Features 9x9x9 field and extended piece bag. Game ends instantly if piece lands onto placed block"
+description = "Features 8x8x8 field and extended piece bag. Game ends instantly if piece lands onto placed block."
 button_layout = 2
 press_sound_name = "accept"
 move_right_override = Vector2i(2, 1)
@@ -1428,7 +1463,7 @@ text = "REVERSI"
 description_node = NodePath("../Desc")
 button_color = Color(0.820312, 0.16983, 0.520482, 1)
 glow_color = Color(0.914062, 0.360626, 0.658964, 1)
-description = "Features 8x8x8 field and extended piece bag. On each 20 pieces given, game reverses play field."
+description = "Features 8x8x8 field. On each 20 pieces given, game reverses play field."
 button_layout = 2
 press_sound_name = "accept"
 move_right_override = Vector2i(2, 1)
@@ -1462,7 +1497,7 @@ text = "ZONE"
 description_node = NodePath("../Desc")
 button_color = Color(0.175354, 0.660156, 0.36473, 1)
 glow_color = Color(0.416992, 0.875, 0.595902, 1)
-description = "Features 10x10x10 field. Lines take some additional to time to clear."
+description = "Features 10x10x10 field. Lines take some additional time to clear, allowing to build bigger combo."
 button_layout = 2
 press_sound_name = "accept"
 move_right_override = Vector2i(2, 1)
@@ -1496,7 +1531,7 @@ text = "CUSTOM"
 description_node = NodePath("../Desc")
 button_color = Color(0.339844, 0.339844, 0.339844, 1)
 glow_color = Color(0.5625, 0.5625, 0.5625, 1)
-description = "Play with your own rules. Score ranking wouldn't be possible."
+description = "Play with your own rules. Score ranking wouldn't be avaiable."
 button_layout = 2
 press_sound_name = "accept"
 move_right_override = Vector2i(2, 1)
@@ -1551,7 +1586,7 @@ label_settings = SubResource("LabelSettings_rrdn6")
 vertical_alignment = 1
 
 [node name="Slider" parent="Main/GameWindow/CustomRuleset/V/SizeX" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("25_6o65b")]
-layout_mode = 2
+layout_mode = 0
 offset_left = 114.0
 offset_top = 4.0
 offset_right = 208.0
@@ -1591,7 +1626,7 @@ label_settings = SubResource("LabelSettings_rrdn6")
 vertical_alignment = 1
 
 [node name="Slider" parent="Main/GameWindow/CustomRuleset/V/SizeY" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("25_6o65b")]
-layout_mode = 2
+layout_mode = 0
 offset_left = 114.0
 offset_top = 4.0
 offset_right = 208.0
@@ -1631,7 +1666,7 @@ label_settings = SubResource("LabelSettings_rrdn6")
 vertical_alignment = 1
 
 [node name="Slider" parent="Main/GameWindow/CustomRuleset/V/SizeZ" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("25_6o65b")]
-layout_mode = 2
+layout_mode = 0
 offset_left = 114.0
 offset_top = 4.0
 offset_right = 208.0
@@ -1671,7 +1706,7 @@ label_settings = SubResource("LabelSettings_rrdn6")
 vertical_alignment = 1
 
 [node name="Slider" parent="Main/GameWindow/CustomRuleset/V/MaxDamage" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("25_6o65b")]
-layout_mode = 2
+layout_mode = 0
 offset_left = 114.0
 offset_top = 4.0
 offset_right = 208.0
@@ -1709,14 +1744,14 @@ label_settings = SubResource("LabelSettings_rrdn6")
 vertical_alignment = 1
 
 [node name="Slider" parent="Main/GameWindow/CustomRuleset/V/DamageRec" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("25_6o65b")]
-layout_mode = 2
+layout_mode = 0
 offset_left = 114.0
 offset_top = 4.0
 offset_right = 208.0
 offset_bottom = 13.0
 value = 10.0
 description_node = NodePath("../../../../Desc")
-description = "Set amount of pieces after which 1 point of damage would be recovered."
+description = "Set amount of lines required to clear to recover 10% of damage. Recovery resets each time damage is taken."
 call_string = "damage_recovery"
 parent_screen = NodePath("../../../../../..")
 
@@ -2046,6 +2081,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Prev" parent="Main/GameWindow/Leaderboard" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("18_aykpa")]
+modulate = Color(0.5, 0.5, 0.5, 1)
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 0
 offset_left = -18.0
@@ -2106,11 +2142,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Page" type="Label" parent="Main/GameWindow/Leaderboard"]
+layout_mode = 0
 offset_left = 68.0
 offset_top = 109.0
 offset_right = 116.0
 offset_bottom = 127.0
-text = "01"
+text = "1"
 label_settings = SubResource("LabelSettings_optuh")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -2145,7 +2182,6 @@ offset_left = 20.0
 offset_top = 178.0
 offset_right = 254.0
 offset_bottom = 208.0
-text = "Each 20 pieces given, game will reverse play field."
 label_settings = SubResource("LabelSettings_oh4fo")
 vertical_alignment = 1
 autowrap_mode = 2
@@ -2228,7 +2264,6 @@ offset_top = 12.0
 offset_right = 382.0
 offset_bottom = 162.0
 theme = SubResource("Theme_pxwvd")
-scroll_vertical = 80
 horizontal_scroll_mode = 0
 
 [node name="V" type="VBoxContainer" parent="Main/OptionsWindow/Scroll"]
@@ -2257,7 +2292,7 @@ label_settings = SubResource("LabelSettings_5paec")
 vertical_alignment = 1
 
 [node name="Slider" parent="Main/OptionsWindow/Scroll/V/Music" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("25_6o65b")]
-layout_mode = 2
+layout_mode = 0
 offset_left = 158.0
 offset_top = 4.0
 offset_right = 268.0
@@ -2296,7 +2331,7 @@ label_settings = SubResource("LabelSettings_5paec")
 vertical_alignment = 1
 
 [node name="Slider" parent="Main/OptionsWindow/Scroll/V/Sound" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("25_6o65b")]
-layout_mode = 2
+layout_mode = 0
 offset_left = 158.0
 offset_top = 4.0
 offset_right = 268.0
@@ -2367,7 +2402,7 @@ label_settings = SubResource("LabelSettings_5paec")
 vertical_alignment = 1
 
 [node name="Slider" parent="Main/OptionsWindow/Scroll/V/Resolution" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("25_6o65b")]
-layout_mode = 2
+layout_mode = 0
 offset_left = 158.0
 offset_top = 4.0
 offset_right = 268.0
@@ -2405,7 +2440,7 @@ label_settings = SubResource("LabelSettings_5paec")
 vertical_alignment = 1
 
 [node name="Slider" parent="Main/OptionsWindow/Scroll/V/FPSLimit" node_paths=PackedStringArray("description_node", "parent_screen") instance=ExtResource("25_6o65b")]
-layout_mode = 2
+layout_mode = 0
 offset_left = 158.0
 offset_top = 4.0
 offset_right = 268.0
@@ -2466,9 +2501,9 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(324, 16)
 layout_mode = 2
 size_flags_horizontal = 0
-text = "DISABLE THEME ANIMATIONS"
+text = "DISABLE background particles"
 description_node = NodePath("../../../Desc")
-description = "Disables animations on theme background."
+description = "Disables particles on theme backgrounds."
 button_layout = 9
 is_setting_button = true
 work_mode = 4
@@ -3390,7 +3425,7 @@ offset_bottom = 620.0
 layout_mode = 0
 offset_left = 12.0
 offset_top = 14.0
-offset_right = 384.0
+offset_right = 364.0
 offset_bottom = 208.0
 theme = SubResource("Theme_pxwvd")
 horizontal_scroll_mode = 0
@@ -3399,38 +3434,132 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 
 [node name="Text" type="Label" parent="Main/AboutWindow/Scroll/V"]
+custom_minimum_size = Vector2(332, 0)
 layout_mode = 2
-text = "Game design, Programming, Art Design, SFX design :
+text = "Game design, Programming, Art Design, SFX :
 unfavorable_enhancer
 
 Music : W3Rn1ckz
-Themes graphics : debslow
-Puzzles design : CNS
+Background themes graphics : debslow
+
+Created for Block Falling Game Jam 2025
 
 ---------------------------------------------------------------------------
-This project reuses some code from my other block 
-stacking puzzle game project called Project Luminext
+Special thanks:
+bfxr by increpare games
+godot engine developers and community
+krita developers and community
+lumines discord community
+debslow
+W3rn1ckz
+everyone who ever made tetris
 
-You can check it out by pressing button below:
-(this will open your browser and lead to github page)"
+---------------------------------------------------------------------------
+This project is open source under MIT license.
+You can view source code and license by pressing
+button below:
+(this will open your browser and lead to github page)
+"
 label_settings = SubResource("LabelSettings_nirrs")
 vertical_alignment = 1
+autowrap_mode = 2
 
-[node name="Advert" parent="Main/AboutWindow/Scroll/V" node_paths=PackedStringArray("parent_screen") instance=ExtResource("18_aykpa")]
-custom_minimum_size = Vector2(320, 16)
+[node name="Button" type="Button" parent="Main/AboutWindow/Scroll/V"]
 layout_mode = 2
-text = "view project luminext github page"
-button_layout = 2
-call_string = "luminext"
-call_function_name = "_visit"
-parent_screen = NodePath("../../../../..")
+theme_override_fonts/font = ExtResource("17_elnxd")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_optuh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wifit")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8glcf")
+theme_override_styles/focus = SubResource("StyleBoxFlat_cnu1j")
+text = "visit flatris github page"
 
 [node name="Text2" type="Label" parent="Main/AboutWindow/Scroll/V"]
 layout_mode = 2
-text = "---------------------------------------------------------------------------
-Created for block falling game jam 2025"
+text = "
+---------------------------------------------------------------------------
+This project reuses some code and assets from my 
+other block stacking puzzle game project called 
+Project Luminext
+
+You can check it out by pressing button below:
+(this will open your browser and lead to github page)
+"
 label_settings = SubResource("LabelSettings_nirrs")
 vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="Main/AboutWindow/Scroll/V"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("17_elnxd")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_optuh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wifit")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8glcf")
+theme_override_styles/focus = SubResource("StyleBoxFlat_cnu1j")
+text = "visit project luminext github page"
+
+[node name="Text3" type="Label" parent="Main/AboutWindow/Scroll/V"]
+custom_minimum_size = Vector2(332, 0)
+layout_mode = 2
+text = "
+---------------------------------------------------------------------------
+Thank you for playing!
+And have a nice day!
+
+==================================================
+Some license stuff
+==================================================
+
+This game uses Godot Engine, available under the following license:
+
+Copyright (c) 2014-present Godot Engine contributors.
+Copyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the \"Software\"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---------------------------------------------------------------------------
+This project uses Talo as online leaderboards backend
+
+MIT License
+
+Copyright (c) 2024 Talo Platform Ltd
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the \"Software\"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE"
+label_settings = SubResource("LabelSettings_nirrs")
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="QuitWindow" type="Control" parent="Main"]
 anchors_preset = 0
@@ -3440,7 +3569,7 @@ offset_right = 1288.0
 offset_bottom = 620.0
 
 [node name="Text" type="Label" parent="Main/QuitWindow"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 4.0
 offset_top = 50.0
 offset_right = 388.0
@@ -3510,3 +3639,6 @@ text = "MOVE_LEFT"
 label_settings = SubResource("LabelSettings_o2geb")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="pressed" from="Main/AboutWindow/Scroll/V/Button" to="." method="_visit_source_code"]
+[connection signal="pressed" from="Main/AboutWindow/Scroll/V/Button2" to="." method="_visit_luminext"]

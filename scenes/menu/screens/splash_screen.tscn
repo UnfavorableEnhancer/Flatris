@@ -569,7 +569,7 @@ offset_left = 12.0
 offset_top = 342.0
 offset_right = 117.0
 offset_bottom = 352.0
-text = "Made with godot engine 4.4.1"
+text = "Made with godot engine 4.5"
 label_settings = SubResource("LabelSettings_pgw1j")
 
 [node name="Icon" type="TextureRect" parent="Engine"]
@@ -757,6 +757,7 @@ offset_bottom = 360.0
 color = Color(0.175781, 0.175781, 0.175781, 0.5)
 
 [node name="Frame" type="ColorRect" parent="Login"]
+layout_mode = 0
 offset_left = 176.0
 offset_top = 120.0
 offset_right = 464.0

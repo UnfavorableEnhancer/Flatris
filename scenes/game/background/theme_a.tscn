@@ -1,15 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://dvk5jk2vg1c0x"]
+[gd_scene load_steps=21 format=3 uid="uid://dvk5jk2vg1c0x"]
 
 [ext_resource type="Script" uid="uid://76m6ao0ownrv" path="res://scripts/game/background.gd" id="1_d5ybn"]
 [ext_resource type="AudioStream" uid="uid://crh8jevb1cwwb" path="res://music/Tetris_Theme_A_Remix.ogg" id="1_x7pen"]
-[ext_resource type="Texture2D" uid="uid://cykxd83ggxda2" path="res://images/game/background/THEME A/rude_theme_a_background.png" id="3_s0jd7"]
+[ext_resource type="Texture2D" uid="uid://bdddwod2mu76w" path="res://images/game/background/THEME A/theme_a_background.png" id="3_a1vfr"]
 [ext_resource type="Texture2D" uid="uid://doen5ygm30x8b" path="res://images/game/background/THEME A/border.png" id="5_x7pen"]
 [ext_resource type="Texture2D" uid="uid://cjkdbcwcyv504" path="res://images/game/background/THEME A/brikz.png" id="6_a1vfr"]
+[ext_resource type="Texture2D" uid="uid://dgy83an66b715" path="res://images/game/background/THEME A/saint_basil.png" id="7_fxtai"]
 [ext_resource type="Texture2D" uid="uid://ddwpo4t8ceplq" path="res://images/game/background/THEME A/big_smouk.png" id="7_kufa3"]
-[ext_resource type="Texture2D" uid="uid://bvvqvaf4gb6yb" path="res://images/game/background/THEME A/saint_basil.png" id="8_a1vfr"]
-[ext_resource type="Texture2D" uid="uid://obur1dkd26f5" path="res://images/game/background/THEME A/factory.png" id="9_fxtai"]
-[ext_resource type="Texture2D" uid="uid://cw1xpv7uljvxw" path="res://images/game/background/THEME A/dub.png" id="10_fxtai"]
-[ext_resource type="Texture2D" uid="uid://g44v4gepkjed" path="res://images/game/background/THEME A/chrushevka.png" id="10_s0jd7"]
+[ext_resource type="Texture2D" uid="uid://cspg4nnsdsx6" path="res://images/game/background/THEME A/berd.png" id="7_s0jd7"]
+[ext_resource type="Texture2D" uid="uid://7ferwt5hdcnn" path="res://images/game/background/THEME A/factory.png" id="8_s0jd7"]
+[ext_resource type="Texture2D" uid="uid://ct8tlg48xcw1e" path="res://images/game/background/THEME A/dub.png" id="9_kufa3"]
+[ext_resource type="Texture2D" uid="uid://b5wu8smg4txi7" path="res://images/game/background/THEME A/chrushevka.png" id="10_iq5y5"]
 
 [sub_resource type="Animation" id="Animation_a1vfr"]
 resource_name = "anim"
@@ -53,7 +54,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Snoke4:emitting")
+tracks/3/path = NodePath("Snoke5:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -65,7 +66,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Snoke5:emitting")
+tracks/4/path = NodePath("Fish:emitting")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -101,6 +102,24 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_5jsg7"]
 offsets = PackedFloat32Array(0, 0.396825)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s0jd7"]
+transparency = 4
+shading_mode = 0
+albedo_texture = ExtResource("7_s0jd7")
+texture_filter = 0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_kufa3"]
+material = SubResource("StandardMaterial3D_s0jd7")
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_iq5y5"]
+offsets = PackedFloat32Array(0, 0.396825)
+
 [node name="THEME A" type="Node3D"]
 script = ExtResource("1_d5ybn")
 
@@ -119,7 +138,7 @@ z_as_relative = false
 texture_filter = 1
 offset_right = 640.0
 offset_bottom = 104.0
-texture = ExtResource("3_s0jd7")
+texture = ExtResource("3_a1vfr")
 expand_mode = 1
 stretch_mode = 6
 
@@ -139,8 +158,17 @@ region_enabled = true
 region_rect = Rect2(0, 0, 1024, 1024)
 metadata/_edit_lock_ = true
 
+[node name="Floor2" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 2.9802322e-08, 0, -2.9802322e-08, 1.0000001, 0, 5.8999996, -32.7)
+pixel_size = 0.1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("6_a1vfr")
+region_enabled = true
+region_rect = Rect2(0, 0, 512, 256)
+
 [node name="Snoke" type="CPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.935, 1.595, -3.185)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.935, 1.2950001, -3.185)
 emitting = false
 amount = 16
 lifetime = 3.0
@@ -158,7 +186,7 @@ scale_amount_curve = SubResource("Curve_xwqhl")
 color_ramp = SubResource("Gradient_5jsg7")
 
 [node name="Snoke2" type="CPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, -0.12, -3.185)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, -0.42000002, -3.185)
 emitting = false
 amount = 16
 lifetime = 3.0
@@ -176,7 +204,7 @@ scale_amount_curve = SubResource("Curve_xwqhl")
 color_ramp = SubResource("Gradient_5jsg7")
 
 [node name="Snoke3" type="CPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.635, -1.38, -3.185)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.635, -1.6800001, -3.185)
 emitting = false
 amount = 16
 lifetime = 3.0
@@ -189,23 +217,6 @@ gravity = Vector3(0, 3, 0)
 initial_velocity_min = 1.0
 initial_velocity_max = 1.0
 scale_amount_min = 0.1
-scale_amount_curve = SubResource("Curve_xwqhl")
-color_ramp = SubResource("Gradient_5jsg7")
-
-[node name="Snoke4" type="CPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.515, -1.935, -4.41)
-emitting = false
-amount = 16
-lifetime = 3.0
-mesh = SubResource("QuadMesh_mew0o")
-emission_shape = 3
-emission_box_extents = Vector3(0.2, 0, 2)
-direction = Vector3(0, 1, 0)
-spread = 30.0
-gravity = Vector3(0, 3, 0)
-initial_velocity_min = 1.0
-initial_velocity_max = 1.0
-scale_amount_min = 0.5
 scale_amount_curve = SubResource("Curve_xwqhl")
 color_ramp = SubResource("Gradient_5jsg7")
 
@@ -227,6 +238,20 @@ scale_amount_max = 2.0
 scale_amount_curve = SubResource("Curve_xwqhl")
 color_ramp = SubResource("Gradient_5jsg7")
 
+[node name="Fish" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.900002, 3.9, -0.8)
+emitting = false
+amount = 6
+lifetime = 6.0
+randomness = 1.0
+mesh = SubResource("QuadMesh_kufa3")
+emission_shape = 3
+emission_box_extents = Vector3(1, 2, 10)
+gravity = Vector3(4, 0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_iq5y5")
+
 [node name="RUSSIA" type="Node3D" parent="."]
 
 [node name="Church" type="Sprite3D" parent="RUSSIA"]
@@ -236,7 +261,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("8_a1vfr")
+texture = ExtResource("7_fxtai")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Factory3" type="Sprite3D" parent="RUSSIA"]
@@ -246,7 +271,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("9_fxtai")
+texture = ExtResource("8_s0jd7")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Factory4" type="Sprite3D" parent="RUSSIA"]
@@ -256,7 +281,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("9_fxtai")
+texture = ExtResource("8_s0jd7")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Factory5" type="Sprite3D" parent="RUSSIA"]
@@ -266,7 +291,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("9_fxtai")
+texture = ExtResource("8_s0jd7")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree" type="Sprite3D" parent="RUSSIA"]
@@ -276,7 +301,17 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Tree9" type="Sprite3D" parent="RUSSIA"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 1, 19.405, 0.5, 7.43)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree13" type="Sprite3D" parent="RUSSIA"]
@@ -286,7 +321,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree14" type="Sprite3D" parent="RUSSIA"]
@@ -296,7 +331,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree2" type="Sprite3D" parent="RUSSIA"]
@@ -306,7 +341,17 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Tree8" type="Sprite3D" parent="RUSSIA"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 1, 12.725, -0.5, 5.245)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree3" type="Sprite3D" parent="RUSSIA"]
@@ -316,7 +361,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree4" type="Sprite3D" parent="RUSSIA"]
@@ -326,7 +371,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree5" type="Sprite3D" parent="RUSSIA"]
@@ -336,7 +381,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree6" type="Sprite3D" parent="RUSSIA"]
@@ -346,7 +391,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree7" type="Sprite3D" parent="RUSSIA"]
@@ -356,7 +401,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree10" type="Sprite3D" parent="RUSSIA"]
@@ -366,7 +411,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree15" type="Sprite3D" parent="RUSSIA"]
@@ -376,7 +421,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree16" type="Sprite3D" parent="RUSSIA"]
@@ -386,7 +431,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree11" type="Sprite3D" parent="RUSSIA"]
@@ -396,7 +441,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree12" type="Sprite3D" parent="RUSSIA"]
@@ -406,57 +451,27 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree17" type="Sprite3D" parent="RUSSIA"]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 1, 17.075, 0.035, 7.435)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 17.075, 0.035, 5.435)
 sorting_offset = -10.0
 pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree18" type="Sprite3D" parent="RUSSIA"]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 1, 12.97, 0.035, 7.435)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 1, 12.97, 0.035, 7.435)
 sorting_offset = -10.0
 pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Chrush2" type="Sprite3D" parent="RUSSIA"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.415, 0.6, -6.455)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("10_s0jd7")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Chrush3" type="Sprite3D" parent="RUSSIA"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.415, 0.6, -10.455)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("10_s0jd7")
-region_rect = Rect2(0, 0, 1024, 1024)
-
-[node name="Chrush6" type="Sprite3D" parent="RUSSIA"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.415, 0.6, -15.455)
-sorting_offset = -10.0
-pixel_size = 0.09
-billboard = 1
-texture_filter = 0
-render_priority = 1
-texture = ExtResource("10_s0jd7")
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree19" type="Sprite3D" parent="RUSSIA"]
@@ -466,7 +481,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree20" type="Sprite3D" parent="RUSSIA"]
@@ -476,17 +491,47 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Tree21" type="Sprite3D" parent="RUSSIA"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -14.45, -0.245, -5.08)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -14.45, -2.245, -5.08)
 sorting_offset = -10.0
 pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_fxtai")
+texture = ExtResource("9_kufa3")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Chrush2" type="Sprite3D" parent="RUSSIA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.415, 0.6, -6.455)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("10_iq5y5")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Chrush3" type="Sprite3D" parent="RUSSIA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.415, 0.6, -10.455)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("10_iq5y5")
+region_rect = Rect2(0, 0, 1024, 1024)
+
+[node name="Chrush6" type="Sprite3D" parent="RUSSIA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.415, 0.6, -15.455)
+sorting_offset = -10.0
+pixel_size = 0.09
+billboard = 1
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("10_iq5y5")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Chrush7" type="Sprite3D" parent="RUSSIA"]
@@ -496,7 +541,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_s0jd7")
+texture = ExtResource("10_iq5y5")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Chrush8" type="Sprite3D" parent="RUSSIA"]
@@ -506,7 +551,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_s0jd7")
+texture = ExtResource("10_iq5y5")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Chrush9" type="Sprite3D" parent="RUSSIA"]
@@ -516,7 +561,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_s0jd7")
+texture = ExtResource("10_iq5y5")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Chrush10" type="Sprite3D" parent="RUSSIA"]
@@ -526,7 +571,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_s0jd7")
+texture = ExtResource("10_iq5y5")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Chrush11" type="Sprite3D" parent="RUSSIA"]
@@ -536,7 +581,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_s0jd7")
+texture = ExtResource("10_iq5y5")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Chrush12" type="Sprite3D" parent="RUSSIA"]
@@ -546,7 +591,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_s0jd7")
+texture = ExtResource("10_iq5y5")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Chrush13" type="Sprite3D" parent="RUSSIA"]
@@ -556,7 +601,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_s0jd7")
+texture = ExtResource("10_iq5y5")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Chrush14" type="Sprite3D" parent="RUSSIA"]
@@ -566,7 +611,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_s0jd7")
+texture = ExtResource("10_iq5y5")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Chrush15" type="Sprite3D" parent="RUSSIA"]
@@ -576,7 +621,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_s0jd7")
+texture = ExtResource("10_iq5y5")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Chrush4" type="Sprite3D" parent="RUSSIA"]
@@ -586,7 +631,7 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_s0jd7")
+texture = ExtResource("10_iq5y5")
 region_rect = Rect2(0, 0, 1024, 1024)
 
 [node name="Chrush5" type="Sprite3D" parent="RUSSIA"]
@@ -596,5 +641,5 @@ pixel_size = 0.09
 billboard = 1
 texture_filter = 0
 render_priority = 1
-texture = ExtResource("10_s0jd7")
+texture = ExtResource("10_iq5y5")
 region_rect = Rect2(0, 0, 1024, 1024)

@@ -55,9 +55,20 @@ var score_tween : Tween ## Tween used to animate score text grow
 var lines_tween : Tween ## Tween used to animate lines text grow
 var damage_tween : Tween ## Tween used to animate damage indicator grow
 
+var score_add_loop_tween : Tween ## Tween used to animate score add
+var score_add_tween : Tween ## Tween used to animate score add
+
+
+func _ready() -> void:
+	$ScoreAdd.scale.x = 0.0
+
 
 func _disable_damage_bar() -> void:
 	$Damage.modulate = Color("5e5e5e")
+
+
+func _disable_reversi_bar() -> void:
+	$Reversi.modulate.a = 0.0
 
 
 ## Sets score with grow animation
@@ -226,3 +237,64 @@ func _set_reversi(number : int) -> void:
 	damage_tween.tween_property($Reversi/Bar, "tint_progress", Color.WHITE, 0.1)
 	damage_tween.tween_property($Reversi, "modulate", flash_color, 0.5)
 	damage = number
+
+
+func _show_score_add(add_score : int, add_lines : int) -> void:
+	if is_instance_valid(score_add_loop_tween) : score_add_loop_tween.kill()
+	if is_instance_valid(score_add_tween) : score_add_tween.kill()
+	
+	score_add_loop_tween = create_tween().set_loops(50)
+	score_add_tween = create_tween()
+	
+	var text : String = "OK"
+	var flash_color : Color = Color.WHITE
+	
+	match add_lines:
+		0:
+			flash_color = Color.WHITE
+			text = "OK"
+		1:
+			flash_color = Color.WHITE
+			text = "Good"
+		2:
+			flash_color = Color(0.387, 0.918, 0.857, 1.0)
+			text = "Nice"
+		3:
+			flash_color = Color(0.91, 0.889, 0.388, 1.0)
+			text = "Great!"
+		4:
+			flash_color = Color(0.389, 0.922, 0.485, 1.0)
+			text = "Awesome!"
+		5:
+			flash_color = Color(0.926, 0.228, 0.228, 1.0)
+			text = "Amazing!"
+		6:
+			flash_color = Color(0.879, 0.124, 0.389, 1.0)
+			text = "Wonderful!"
+		7:
+			flash_color = Color(0.18, 0.539, 1.0, 1.0)
+			text = "Majestic!"
+		8:
+			flash_color = Color(0.557, 0.223, 1.0, 1.0)
+			text = "Miraculous!"
+		9:
+			flash_color = Color(0.129, 1.0, 0.653, 1.0)
+			text = "Excellent!!"
+		451:
+			flash_color = Color(1.0, 0.633, 0.0, 1.0)
+			text = "ALL CLEAR!!"
+		_:
+			flash_color = Color(1.0, 0.109, 0.84, 1.0)
+			text = "Impossible!!!"
+	
+	$ScoreAdd/Text.text = text
+	if add_score == 0 : $ScoreAdd/Score.text = "+" + str(add_score)
+	else : $ScoreAdd/Score.text = "+" + str(add_score)
+	$ScoreAdd/Lines.text = "x" + str(add_lines)
+	
+	score_add_loop_tween.tween_property($ScoreAdd, "modulate", flash_color, 0.1)
+	score_add_loop_tween.tween_property($ScoreAdd, "modulate", Color.WHITE, 0.1)
+	
+	score_add_tween.tween_property($ScoreAdd, "scale:x", 1.0, 0.25).from(0.0).set_trans(Tween.TRANS_CUBIC)
+	score_add_tween.tween_interval(2.0)
+	score_add_tween.tween_property($ScoreAdd, "scale:x", 0.0, 0.25).set_trans(Tween.TRANS_CUBIC)

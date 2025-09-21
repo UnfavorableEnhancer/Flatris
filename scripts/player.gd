@@ -194,7 +194,7 @@ func _load_profile() -> int:
 	if err == ERR_CANT_OPEN : 
 		return PROFILE_STATUS.PROGRESS_FAIL
 	
-	#Talo.players.identify("username", profile_name + "_" + vault_key.left(6))
+	Talo.players.identify("username", profile_name + "_" + vault_key.left(6))
 	profile_loaded.emit()
 	return profile_status
 
@@ -225,7 +225,7 @@ func _create_profile(create_name : String) -> int:
 	if err != OK : return err
 
 	profile_loaded.emit()
-	#Talo.players.identify("username", profile_name + "_" + vault_key.left(6))
+	Talo.players.identify("username", profile_name + "_" + vault_key.left(6))
 	return OK
 
 
@@ -404,6 +404,7 @@ func _apply_config_setting(setting_name : String = "all") -> void:
 				get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN
 			else:
 				get_window().mode = Window.MODE_WINDOWED
+				await get_tree().create_timer(0.1).timeout
 				get_window().move_to_center()
 		
 		"move_left" : _update_input_config(setting_name)

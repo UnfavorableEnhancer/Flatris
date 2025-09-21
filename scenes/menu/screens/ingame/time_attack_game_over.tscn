@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b3in40c5ypasm"]
+[gd_scene load_steps=16 format=3 uid="uid://b3in40c5ypasm"]
 
 [ext_resource type="AudioStream" uid="uid://dlapb1sgoll8d" path="res://sfx/menu/intro_drop.wav" id="1_7phew"]
 [ext_resource type="Script" uid="uid://bn3tciilxpv0w" path="res://scripts/menu/screens/game_over.gd" id="1_nlr5s"]
@@ -9,8 +9,56 @@
 
 [sub_resource type="Animation" id="Animation_go2jx"]
 resource_name = "end"
-length = 0.1
+length = 0.5
 step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Results:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sign:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Leaderboard:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Options:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_c6024"]
 resource_name = "start"
@@ -143,6 +191,30 @@ tracks/9/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Leaderboard:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 2.8, 4.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Results:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ufvm"]
 _data = {
@@ -172,6 +244,18 @@ font = ExtResource("4_1f7e3")
 font_size = 28
 shadow_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_dwpfp"]
+font = ExtResource("4_1f7e3")
+font_size = 9
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.5)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1f7e3"]
+font = ExtResource("4_1f7e3")
+font_size = 20
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
 [node name="GameOver" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -191,14 +275,14 @@ libraries = {
 
 [node name="Sign" type="Control" parent="."]
 modulate = Color(1, 1, 1, 0)
-layout_mode = 3
 anchors_preset = 0
-offset_left = 80.0
-offset_top = 64.0
-offset_right = 568.0
-offset_bottom = 100.0
+offset_left = 68.0
+offset_top = 48.0
+offset_right = 572.0
+offset_bottom = 84.0
 scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(244, 16)
+metadata/_edit_group_ = true
 
 [node name="Back" type="NinePatchRect" parent="Sign"]
 modulate = Color(1, 0.128906, 0.618896, 1)
@@ -235,12 +319,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Results" type="Control" parent="."]
-layout_mode = 3
 anchors_preset = 0
-offset_left = 80.0
-offset_top = 108.0
-offset_right = 320.0
-offset_bottom = 240.0
+offset_left = 68.0
+offset_top = 92.0
+offset_right = 288.0
+offset_bottom = 252.0
+metadata/_edit_group_ = true
 
 [node name="Back" type="NinePatchRect" parent="Results"]
 modulate = Color(1, 0.128906, 0.618896, 1)
@@ -273,7 +357,7 @@ offset_right = 40.0
 offset_bottom = -21.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "RANK :"
+text = "RANK:"
 label_settings = SubResource("LabelSettings_pkyej")
 vertical_alignment = 1
 
@@ -306,9 +390,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -108.0
-offset_top = -6.0
+offset_top = 4.0
 offset_right = 108.0
-offset_bottom = 15.75
+offset_bottom = 26.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "TIME :"
@@ -325,9 +409,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -108.0
-offset_top = 12.875
+offset_top = 22.625
 offset_right = 108.0
-offset_bottom = 38.125
+offset_bottom = 48.625
 grow_horizontal = 2
 grow_vertical = 2
 text = "00:00:00.000"
@@ -337,12 +421,12 @@ vertical_alignment = 1
 
 [node name="Options" type="Control" parent="."]
 modulate = Color(1, 1, 1, 0)
-layout_mode = 3
 anchors_preset = 0
-offset_left = 80.0
-offset_top = 248.0
-offset_right = 320.0
-offset_bottom = 304.0
+offset_left = 68.0
+offset_top = 260.0
+offset_right = 288.0
+offset_bottom = 316.0
+metadata/_edit_group_ = true
 
 [node name="Back" type="NinePatchRect" parent="Options"]
 modulate = Color(1, 0.128906, 0.618896, 1)
@@ -364,7 +448,7 @@ patch_margin_bottom = 8
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 232.0
+offset_right = 212.0
 offset_bottom = 24.0
 text = "RESTART"
 glow_color = Color(0.12549, 0.701961, 0.661428, 1)
@@ -376,7 +460,7 @@ parent_screen = NodePath("../..")
 layout_mode = 0
 offset_left = 8.0
 offset_top = 32.0
-offset_right = 232.0
+offset_right = 212.0
 offset_bottom = 48.0
 text = "BACK TO MENU"
 glow_color = Color(0.863281, 0.5322, 0.145004, 1)
@@ -385,3 +469,224 @@ press_sound_name = "cancel"
 is_cancel_button = true
 call_function_name = "_exit"
 parent_screen = NodePath("../..")
+
+[node name="Leaderboard" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 0
+offset_left = 296.0
+offset_top = 108.0
+offset_right = 572.0
+offset_bottom = 332.0
+
+[node name="Back" type="NinePatchRect" parent="Leaderboard"]
+modulate = Color(1, 0.128906, 0.618896, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dwpfp")
+region_rect = Rect2(4, 4, 56, 56)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="V" type="VBoxContainer" parent="Leaderboard"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 268.0
+offset_bottom = 176.0
+
+[node name="TableLegend" type="HBoxContainer" parent="Leaderboard/V"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="Rank" type="ColorRect" parent="Leaderboard/V/TableLegend"]
+custom_minimum_size = Vector2(24, 10)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_group_ = true
+
+[node name="Text" type="Label" parent="Leaderboard/V/TableLegend/Rank"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "rank"
+label_settings = SubResource("LabelSettings_dwpfp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player" type="ColorRect" parent="Leaderboard/V/TableLegend"]
+custom_minimum_size = Vector2(64, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 0, 0, 1)
+metadata/_edit_group_ = true
+
+[node name="Text" type="Label" parent="Leaderboard/V/TableLegend/Player"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "player"
+label_settings = SubResource("LabelSettings_dwpfp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Score" type="ColorRect" parent="Leaderboard/V/TableLegend"]
+visible = false
+custom_minimum_size = Vector2(48, 10)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_group_ = true
+
+[node name="Text" type="Label" parent="Leaderboard/V/TableLegend/Score"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "score"
+label_settings = SubResource("LabelSettings_dwpfp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level" type="ColorRect" parent="Leaderboard/V/TableLegend"]
+visible = false
+custom_minimum_size = Vector2(32, 10)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_group_ = true
+
+[node name="Text" type="Label" parent="Leaderboard/V/TableLegend/Level"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "level"
+label_settings = SubResource("LabelSettings_dwpfp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Lines" type="ColorRect" parent="Leaderboard/V/TableLegend"]
+visible = false
+custom_minimum_size = Vector2(32, 10)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_group_ = true
+
+[node name="Text" type="Label" parent="Leaderboard/V/TableLegend/Lines"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "lines"
+label_settings = SubResource("LabelSettings_dwpfp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="ColorRect" parent="Leaderboard/V/TableLegend"]
+custom_minimum_size = Vector2(64, 10)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_group_ = true
+
+[node name="Text" type="Label" parent="Leaderboard/V/TableLegend/Time"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "time"
+label_settings = SubResource("LabelSettings_dwpfp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Prev" parent="Leaderboard" instance=ExtResource("5_3p1vc")]
+modulate = Color(0.5, 0.5, 0.5, 1)
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 0
+offset_left = 24.0
+offset_top = 183.0
+offset_right = 110.0
+offset_bottom = 195.0
+text = ""
+glow_color = Color(0.701961, 0.530821, 0.12549, 1)
+menu_position = Vector2i(1, 0)
+press_sound_name = "select"
+call_function_name = "_previous_page"
+is_off = true
+metadata/_edit_group_ = true
+
+[node name="Text" type="Label" parent="Leaderboard/Prev"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "<< PREVIOUS"
+label_settings = SubResource("LabelSettings_dwpfp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Next" parent="Leaderboard" instance=ExtResource("5_3p1vc")]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 0
+offset_left = 160.0
+offset_top = 183.0
+offset_right = 246.0
+offset_bottom = 195.0
+text = ""
+glow_color = Color(0.12549, 0.701961, 0.310141, 1)
+menu_position = Vector2i(2, 0)
+press_sound_name = "select"
+move_down_override = Vector2i(1, 7)
+call_function_name = "_next_page"
+metadata/_edit_group_ = true
+
+[node name="Text" type="Label" parent="Leaderboard/Next"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "NEXT >>"
+label_settings = SubResource("LabelSettings_dwpfp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Page" type="Label" parent="Leaderboard"]
+layout_mode = 0
+offset_left = 110.0
+offset_top = 180.0
+offset_right = 158.0
+offset_bottom = 198.0
+text = "1"
+label_settings = SubResource("LabelSettings_1f7e3")
+horizontal_alignment = 1
+vertical_alignment = 1

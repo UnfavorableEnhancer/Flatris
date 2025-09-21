@@ -9,12 +9,14 @@ signal finish
 
 
 func _ready() -> void:
-	await get_tree().create_timer(4.5).timeout
+	await get_tree().create_timer(8.0).timeout
 	Player.config["first_boot"] = false
 	finish.emit()
 
 
 func _input(event : InputEvent) -> void:
+	if Player.config["first_boot"] : return
+	
 	# When we press "start" button, disclaimer is skipped and next screen loads
 	if event.is_action_pressed("ui_accept"): 
 		finish.emit()

@@ -50,14 +50,14 @@ var loaded_music_data : Dictionary = {
 
 ## All avaiable system sounds (stored as loaded .mp3 or .ogg instances)
 var loaded_sounds_data : Dictionary = {
-	"intro_drop" : load("res://sfx/menu/intro_drop.wav"),
-	"accept" : load("res://sfx/menu/accept.wav"),
-	"select" : load("res://sfx/menu/select.wav"),
-	"skin_select" : load("res://sfx/menu/skin_select.wav"),
-	"cancel" : load("res://sfx/menu/cancel.wav"),
-	"enter" : load("res://sfx/menu/start.wav"),
-	"start" : load("res://sfx/menu/start3.wav"),
-	"start2" : load("res://sfx/menu/start2.wav"),
+	"intro_drop" : load("res://sfx/menu/intro_drop.ogg"),
+	"accept" : load("res://sfx/menu/accept.ogg"),
+	"select" : load("res://sfx/menu/select.ogg"),
+	"skin_select" : load("res://sfx/menu/skin_select.ogg"),
+	"cancel" : load("res://sfx/menu/cancel.ogg"),
+	"enter" : load("res://sfx/menu/start.ogg"),
+	"start" : load("res://sfx/menu/start3.ogg"),
+	"start2" : load("res://sfx/menu/start2.ogg"),
 }
 
 var screens : Dictionary = {} ## All currently alive menu screens dictionary

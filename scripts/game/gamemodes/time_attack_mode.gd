@@ -27,9 +27,9 @@ enum LEVEL_ARRAY {
 
 ## Dictionary of all delay frames for each specific ruleset
 const RULESET_SPEED : Dictionary = {
-	RULESET.STANDARD : [30, 20, 5, 10, 30, 120, 10, 50],
-	RULESET.HARD : [10, 10, 3, 10, 30, 120, 10, 50],
-	RULESET.EXTREME : [1, 5, 1, 10, 30, 120, 10, 20],
+	RULESET.STANDARD : [30, 12, 5, 10, 30, 120, 10, 50],
+	RULESET.HARD : [10, 12, 5, 10, 30, 120, 10, 50],
+	RULESET.EXTREME : [2, 8, 3, 10, 30, 120, 10, 20],
 	RULESET.REVERSI : [30, 20, 5, 10, 30, 120, 10, 50],
 	RULESET.ZONE : [30, 20, 5, 10, 30, 120, 10, 50],
 	RULESET.DEBUG : [30, 20, 5, 10, 30, 120, 10, 50],
@@ -109,6 +109,13 @@ func _on_lines_deleted(amount : int) -> void:
 	foreground._set_lines_animated(lines)
 
 
+func _on_lines_scanned(amount : int, _has_cheese : bool = false) -> void:
+	if gamefield.matrix.is_empty():
+		amount = 451
+	
+	foreground._show_score_add(0, amount)
+
+
 ## Called on game over
 func _game_over(game_over_screen : MenuScreen) -> void:
 	var goal_complete : bool = lines >= LINES_GOAL
@@ -128,7 +135,10 @@ func _game_over(game_over_screen : MenuScreen) -> void:
 		RULESET.REVERSI : mode_str += "rev"
 		RULESET.ZONE : mode_str += "zon"
 	
-	if result_time <= RANKINGS.M : 
+	if not goal_complete:
+		game_over_screen.get_node("Results/Letter").text = "DQ"
+		flash_color = Color("1f8416ff")
+	elif result_time <= RANKINGS.M : 
 		game_over_screen.get_node("Results/Letter").text = "M"
 		flash_color = Color("ff1d9c")
 		Player.progress[mode_str + "_rank"] = Player.RANK.M
@@ -166,4 +176,14 @@ func _game_over(game_over_screen : MenuScreen) -> void:
 	flash_tween.tween_property(game_over_screen.get_node("Results/Letter"), "self_modulate", Color.WHITE, 0.2)
 	
 	game_over_screen.get_node("Results/Value").text = foreground.get_node("Time/Num").text + foreground.get_node("Time/Num2").text
+	
+	if goal_complete:
+		Player._set_local_record(mode_str + "_record", result_time)
+		if Player.config["save_score_online"] : await Talo.leaderboards.add_entry(mode_str, result_time)
+	
 	Player._save_profile()
+	
+	game_over_screen.gamemode_str = "ta"
+	game_over_screen.ruleset = ruleset
+	
+	await game_over_screen._load_leaderboard()

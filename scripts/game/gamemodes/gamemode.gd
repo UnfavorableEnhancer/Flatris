@@ -74,6 +74,7 @@ func _ready() -> void:
 	
 	game.reset_ended.connect(_on_reset_ended)
 	gamefield.lines_cleared.connect(_on_lines_deleted)
+	gamefield.lines_scanned.connect(_on_lines_scanned)
 	gamefield.block_overlap.connect(_on_block_overlap)
 	gamefield.block_deleted.connect(_on_block_deleted)
 	gamefield.new_piece_given.connect(_on_new_piece_given)
@@ -95,17 +96,6 @@ func _set_ruleset(type : int) -> void:
 			block_gravity = true
 			
 		RULESET.HARD : 
-			field_size = Vector3i(8, 8, 8)
-			dzen_mode = false
-			zone_mode = false
-			reversi_mode = false
-			death_mode = false
-			extended_piece_queue = false
-			block_gravity = true
-			max_damage = 8
-			damage_recovery = 20
-			
-		RULESET.EXTREME : 
 			field_size = Vector3i(9, 9, 9)
 			dzen_mode = false
 			zone_mode = false
@@ -114,7 +104,18 @@ func _set_ruleset(type : int) -> void:
 			extended_piece_queue = false
 			block_gravity = true
 			max_damage = 4
-			damage_recovery = 1
+			damage_recovery = 2
+			
+		RULESET.EXTREME : 
+			field_size = Vector3i(8, 8, 8)
+			dzen_mode = false
+			zone_mode = false
+			reversi_mode = false
+			death_mode = true
+			extended_piece_queue = true
+			block_gravity = true
+			max_damage = 4
+			damage_recovery = 2
 			
 		RULESET.ZONE : 
 			field_size = Vector3i(10, 10, 10)
@@ -165,6 +166,7 @@ func _set_ruleset(type : int) -> void:
 	
 	if dzen_mode : foreground._disable_damage_bar()
 	if death_mode : foreground._set_damage(20)
+	if not reversi_mode : foreground._disable_reversi_bar()
 
 
 ## Called when gamefield deletes lines
@@ -192,6 +194,7 @@ func _on_block_overlap() -> void:
 		return
 	
 	damage += 1
+	current_damage_recovery = damage_recovery
 	Player.stats["total_damage"] += 1
 	foreground._set_damage(int(20 * (damage / float(max_damage))))
 	
@@ -223,6 +226,10 @@ func _on_reset_ended() -> void:
 ## Called on game reset
 func _reset() -> void:
 	foreground._set_time(0)
+
+
+func _on_lines_scanned(_amount : int, _has_cheese : bool = false) -> void:
+	pass
 
 
 ## Called on game pause

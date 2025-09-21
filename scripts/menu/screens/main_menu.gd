@@ -40,7 +40,9 @@ func _ready() -> void:
 	
 	$Main.position.y = -20.0
 	$SkinWindow.modulate.a = 0.0
+	$SkinWindow.position = Vector2(38, 68)
 	$Main/WindowBack.modulate.a = 0.0
+	$Main/WindowBack.position = Vector2(208.0, 108.0)
 	$Main/GameWindow.modulate.a = 0.0
 	$Main/GameWindow.visible = true
 	$Main/GameWindow.position = Vector2(208.0, 108.0)
@@ -148,6 +150,9 @@ func _select_tab(tab : int) -> void:
 			description_instance = $Main/GameWindow/Expl
 			show_skin_select = true
 			_load_ranks()
+			_update_leaderboard()
+			$Main/GameWindow/hrd.description = "Features 9x9x9 field. Game ends instantly if piece lands onto placed block."
+			$Main/GameWindow/xtr.description = "Features 8x8x8 field and extended piece bag. Game ends instantly if piece lands onto placed block."
 		MENU_TAB.TIME_ATTACK_MODE :
 			tab_instance = $Main/GameWindow
 			tab_button_instance = $Main/TimeAttack
@@ -155,6 +160,9 @@ func _select_tab(tab : int) -> void:
 			description_instance = $Main/GameWindow/Expl2
 			show_skin_select = true
 			_load_ranks()
+			_update_leaderboard()
+			$Main/GameWindow/hrd.description = "Features 9x9x9 field. Game ends instantly if piece lands onto placed block."
+			$Main/GameWindow/xtr.description = "Features 8x8x8 field and extended piece bag. Game ends instantly if piece lands onto placed block."
 		MENU_TAB.CHEESE_MODE :
 			tab_instance = $Main/GameWindow
 			tab_button_instance = $Main/Cheese
@@ -162,6 +170,11 @@ func _select_tab(tab : int) -> void:
 			description_instance = $Main/GameWindow/Expl3
 			show_skin_select = true
 			_load_ranks()
+			_update_leaderboard()
+			$Main/GameWindow/hrd.description = "Features 9x9x9 field and higher damage"
+			$Main/GameWindow/hrd.current_description = "Features 9x9x9 field and higher damage"
+			$Main/GameWindow/xtr.description = "Features 8x8x8 field, even more higher damage and extended piece bag."
+			$Main/GameWindow/xtr.current_description = "Features 8x8x8 field, even more higher damage and extended piece bag."
 		MENU_TAB.OPTIONS :
 			tab_instance = $Main/OptionsWindow
 			tab_button_instance = $Main/Options
@@ -278,9 +291,6 @@ func _select_tab(tab : int) -> void:
 			_set_selectable_position($Main/StatsWindow/Scroll/V/Total4XLines/Button, Vector2i(1, 13))
 			_set_selectable_position($Main/StatsWindow/Scroll/V/TotalAllClears/Button, Vector2i(1, 14))
 			_set_selectable_position($Main/StatsWindow/Scroll/V/TotalDamage/Button, Vector2i(1, 15))
-		
-		MENU_TAB.ABOUT :
-			_set_selectable_position($Main/AboutWindow/Scroll/V/Advert, Vector2i(1,6))
 		
 		MENU_TAB.EXIT :
 			_set_selectable_position($Main/QuitWindow/Exit, Vector2i(1,7))
@@ -427,6 +437,7 @@ func _select_ruleset(ruleset : String) -> void:
 			_load_custom_ruleset_selectables()
 	
 	Player.config["ruleset"] = selected_ruleset
+	_update_leaderboard()
 
 
 func _start_game() -> void:
@@ -447,11 +458,6 @@ func _start_game() -> void:
 			gamemode.ruleset = selected_ruleset
 	
 	main._start_game(gamemode, selected_theme)
-
-
-func _visit(what : String) -> void:
-	if what == "github" : OS.shell_open("https://github.com/UnfavorableEnhancer/Flatris")
-	if what == "luminext" : OS.shell_open("https://github.com/UnfavorableEnhancer/Project-Luminext")
 
 
 func _quit() -> void:
@@ -639,31 +645,33 @@ func _load_icon_for_action(action : String) -> void:
 func _next_page() -> void:
 	if at_last_leaderboard_page : return
 	current_leaderboard_page += 1
-	$Main/GameWindow/Leaderboard/Prev._set_disable(false)
-	
-	if current_leaderboard_page * 5 + 5 >= MAX_ENTRIES: 
-		at_last_leaderboard_page = true
-		$Main/GameWindow/Leaderboard/Next._set_disable(true)
+	$Main/GameWindow/Leaderboard/Page.text = str(current_leaderboard_page + 1)
 	_build_leaderboard()
 
 
 func _previous_page() -> void:
 	if current_leaderboard_page == 0 : return
 	at_last_leaderboard_page = false
-	$Main/GameWindow/Leaderboard/Next._set_disable(false)
-	
 	current_leaderboard_page -= 1
-	if current_leaderboard_page == 0 : $Main/GameWindow/Leaderboard/Prev._set_disable(true)
+	$Main/GameWindow/Leaderboard/Page.text = str(current_leaderboard_page + 1)
 	_build_leaderboard()
 
 
 func _update_leaderboard() -> void:
+	current_leaderboard_entries.clear()
+	leaderboard_entries_count = 0
+	
+	if !Talo.players.identified : 
+		_build_leaderboard()
+		return
+	
 	var leaderboard_name : String
 	
 	match current_tab:
 		MENU_TAB.MARATHON_MODE : leaderboard_name = "ma_"
 		MENU_TAB.TIME_ATTACK_MODE : leaderboard_name = "ta_"
 		MENU_TAB.CHEESE_MODE : leaderboard_name = "ch_"
+		_ : return
 	
 	match selected_ruleset:
 		Gamemode.RULESET.STANDARD : leaderboard_name += "std"
@@ -677,12 +685,12 @@ func _update_leaderboard() -> void:
 	options.page = 0
 
 	var res := await Talo.leaderboards.get_entries(leaderboard_name, options)
+	if res == null:
+		_build_leaderboard()
+		return
+	
 	current_leaderboard_entries = res.entries
 	leaderboard_entries_count = res.count
-	
-	print("WTF 1 = ", res.entries[0].props)
-	print("WTF 2 = ", res.entries[0].props[0].to_dictionary())
-	print("WTF 3 = ", res.entries[0].props[1].to_dictionary())
 	
 	_build_leaderboard()
 
@@ -692,44 +700,63 @@ func _build_leaderboard() -> void:
 		if i.name == "TableLegend" : continue
 		i.queue_free()
 	
-	var leaderboard_name : String
+	var record_name : String
 	
 	match current_tab:
-		MENU_TAB.MARATHON_MODE : leaderboard_name = "ma_"
-		MENU_TAB.TIME_ATTACK_MODE : leaderboard_name = "ta_"
-		MENU_TAB.CHEESE_MODE : leaderboard_name = "ch_"
+		MENU_TAB.MARATHON_MODE : record_name = "ma_"
+		MENU_TAB.TIME_ATTACK_MODE : record_name = "ta_"
+		MENU_TAB.CHEESE_MODE : record_name = "ch_"
 	
 	match selected_ruleset:
-		Gamemode.RULESET.STANDARD : leaderboard_name += "std"
-		Gamemode.RULESET.HARD : leaderboard_name += "hrd"
-		Gamemode.RULESET.EXTREME : leaderboard_name += "xtr"
-		Gamemode.RULESET.REVERSI : leaderboard_name += "rev"
-		Gamemode.RULESET.ZONE : leaderboard_name += "zon"
+		Gamemode.RULESET.STANDARD : record_name += "std"
+		Gamemode.RULESET.HARD : record_name += "hrd"
+		Gamemode.RULESET.EXTREME : record_name += "xtr"
+		Gamemode.RULESET.REVERSI : record_name += "rev"
+		Gamemode.RULESET.ZONE : record_name += "zon"
 		Gamemode.RULESET.CUSTOM : return
 	
-	leaderboard_name += "record"
-	
+	record_name += "_record"
 	var player_entry : ColorRect = LEADERBOARD_ENTRY.instantiate()
+	
 	match current_tab:
 		MENU_TAB.MARATHON_MODE, MENU_TAB.CHEESE_MODE :
+			$Main/GameWindow/Leaderboard/V/TableLegend/Score.visible = true
+			$Main/GameWindow/Leaderboard/V/TableLegend/Level.visible = true
+			$Main/GameWindow/Leaderboard/V/TableLegend/Lines.visible = true
+			$Main/GameWindow/Leaderboard/V/TableLegend/Time.visible = false
+			
 			player_entry.entry_name = Player.profile_name + "_" + Player.vault_key.left(6)
-			player_entry.score = Player.progress[leaderboard_name][Player.RECORD_ARRAY.SCORE]
-			player_entry.level = Player.progress[leaderboard_name][Player.RECORD_ARRAY.LEVEL]
-			player_entry.lines = Player.progress[leaderboard_name][Player.RECORD_ARRAY.LINES]
+			player_entry.score = Player.progress[record_name][Player.RECORD_ARRAY.SCORE]
+			player_entry.level = Player.progress[record_name][Player.RECORD_ARRAY.LEVEL]
+			player_entry.lines = Player.progress[record_name][Player.RECORD_ARRAY.LINES]
+			
 		MENU_TAB.TIME_ATTACK_MODE :
+			$Main/GameWindow/Leaderboard/V/TableLegend/Score.visible = false
+			$Main/GameWindow/Leaderboard/V/TableLegend/Level.visible = false
+			$Main/GameWindow/Leaderboard/V/TableLegend/Lines.visible = false
+			$Main/GameWindow/Leaderboard/V/TableLegend/Time.visible = true
+			
 			player_entry.entry_name = Player.profile_name + "_" + Player.vault_key.left(6)
-			player_entry.time = Player.progress[leaderboard_name][Player.RECORD_ARRAY.SCORE]
+			player_entry.time = Player.progress[record_name][Player.RECORD_ARRAY.SCORE]
 			player_entry.score_visible = false
 			player_entry.level_visible = false
 			player_entry.lines_visible = false
 			player_entry.time_visible = true
 	
-	player_entry.id = "-"
+	player_entry.id = 0
 	player_entry.color = Color("3b0d03")
 	$Main/GameWindow/Leaderboard/V.add_child(player_entry)
 	
+	if leaderboard_entries_count == 0 : 
+		$Main/GameWindow/Leaderboard/Prev._set_disable(true)
+		$Main/GameWindow/Leaderboard/Next._set_disable(true)
+		return
+	
+	if current_leaderboard_page > 0 : $Main/GameWindow/Leaderboard/Prev._set_disable(false)
+	$Main/GameWindow/Leaderboard/Next._set_disable(false)
+	
 	for i in 5:
-		if current_leaderboard_entries.size() == i + current_leaderboard_page * 5: 
+		if current_leaderboard_entries.size() == i + current_leaderboard_page * 5 or i + current_leaderboard_page * 5 == MAX_ENTRIES: 
 			at_last_leaderboard_page = true
 			$Main/GameWindow/Leaderboard/Next._set_disable(true)
 			return
@@ -741,8 +768,9 @@ func _build_leaderboard() -> void:
 			MENU_TAB.MARATHON_MODE, MENU_TAB.CHEESE_MODE :
 				online_entry.entry_name = online_data.player_alias.identifier
 				online_entry.score = online_data.score
-				#online_entry.level = Player.progress[leaderboard_name][Player.RECORD_ARRAY.LEVEL]
-				#online_entry.lines = Player.progress[leaderboard_name][Player.RECORD_ARRAY.LINES]
+				if online_data.props.size() > 0:
+					online_entry.level = online_data.props[0].to_dictionary()["value"]
+					online_entry.lines = online_data.props[1].to_dictionary()["value"]
 			MENU_TAB.TIME_ATTACK_MODE :
 				online_entry.entry_name = online_data.player_alias.identifier
 				online_entry.time = online_data.score
@@ -751,5 +779,14 @@ func _build_leaderboard() -> void:
 				online_entry.lines_visible = false
 				online_entry.time_visible = true
 		
+		if online_data.player_alias.identifier == Player.profile_name + "_" + Player.vault_key.left(6): online_entry.color = Color(0.061, 0.305, 0.191, 1.0)
 		online_entry.id = (i + current_leaderboard_page * 5) + 1
 		$Main/GameWindow/Leaderboard/V.add_child(online_entry)
+
+
+func _visit_source_code() -> void:
+	OS.shell_open("https://github.com/UnfavorableEnhancer/Flatris")
+
+
+func _visit_luminext() -> void:
+	OS.shell_open("https://github.com/UnfavorableEnhancer/Project-Luminext")
